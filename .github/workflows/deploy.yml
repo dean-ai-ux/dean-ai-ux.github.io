@@ -1,0 +1,57 @@
+# Build the site and publish it to GitHub Pages.
+#
+# The built output is not committed — dist/ is gitignored and stays that way.
+# CI runs the same `npm run build` the developer runs, so a build that passes
+# locally is the build that ships.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# The three permissions deploy-pages needs: read the repo, write the Pages
+# deployment, and mint the OIDC token it authenticates that deployment with.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Not cancel-in-progress: a half-finished deploy that
+# gets killed can leave the live site serving a partial asset set.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 24 to match the machine this is developed on; Vite 8 needs >= 20.19.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      # ci, not install: it installs exactly the committed lockfile and fails
+      # if package.json and the lock have drifted, rather than quietly
+      # resolving something newer than what was tested here.
+      - run: npm ci
+
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
