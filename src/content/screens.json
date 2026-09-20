@@ -1,0 +1,46 @@
+[
+  {
+    "id": "work",
+    "file": "work.html",
+    "nav": "Work",
+    "title": "Work",
+    "blurb": "AI Foundry, Digital Transformation and AI strategy at Prophet; operations at MadridEasy; hospitality at Cape Resorts.",
+    "form": "grass",
+    "source": "work"
+  },
+  {
+    "id": "education",
+    "file": "education.html",
+    "nav": "Education",
+    "title": "Education",
+    "blurb": "Economics and data science at Davidson, founding the Fed Challenge, and teaching assistantships in macroeconomics and Spanish.",
+    "form": "foliage",
+    "source": "education"
+  },
+  {
+    "id": "volunteering",
+    "file": "volunteering.html",
+    "nav": "Volunteering",
+    "title": "Volunteering",
+    "blurb": "Two summers teaching with Breakthrough Collaborative; sea turtle conservation in Costa Rica with The Leap Overseas.",
+    "form": "mycelium",
+    "source": "volunteering"
+  },
+  {
+    "id": "built",
+    "file": "built.html",
+    "nav": "Built",
+    "title": "Built",
+    "blurb": "The Verde design system, Fed Chair for a Year, MAIA at Prophet, Davidson Course Compass, Rusk CowboyAI and a synthetic survey tool.",
+    "form": "boulders",
+    "source": "projects"
+  },
+  {
+    "id": "writing",
+    "file": "writing.html",
+    "nav": "Writing",
+    "title": "Writing",
+    "blurb": "A paper on rules-based monetary policy in crisis, with drafts on forward guidance, applied AI and the Sahm Rule.",
+    "form": "field"
+  }
+]

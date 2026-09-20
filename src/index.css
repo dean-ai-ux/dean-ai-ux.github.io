@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* shadcn's default theme, unmodified — this version deliberately does not use Verde */
+@layer base {
+  :root {
+    --background: 0 0% 100%; --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%; --card-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%; --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%; --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%; --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%; --accent-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%; --input: 214.3 31.8% 91.4%; --ring: 222.2 84% 4.9%;
+    --radius: 0.75rem;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%; --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%; --card-foreground: 210 40% 98%;
+    --primary: 210 40% 98%; --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%; --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%; --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%; --accent-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%; --input: 217.2 32.6% 17.5%; --ring: 212.7 26.8% 83.9%;
+  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; }
+}
+
+
+/* Verde's landscape palette, the one thing borrowed from that system besides the
+   figure itself. Six tones, ordered furthest to nearest, which is how the ridge
+   generator reads them — a depth ramp, not a pool of interchangeable fills.
+
+   No dark-mode override: Verde's data-visualization fills are mode-independent
+   by design. What changes between modes is the sky each ridge is hazed toward,
+   and that arrives through hsl(var(--background)) inside the color-mix baked
+   into the generated figure. Which is the whole reason the figure ships as CSS
+   roles rather than as hex. */
+:root {
+  --verde-viz-slate: #4A5A6A;
+  --verde-viz-moss: #7A8B4F;
+  --verde-viz-brass: #B8863B;
+  --verde-viz-clay: #C97046;
+  --verde-viz-sage: #4A7C59;
+  --verde-viz-forest: #12352A;
+
+  /* Verde pairs every landscape tone with the text colour that clears contrast
+     on it, and records the ratio: 7.09, 4.75, 5.49, 4.97, 4.86, 13.39. The
+     typographic tiles read their label colour from here rather than from a
+     guess about which of black or white looks right. Named as Verde names them
+     — one decision should not have two names. */
+  --verde-viz-slate-on: #FFFFFF;
+  --verde-viz-moss-on: #1A1815;
+  --verde-viz-brass-on: #1A1815;
+  --verde-viz-clay-on: #1A1815;
+  --verde-viz-sage-on: #FFFFFF;
+  --verde-viz-forest-on: #FFFFFF;
+}
+
+/* The figure declares width:100% and a 3:1 viewBox, so left alone it would be
+   480px tall at desktop widths and 167px on a phone — the range would flatten
+   out exactly where there is least room for it. Pinning both bands to the band
+   height instead lets preserveAspectRatio="slice" do its job: crop the width on
+   a narrow screen, crop the height on a wide one, and keep the mountains the
+   same height either way. */
+.ridge-band,
+.ridge-band svg {
+  height: 100%;
+}
+
+.ridge-band svg {
+  display: block;
+  width: 100%;
+}
+
+/* Verde's type scale, transcribed rather than approximated.
+ *
+ * These are CSS classes and not Tailwind fontSize entries because a Tailwind
+ * size tuple carries size, line-height and tracking but not
+ * `font-variation-settings` — and the width axis is half of what makes the
+ * display tier look the way it does. A tier that can be half-applied is a tier
+ * that will be, so each one sets all five properties together or none.
+ *
+ * Weight comes from Verde's ladder: 300 is display only, 400 body and headline,
+ * 500 titles and labels. 700 is a budget of roughly one element per view, which
+ * is why nothing here reaches for it.
+ */
+@layer components {
+  .t-display-lg {
+    font-size: 57px; line-height: 62px; letter-spacing: -1.5px;
+    font-weight: 300; font-variation-settings: 'wdth' 110;
+  }
+  .t-display-md {
+    font-size: 45px; line-height: 50px; letter-spacing: -1px;
+    font-weight: 300; font-variation-settings: 'wdth' 105;
+  }
+  .t-headline-lg {
+    font-size: 36px; line-height: 44px; letter-spacing: -0.5px;
+    font-weight: 400; font-variation-settings: 'wdth' 100;
+  }
+  .t-headline-md {
+    font-size: 28px; line-height: 36px; letter-spacing: -0.25px;
+    font-weight: 400; font-variation-settings: 'wdth' 100;
+  }
+  .t-title-lg {
+    font-size: 20px; line-height: 28px; letter-spacing: 0;
+    font-weight: 500; font-variation-settings: 'wdth' 100;
+  }
+  .t-title-md {
+    font-size: 16px; line-height: 24px; letter-spacing: 0;
+    font-weight: 500; font-variation-settings: 'wdth' 100;
+  }
+  .t-body-md {
+    font-size: 16px; line-height: 26px; letter-spacing: 0;
+    font-weight: 400; font-variation-settings: 'wdth' 100;
+  }
+  .t-body-sm {
+    font-size: 14px; line-height: 22px; letter-spacing: 0;
+    font-weight: 400; font-variation-settings: 'wdth' 100;
+  }
+  .t-label {
+    font-size: 14px; line-height: 20px; letter-spacing: 0.2px;
+    font-weight: 500; font-variation-settings: 'wdth' 100;
+  }
+  .t-caption {
+    font-size: 12px; line-height: 18px; letter-spacing: 0;
+    font-weight: 400; font-variation-settings: 'wdth' 100;
+  }
+}

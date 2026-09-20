@@ -1,0 +1,270 @@
+[
+  {
+    "id": "prophet-senior-associate",
+    "org": "Prophet",
+    "role": "Senior Associate",
+    "start": "2026-10",
+    "end": null,
+    "summary": "",
+    "actions": [],
+    "outcomes": [],
+    "evidence": [],
+    "attestations": [],
+    "skills": []
+  },
+  {
+    "id": "prophet-ai-foundry",
+    "org": "Prophet",
+    "role": "Associate, AI Foundry",
+    "location": "New York, NY",
+    "start": "2025-12",
+    "end": null,
+    "summary": "Founding member of the AI Foundry, owning internal AI product development and the deployment pipeline behind it.",
+    "context": "The Foundry develops applied AI systems for Prophet's Digital and Strategy practices. Its flagship platform, MAIA, connects specialized tools, data sources and reasoning systems through a single interface. Building it is largely an exercise in translation — between what the technology can do and what consulting teams actually need.",
+    "actions": [
+      "Own internal AI product development: multi-agent, multi-interface tools and the deployment pipeline behind them.",
+      "Serve as North America customer success lead for an AI partner, covering the relationship and internal enablement.",
+      "Shape the strategic approach and build the tooling for an end-to-end AI engagement with a $400B+ AUM firm.",
+      "Manage four engineering interns as DTD manager, running standups and weekly demos."
+    ],
+    "outcomes": [
+      {
+        "claim": "The methodology built for the $400B+ AUM engagement is now standard across multiple accounts.",
+        "evidence": [
+          "aum-engagement"
+        ]
+      },
+      {
+        "claim": "The AI partner relationship generated a seven-figure Prophet pipeline in its first year.",
+        "evidence": [
+          "partner-pipeline"
+        ]
+      },
+      {
+        "claim": "Supported adoption of the firm's AI platform through launch.",
+        "evidence": []
+      },
+      {
+        "claim": "Managed four engineering interns through standups and weekly demos.",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "id": "aum-engagement",
+        "type": "doc",
+        "title": "End-to-end AI engagement, $400B+ AUM firm",
+        "restricted": {
+          "reason": "Client confidential; the firm is deliberately unnamed."
+        },
+        "note": ""
+      },
+      {
+        "id": "partner-pipeline",
+        "type": "doc",
+        "title": "AI partner pipeline figures",
+        "restricted": {
+          "reason": "Internal commercial figures."
+        },
+        "note": ""
+      }
+    ],
+    "attestations": [],
+    "skills": [
+      "Multi-agent systems",
+      "AI product development",
+      "Client delivery",
+      "Partner management",
+      "People management"
+    ]
+  },
+  {
+    "id": "prophet-digital-transformation",
+    "org": "Prophet",
+    "role": "Associate, Digital Transformation",
+    "location": "New York, NY",
+    "start": "2025-07",
+    "end": "2025-12",
+    "summary": "Client delivery across the Digital practice, including the engagement that became Prophet's published digital twin method.",
+    "context": "Prophet's Digital discipline runs Uncommon Growth Labs — a four-week sprint format for businesses facing disruption — alongside longer client engagements.",
+    "actions": [
+      "Delivered five Uncommon Growth Lab sprints across different industries.",
+      "Developed the firm's digital twin method on a heritage footwear engagement, turning tariff-driven brand switching into an acquisition playbook.",
+      "Staffed fully to the Supply Wisdom engagement, pairing Prophet craft with Aaru's AI simulations across roughly 20,000 agentic respondents to decode a niche B2B buyer set.",
+      "Built a multi-agent synthetic survey tool that fields persona-configurable questions to hundreds of respondents.",
+      "Facilitate the monthly all-hands for the Digital practice as a member of its people team."
+    ],
+    "outcomes": [
+      {
+        "claim": "The heritage footwear engagement was published by Prophet as a case study.",
+        "evidence": [
+          "footwear-case"
+        ]
+      },
+      {
+        "claim": "The Supply Wisdom engagement was published by Prophet as a case study.",
+        "evidence": [
+          "supply-wisdom-case"
+        ]
+      },
+      {
+        "claim": "Delivered five Uncommon Growth Lab sprints across different industries.",
+        "evidence": [
+          "ugl-sprints"
+        ]
+      },
+      {
+        "claim": "Won Prophet's internal AI build competition with the synthetic survey tool.",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "id": "footwear-case",
+        "type": "link",
+        "title": "Prophet case study — men's and boys' footwear client",
+        "url": "https://prophet.com/case-studies/men-boys-footwear-client/",
+        "note": "Published by Prophet."
+      },
+      {
+        "id": "supply-wisdom-case",
+        "type": "link",
+        "title": "Prophet case study — Supply Wisdom",
+        "url": "https://prophet.com/case-studies/supply-wisdom/",
+        "note": "Published by Prophet."
+      },
+      {
+        "id": "ugl-sprints",
+        "type": "doc",
+        "title": "Uncommon Growth Lab sprint deliverables",
+        "restricted": {
+          "reason": "Client confidential across five engagements."
+        },
+        "note": ""
+      }
+    ],
+    "attestations": [],
+    "skills": [
+      "Digital transformation",
+      "Digital twins",
+      "Synthetic research",
+      "Workshop facilitation",
+      "B2B strategy"
+    ]
+  },
+  {
+    "id": "prophet-ai-strategy-intern",
+    "org": "Prophet",
+    "role": "AI Strategy Intern",
+    "location": "Remote",
+    "start": "2024-08",
+    "end": "2025-07",
+    "summary": "Part-time AI strategy work alongside senior year at Davidson, bridging the summer internship and the full-time role.",
+    "context": "Retained part-time after the summer associate internship, through to graduation and the start of the full-time associate role.",
+    "actions": [
+      "Supported AI strategy work part-time through the academic year."
+    ],
+    "outcomes": [
+      {
+        "claim": "Retained part-time for a year following the summer internship, then converted to a full-time offer.",
+        "evidence": []
+      }
+    ],
+    "evidence": [],
+    "attestations": [],
+    "skills": [
+      "AI strategy"
+    ]
+  },
+  {
+    "id": "prophet-associate-intern",
+    "org": "Prophet",
+    "role": "Associate Intern",
+    "location": "New York, NY",
+    "start": "2024-06",
+    "end": "2024-08",
+    "summary": "Summer associate internship in the New York office, which converted to a full-time offer.",
+    "context": "Prophet's summer associate program in New York.",
+    "actions": [
+      "Completed the summer associate program in the New York office."
+    ],
+    "outcomes": [
+      {
+        "claim": "Received and accepted a full-time associate offer following the internship.",
+        "evidence": []
+      }
+    ],
+    "evidence": [],
+    "attestations": [],
+    "skills": [
+      "Consulting"
+    ]
+  },
+  {
+    "id": "madrideasy",
+    "org": "MadridEasy",
+    "role": "Operations Intern",
+    "location": "Madrid, Spain",
+    "start": "2023-02",
+    "end": "2023-07",
+    "summary": "Student housing operations in Madrid, hired through the study abroad program and retained past its end.",
+    "context": "Joined as part of the study abroad program and was retained for six additional weeks beyond it.",
+    "actions": [
+      "Built relationships with Ukrainian exiles, which generated referrals.",
+      "Showed apartments and provided clerical support.",
+      "Built two Excel spreadsheets with macros to handle tasks the company's SaaS provider did not cover."
+    ],
+    "outcomes": [
+      {
+        "claim": "Retained for six weeks beyond the end of the study abroad program.",
+        "evidence": []
+      },
+      {
+        "claim": "Automated two operational workflows the company's SaaS provider did not cover.",
+        "evidence": []
+      },
+      {
+        "claim": "Appeared in the company's listing advertising for the Paseo de Perales flats.",
+        "evidence": []
+      }
+    ],
+    "evidence": [],
+    "attestations": [],
+    "skills": [
+      "Operations",
+      "Excel automation",
+      "Spanish"
+    ],
+    "image": {
+      "file": "assets/madrideasy.jpg",
+      "alt": "A MadridEasy advertisement: two people holding pillows above their heads in a furnished Madrid flat, overlaid with the text Paseo de Perales (Madrid), Reserva tu piso and madrideasy.com.",
+      "caption": "A MadridEasy listing ad I appeared in — Paseo de Perales, Madrid."
+    }
+  },
+  {
+    "id": "cape-resorts",
+    "org": "Cape Resorts",
+    "role": "Hospitality Associate",
+    "location": "Cape May, NJ",
+    "start": "2020-08",
+    "end": "2020-11",
+    "summary": "Seasonal hospitality work, starting on beach set-ups and ending leading a small breakfast service team.",
+    "context": "Seasonal role through the late summer and autumn.",
+    "actions": [
+      "Worked beach set-ups for hotel guests, arriving at 6am for 10+ hour days through the week after Labor Day.",
+      "Led a small team setting up and delivering continental breakfasts to hotel guests in October and November."
+    ],
+    "outcomes": [
+      {
+        "claim": "Promoted from beach set-ups to leading a small breakfast service team within the season.",
+        "evidence": []
+      }
+    ],
+    "evidence": [],
+    "attestations": [],
+    "skills": [
+      "Hospitality",
+      "Team leadership"
+    ]
+  }
+]

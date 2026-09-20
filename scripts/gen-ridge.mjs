@@ -1,0 +1,143 @@
+#!/usr/bin/env node
+/**
+ * Pull one mountain range out of Verde and freeze it into this project.
+ *
+ * Verde makes its imagery rather than sourcing it: a seeded generator draws the
+ * figure from the token palette, so the same seed renders the identical range
+ * forever and the figure can be cited by seed instead of drifting between
+ * builds. This script runs that generator once and commits the result, so the
+ * app carries 8KB of SVG rather than a 1000-line generator, and building this
+ * project never requires the Verde checkout to be present.
+ *
+ *   node scripts/gen-ridge.mjs        regenerate src/generated/ridge.ts
+ *   VERDE=/path/to/verde-design-system node scripts/gen-ridge.mjs
+ *
+ * Two things here are deliberate and load-bearing:
+ *
+ * 1. Colors go in as CSS roles, never as hex. Every ridge is filled
+ *    `color-mix(in srgb, <tone> N%, <sky>)` — Verde's atmospheric haze, each
+ *    ridge mixed toward the sky behind it. Passing the sky as
+ *    `hsl(var(--background))` means the mix resolves at paint time, so the one
+ *    frozen SVG re-hazes correctly when the theme toggle flips. Bake hex in and
+ *    dark mode silently blends the far ridges toward white.
+ *
+ * 2. Band 0's backdrop rect comes out. `figureStack` opens the back band with an
+ *    opaque full-frame rect; in a fixed band pinned to the viewport that paints a
+ *    background-colored rectangle over the page and slices scrolling text at an
+ *    invisible horizontal line. Without it the ridges still occlude — a color-mix
+ *    of two opaque colors is opaque, and every ridge fills to the bottom edge —
+ *    so content passes behind mountains instead of behind a straight edge.
+ */
+
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+const VERDE = process.env.VERDE ?? path.join(os.homedir(), 'Downloads', 'verde-design-system');
+
+if (!fs.existsSync(path.join(VERDE, 'src/design-system/imagery.mjs'))) {
+  console.error(`Verde not found at ${VERDE}. Set VERDE=/path/to/verde-design-system.`);
+  console.error('The committed src/generated/ridge.ts still builds without it.');
+  process.exit(1);
+}
+
+const { figureStack, caption } = await import(
+  path.join(VERDE, 'src/design-system/imagery.mjs')
+);
+const tokens = JSON.parse(
+  fs.readFileSync(path.join(VERDE, 'src/design-system/tokens.json'), 'utf8'),
+);
+
+const SEED = 'verdevista';
+
+/**
+ * `ridges` reads its palette as a depth ramp — furthest tone first — not as a
+ * pool of interchangeable fills. The ordering is a decision Verde already made
+ * and records in tokens.json; read it rather than retyping it, or the two drift
+ * and the range loses its sense of distance.
+ */
+const ramp = tokens.imagery.ramps.ridges.map((n) => `var(--verde-viz-${n})`);
+
+/** This project's own page ground, so the haze follows light and dark here. */
+const SKY = 'hsl(var(--background))';
+
+const bands = figureStack(
+  SEED,
+  {
+    form: 'ridges',
+    ratio: '3:1',
+    fills: ramp,
+    ground: SKY,
+    palette: {
+      sky: SKY,
+      ground: 'var(--verde-viz-forest)',
+      trunk: 'currentColor',
+      accent: 'var(--verde-viz-brass)',
+      canopy: ramp,
+    },
+  },
+  2,
+);
+
+/**
+ * Stretch the figure to the band rather than cropping it to the band.
+ *
+ * The generator's default is `slice` — scale to cover, crop the overflow — and
+ * under it a 3:1 figure in a 260px band at desktop width shows only its lower
+ * half. The far ridges get cut off mid-slope, which paints a hard horizontal
+ * line across the whole viewport where the band begins.
+ *
+ * `none` drops uniform scaling, so the entire figure fits whatever the band's
+ * proportions are and the topmost thing on screen is the furthest ridge's own
+ * crest. That crest is hazed to within a few percent of the page ground, so the
+ * band does not so much end as stop being there. The cost is that the range
+ * flattens on a wide screen and steepens on a narrow one — the right trade for
+ * a horizon, which is distant by definition and has no true proportion to keep.
+ */
+for (const [i, b] of bands.entries()) {
+  bands[i] = b.replace(/preserveAspectRatio="[^"]*"/, 'preserveAspectRatio="none"');
+  if (!bands[i].includes('preserveAspectRatio="none"')) {
+    console.error(`band ${i}: no preserveAspectRatio to rewrite`);
+    process.exit(1);
+  }
+}
+
+const rects = bands[0].match(/<rect[^>]*\/>/g) ?? [];
+if (rects.length !== 1) {
+  console.error(`Expected exactly 1 backdrop rect in band 0, found ${rects.length}. ` +
+    'The generator changed shape — check before stripping.');
+  process.exit(1);
+}
+bands[0] = bands[0].replace(/<rect[^>]*\/>/, '');
+
+for (const [i, b] of bands.entries()) {
+  if (b.includes('<rect')) { console.error(`band ${i} still has a rect`); process.exit(1); }
+  if (/#[0-9a-fA-F]{3,8}\b/.test(b)) { console.error(`band ${i} contains a hex color`); process.exit(1); }
+}
+
+const out = `/* Generated by scripts/gen-ridge.mjs — do not edit by hand.
+ *
+ * ${caption(SEED, 'ridges')}, from the Verde design system's generative imagery.
+ * Two bands: index 0 is the far half of the range, index 1 the near half. They
+ * are separate <svg> elements so each gets its own compositing layer and the two
+ * can be moved against each other for free — that difference is the parallax.
+ *
+ * Fills are CSS roles, resolved at paint time, so these re-haze in dark mode.
+ * Band 0's backdrop rect is stripped; see the generator for why.
+ */
+
+export const RIDGE_SEED = ${JSON.stringify(SEED)};
+
+export const RIDGE_BANDS: string[] = [
+${bands.map((b) => `  ${JSON.stringify(b)},`).join('\n')}
+];
+`;
+
+const dest = path.join(here, '..', 'src/generated/ridge.ts');
+fs.writeFileSync(dest, out);
+const layers = bands.map((b) => (b.match(/data-layer/g) ?? []).length);
+console.log(`  ${caption(SEED, 'ridges')}`);
+console.log(`  ${(out.length / 1024).toFixed(1)}KB  bands ${bands.length}  layers ${layers.join(' + ')}`);
+console.log(`  -> ${path.relative(process.cwd(), dest)}`);

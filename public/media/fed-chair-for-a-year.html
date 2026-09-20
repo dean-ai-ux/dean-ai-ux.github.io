@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fed Chair for a Year — Single-File HTML (v4.2)</title>
+<meta name="description" content="Interactive macro policy game: 12 months, 8 FOMC meetings, Jackson Hole guidance, Sahm Rule recession indicator, rich shocks.">
+<style>
+  :root{
+    --bg:#0b0f1a; --panel:#0f1424; --text:#eaf1ff; --muted:#9aa6b2;
+    --accent:#5dc9ff; --accent2:#a78bfa; --good:#22c55e; --bad:#ef4444; --warn:#f59e0b;
+    --grid:#1e263e; --chip:#151a2c; --border:#26314f; --shadow: 0 24px 48px rgba(0,0,0,.32);
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f6f8fc; --panel:#ffffff; --text:#0f172a; --muted:#5b6675;
+           --accent:#1a73e8; --accent2:#7b5cff; --good:#0a8f47; --bad:#cc2936; --warn:#b8860b;
+           --grid:#e5e9f3; --chip:#f1f4fa; --border:#e5eaf4; --shadow: 0 14px 34px rgba(0,0,0,.08); }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; padding:18px;
+    background:radial-gradient(1000px 600px at 15% -10%, rgba(93,201,255,0.12), transparent 60%),
+               radial-gradient(1000px 700px at 110% 10%, rgba(167,139,250,0.12), transparent 60%), var(--bg);
+    color:var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  }
+  h1{margin:0 0 8px; font-weight:900; letter-spacing:.2px}
+  h2{margin:14px 0 8px;} p{color:var(--muted); line-height:1.55}
+  .grid{display:grid; gap:14px; grid-template-columns: 380px 1fr;}
+  @media (max-width: 1100px){ .grid{ grid-template-columns: 1fr } }
+  .panel{ background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.03)), var(--panel);
+          border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow: var(--shadow); }
+  .pill{ display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
+         background:var(--chip); border:1px solid var(--border); color:var(--muted); }
+  .chips{ display:flex; gap:8px; flex-wrap:wrap }
+  .row{ display:flex; align-items:center; gap:10px; margin:8px 0 }
+  .row .val{ color:var(--muted); font-variant-numeric: tabular-nums; margin-left:auto }
+  .btns{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px }
+  button{ border:1px solid var(--border); background:var(--chip); color:var(--text); font-weight:800; border-radius:12px; padding:12px 14px; cursor:pointer; transition: transform .02s ease, filter .15s ease }
+  button:active{ transform: translateY(1px) }
+  button.primary{ background: linear-gradient(135deg, var(--accent), var(--accent2)); color:white; border-color: transparent }
+  button.ghost{ background: transparent }
+  button:disabled{ opacity:.6; cursor:not-allowed }
+  .score{ font-weight:900; font-size:22px }
+  .kpi{ display:grid; grid-template-columns: 1fr 1fr; gap:12px }
+  .card{ background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03)), var(--chip); border:1px solid var(--border); border-radius:14px; padding:12px }
+  .kbig{ font-size:28px; font-weight:900; letter-spacing:.2px }
+  .klabel{ font-size:12px; color:var(--muted) }
+  .bar{ height:9px; background:var(--grid); border-radius:999px; overflow:hidden; margin-top:8px }
+  .bar .fill{ height:100%; background: linear-gradient(90deg, var(--accent), var(--accent2)) }
+  .charts{ display:grid; grid-template-columns: 1fr 1fr; gap:12px }
+  @media (max-width: 1300px){ .charts{ grid-template-columns: 1fr } }
+  .chart{ position:relative; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:10px }
+  .chart h3{ margin:0 0 6px 0; font-size:16px }
+  .legend{ position:absolute; right:10px; top:8px; color:var(--muted); font-size:11px }
+  .log{ max-height: 260px; overflow:auto; font-size:13px; line-height:1.45; background:var(--chip); border:1px dashed var(--border); border-radius:12px; padding:10px }
+  table{ width:100%; border-collapse: collapse; margin-top: 8px }
+  th,td{ border-bottom: 1px solid var(--border); padding:8px 8px; font-variant-numeric: tabular-nums }
+  th{text-align:left; color:var(--muted)}
+  .hint{ font-size:12px; color:var(--muted) }
+  .radio-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px }
+  .radio-row input{ display:none }
+  .radio-row label{ padding:10px 12px; border:1px solid var(--border); background:var(--chip); border-radius:12px; cursor:pointer; font-weight:700 }
+  .radio-row input:checked + label{ outline:2px solid var(--accent) }
+  .divider{ height:1px; background:var(--border); margin:10px 0 }
+  .toast{ position: fixed; left:50%; transform: translateX(-50%); bottom:18px; background:var(--panel);
+          border:1px solid var(--border); padding:10px 12px; border-radius:12px; box-shadow: var(--shadow); color:var(--muted); font-size:13px; display:none; }
+  .modal{ position: fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,20,0.5); }
+  .modal .box{ background: var(--panel); border:1px solid var(--border); border-radius:16px; padding:16px; width: min(640px, 94vw); box-shadow: var(--shadow) }
+  .modal h3{ margin:0 0 8px 0 }
+  .cal{ display:flex; gap:6px; flex-wrap:wrap }
+  .cal .m{ padding:4px 8px; border-radius:10px; border:1px solid var(--border); background:var(--chip); font-size:12px }
+  .cal .meet{ outline:2px solid var(--accent); }
+  .cal .jh{ outline:2px dashed var(--warn); }
+  .queued{ color: var(--warn); font-weight: 700; font-size: 12px; margin-left: 6px; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Fed Chair for a Year
+    <div class="chips">
+      <span class="pill">12 months</span>
+      <span class="pill">8 FOMC meetings</span>
+      <span class="pill">Jackson Hole guidance in Aug</span>
+      <span class="pill">Sahm Rule: 3m avg jump ≥ 0.50</span>
+    </div>
+    <p class="hint">You are the FOMC. At each meeting, you can select a rate option. At the Jackson Hole meeting in <strong>August</strong>, you deliver forward guidance that influences expectations. Each month, choose a <strong>policy rate move</strong>. Random events may occur. Your goal: <strong>Maintain Price Stability</strong> and <strong>Maximum Employment.</strong></p>
+  </header>
+
+  <div class="grid">
+    <section class="panel">
+      <div class="row">
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="val">Month <span id="turn">1</span>/12</div>
+      </div>
+
+      <div class="kpi">
+        <div class="card">
+          <div class="klabel">Headline PCE (YoY)</div>
+          <div class="kbig" id="k_pce">2.6%</div>
+          <div class="bar"><div class="fill" id="b_pce" style="width:52%"></div></div>
+        </div>
+        <div class="card">
+          <div class="klabel">Sahm Rule</div>
+          <div class="kbig" id="k_sahm">0.00 pp</div>
+          <div class="bar"><div class="fill" id="b_sahm" style="width:0%"></div></div>
+          <div class="hint" id="sahm_hint">No signal (≥ 0.50 triggers)</div>
+        </div>
+        <div class="card">
+          <div class="klabel">Unemployment</div>
+          <div class="kbig" id="k_u">4.2%</div>
+          <div class="bar"><div class="fill" id="b_u" style="width:42%"></div></div>
+        </div>
+        <div class="card">
+          <div class="klabel">Policy rate (midpoint)</div>
+          <div class="kbig" id="k_ffr">4.38%</div>
+          <div class="bar"><div class="fill" id="b_ffr" style="width:44%"></div></div>
+        </div>
+      </div>
+
+      <h2>Your move</h2>
+      <div class="hint" id="meeting_hint"></div>
+      <div class="radio-row" id="rate_opts">
+        <input type="radio" name="rate" id="r_m50" value="-50"><label for="r_m50">Cut 50</label>
+        <input type="radio" name="rate" id="r_m25" value="-25"><label for="r_m25">Cut 25</label>
+        <input type="radio" name="rate" id="r_0" value="0" checked><label for="r_0">Hold</label>
+        <input type="radio" name="rate" id="r_p25" value="25"><label for="r_p25">Hike 25</label>
+        <input type="radio" name="rate" id="r_p50" value="50"><label for="r_p50">Hike 50</label>
+        <span id="queued_badge" class="queued" style="display:none">queued for next FOMC</span>
+      </div>
+
+      <div class="row" id="fg_row" style="display:none">
+        <div>
+          <div class="klabel">Jackson Hole forward guidance</div>
+          <div class="radio-row">
+            <input type="radio" name="fg" id="fg_d" value="dovish"><label for="fg_d">Dovish</label>
+            <input type="radio" name="fg" id="fg_n" value="neutral" checked><label for="fg_n">Neutral</label>
+            <input type="radio" name="fg" id="fg_h" value="hawkish"><label for="fg_h">Hawkish</label>
+          </div>
+          <div class="hint">Applies for 4 months after August; shifts demand & expectations.</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="hint">Random events</label>
+        <div class="row" style="gap:8px">
+          <input type="checkbox" id="random_on" checked><label for="random_on" class="hint">Enabled</label>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="cal" id="calendar"></div>
+
+      <div class="divider"></div>
+
+      <div class="btns">
+        <button class="primary" id="end_turn" type="button" onclick="step()">Submit & next month</button>
+        <button class="ghost" id="reset" type="button" onclick="resetGame()">Reset</button>
+        <button class="ghost" id="export" type="button" onclick="exportCSV()">Export CSV</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="charts">
+        <div class="chart" id="c_pce">
+          <h3>Headline PCE (YoY %)</h3>
+          <svg width="100%" height="220" viewBox="0 0 700 220"></svg>
+        </div>
+        <div class="chart" id="c_sahm">
+          <h3>Sahm Rule (pp)</h3>
+          <div class="legend">Signal at ≥ 0.50</div>
+          <svg width="100%" height="220" viewBox="0 0 700 220"></svg>
+        </div>
+        <div class="chart" id="c_unemp">
+          <h3>U3 Unemployment (%)</h3>
+          <svg width="100%" height="220" viewBox="0 0 700 220"></svg>
+        </div>
+        <div class="chart" id="c_rate">
+          <h3>Policy rate (midpoint, %)</h3>
+          <div class="legend">Your moves</div>
+          <svg width="100%" height="220" viewBox="0 0 700 220"></svg>
+        </div>
+      </div>
+
+      <h2>News & Events</h2>
+      <div class="log" id="log"></div>
+
+      <h2>History</h2>
+      <table id="tbl"></table>
+    </section>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="box">
+      <h3>Year complete</h3>
+      <div id="modal_body" class="hint"></div>
+      <div class="btns"><button id="close_modal" type="button" onclick="closeModal()">Close</button></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script>
+'use strict';
+// --- Utilities ---
+const $ = (sel, el=document)=> el.querySelector(sel);
+const clamp = (x,a,b)=> Math.max(a, Math.min(b, x));
+const fmt = (x, d=2)=> (Math.abs(x) < 1e-12 ? 0 : x).toFixed(d);
+function toast(msg, ms=2500){ const t = $("#toast"); if(!t) return; t.textContent = msg; t.style.display = "block"; setTimeout(()=> t.style.display = "none", ms); }
+window.addEventListener('error', (e)=> { toast("Error: " + (e.message || e.type)); });
+
+function lineChart(container, data){
+  const svg = container.querySelector("svg");
+  const W = 700, H = 220, padL=36, padR=10, padT=10, padB=22;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = "";
+  const g = document.createElementNS("http://www.w3.org/2000/svg","g"); svg.appendChild(g);
+  let ymin = +Infinity, ymax = -Infinity;
+  data.forEach(v => { ymin = Math.min(ymin, v); ymax = Math.max(ymax, v); });
+  if(!isFinite(ymin) || !isFinite(ymax)){ ymin = -1; ymax = 1; }
+  if(ymin===ymax){ ymin-=1; ymax+=1; }
+  const pad = 0.1*(ymax-ymin); ymin-=pad; ymax+=pad;
+  const gridC = getComputedStyle(document.documentElement).getPropertyValue('--grid').trim() || '#e5e7eb';
+  const txtC  = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() || '#6b7280';
+  const acc   = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2563eb';
+  const x = i => padL + (W-padL-padR) * (i/(Math.max(1, data.length-1)));
+  const y = v => padT + (H-padT-padB) * (1 - (v - ymin)/(ymax - ymin));
+  for(let i=0;i<=4;i++){ const yy = padT + (H-padT-padB)*i/4;
+    const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1", padL); line.setAttribute("x2", W-padR);
+    line.setAttribute("y1", yy); line.setAttribute("y2", yy);
+    line.setAttribute("stroke", gridC); line.setAttribute("stroke-width","1"); g.appendChild(line);
+    const v = (ymax - (ymax-ymin)*i/4); const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+    t.textContent = v.toFixed(2); t.setAttribute("x", 4); t.setAttribute("y", yy+4);
+    t.setAttribute("fill", txtC); t.setAttribute("font-size", "11"); g.appendChild(t);
+  }
+  for(let i=0;i<=12;i++){ const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+    t.textContent = i.toString(); t.setAttribute("x", x(i)); t.setAttribute("y", H-4);
+    t.setAttribute("fill", txtC); t.setAttribute("font-size", "11"); t.setAttribute("text-anchor","middle"); g.appendChild(t); }
+  let d = ""; data.forEach((v, i)=>{ d += (i===0? "M":" L") + " " + x(i) + " " + y(v); });
+  const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+  path.setAttribute("d", d); path.setAttribute("fill","none"); path.setAttribute("stroke", acc);
+  path.setAttribute("stroke-width","2.5"); path.setAttribute("stroke-linecap","round"); g.appendChild(path);
+}
+
+// --- Parameters & initial state ---
+const P = { months:12, r_star:0.6, pi_star:2.0, u_star:4.0, kappa:0.08, rho:0.6, a_gap:0.65, b_rate:0.20, okun_c:2.0, pi_exp:2.3 };
+const meetingMonths = [1,3,5,6,7,9,11,12];
+const jacksonHoleMonth = 8;
+
+const S = { t:0, ffr:4.375, pce:2.6, u:4.2, gap:0.0, score:0, hist:[], events:[], lastEvName:null,
+            fgBias:'neutral', fgMonths:0, noEventStreak:0 };
+
+// --- Sahm Rule: max 3m jump in 3m average unemployment ---
+function sahmJump(series){
+  const n = series.length;
+  if (n < 4) return 0;            // need t and t-3
+  const rise = series[n - 1] - series[n - 4];
+  return Math.max(0, rise);       // only count increases
+}
+
+// --- Events ---
+function drawEvent(force=false){
+  const randomOn = $("#random_on") ? $("#random_on").checked : true;
+  if(!randomOn && !force) return null;
+  const p = 0.65;
+  const fire = force || Math.random() < p;
+  if(!fire) return null;
+  const pool = [
+    { name:"Oil flare-up",            head:+0.22, gap:-0.18, months:3, decay:0.6,  note:"Energy prices jump; shipping surge." },
+    { name:"Shipping congestion",     head:+0.12, gap:-0.12, months:4, decay:0.75, note:"Rerouting & delays add to costs." },
+    { name:"Credit tightening",       head:-0.02, gap:-0.45, months:4, decay:0.8,  note:"Spreads widen, banks pull back." },
+    { name:"AI productivity boost",   head:-0.06, gap:+0.28, months:6, decay:0.88, note:"Supply improves; potential rises." },
+    { name:"Housing supply improves", head:-0.05, gap:-0.05, months:6, decay:0.9,  note:"Shelter disinflation emerges." },
+    { name:"Global demand cools",     head:-0.04, gap:-0.25, months:3, decay:0.75, note:"Exports soften; input prices ease." },
+    { name:"Global demand pops",      head:+0.05, gap:+0.35, months:3, decay:0.75, note:"Exports up; input costs tick up." },
+    { name:"Dollar strengthens",      head:-0.05, gap:-0.10, months:3, decay:0.8,  note:"Import prices fall; net exports weaken." },
+    { name:"Dollar weakens",          head:+0.05, gap:+0.10, months:3, decay:0.8,  note:"Import prices rise; net exports improve." },
+    { name:"Port strike",             head:+0.08, gap:-0.20, months:3, decay:0.7,  note:"Backlogs and fees surge." },
+    { name:"Rail disruption",         head:+0.06, gap:-0.15, months:3, decay:0.75, note:"Freight bottlenecks hit inventories." },
+    { name:"Hurricane season hits",   head:+0.10, gap:-0.12, months:3, decay:0.7,  note:"Gulf production/logistics impacted." },
+    { name:"Pipeline cyberattack",    head:+0.15, gap:-0.10, months:2, decay:0.6,  note:"Fuel distribution disrupted." },
+    { name:"Food crop shortfall",     head:+0.10, gap:-0.05, months:4, decay:0.85, note:"Food prices spike." },
+    { name:"Tourism boom",            head:+0.03, gap:+0.15, months:4, decay:0.85, note:"Services demand heats up." },
+    { name:"Auto union strike",       head:+0.05, gap:-0.20, months:3, decay:0.8,  note:"Vehicle output dips; prices firm." },
+    { name:"Auto inventories rebuild",head:-0.03, gap:+0.10, months:4, decay:0.85, note:"Discounting returns; sales lift." },
+    { name:"Tariffs increased",       head:+0.15, gap:-0.10, months:6, decay:0.9,  note:"Import costs rise; demand cools." },
+    { name:"Tariffs rolled back",     head:-0.15, gap:+0.10, months:6, decay:0.9,  note:"Import costs fall; demand lifts." },
+    { name:"China slowdown",          head:-0.05, gap:-0.20, months:4, decay:0.85, note:"Commodity/export demand ease." },
+    { name:"China stimulus",          head:+0.05, gap:+0.20, months:4, decay:0.85, note:"Global goods demand strengthens." },
+    { name:"Geopolitical escalation", head:+0.18, gap:-0.22, months:3, decay:0.75, note:"Risk premia rise." },
+    { name:"Geopolitical de-escalation", head:-0.12, gap:+0.12, months:3, decay:0.8, note:"Risk premia compress." },
+    { name:"Tech capex surge",        head:+0.02, gap:+0.30, months:6, decay:0.9,  note:"Investment boom." },
+    { name:"Tech capex pause",        head:-0.02, gap:-0.25, months:4, decay:0.9,  note:"Orders cool." }
+  ];
+  // Avoid immediate repeat
+  for(let tries=0; tries<8; tries++){
+    const e = pool[Math.floor(Math.random()*pool.length)];
+    if(e.name !== S.lastEvName){
+      S.lastEvName = e.name;
+      return { name:e.name, head:e.head, gap:e.gap, monthsLeft:e.months, decay:e.decay, note:e.note, ampl:1 };
+    }
+  }
+  const e = pool[Math.floor(Math.random()*pool.length)];
+  S.lastEvName = e.name;
+  return { name:e.name, head:e.head, gap:e.gap, monthsLeft:e.months, decay:e.decay, note:e.note, ampl:1 };
+}
+
+function eventEffects(){
+  let head = 0, gap = 0;
+  S.events.forEach(e => { head += e.head * e.ampl; gap += e.gap * e.ampl; e.ampl *= e.decay; e.monthsLeft -= 1; });
+  S.events = S.events.filter(e => e.monthsLeft > 0 && Math.abs(e.ampl) > 0.01);
+  return {head, gap};
+}
+
+function guidanceEffects(){
+  if(S.fgMonths <= 0) return { head:0, gap:0, piExpAdj:0 };
+  let bias = 0, piAdj = 0;
+  if(S.fgBias==='dovish'){ bias = +0.10; piAdj = +0.05; }
+  if(S.fgBias==='hawkish'){ bias = -0.10; piAdj = -0.05; }
+  return { head:0, gap:bias, piExpAdj:piAdj };
+}
+
+// --- Calendar & meeting helpers ---
+function renderCalendar(){
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const cal = $("#calendar"); cal.innerHTML = "";
+  for(let m=1;m<=12;m++){
+    const el = document.createElement("div"); el.className = "m";
+    if(meetingMonths.includes(m)) el.classList.add("meet");
+    if(m === jacksonHoleMonth) el.classList.add("jh");
+    el.textContent = months[m-1] + (m===S.t+1 ? " •" : "");
+    cal.appendChild(el);
+  }
+}
+function isMeetingMonth(monthIndex1){ return meetingMonths.includes(monthIndex1); }
+
+// --- Main step ---
+function step(){
+  if(S.t >= P.months) return;
+  const month1 = S.t + 1;
+  const meeting = isMeetingMonth(month1);
+  // Read rate move (always allowed to change selection; only applied if meeting)
+  const mvEl = document.querySelector('input[name="rate"]:checked');
+  const mv = mvEl ? parseInt(mvEl.value,10)||0 : 0;
+
+  // Apply policy only in meeting months
+  const appliedMove = meeting ? mv : 0;
+  if(meeting){
+    S.ffr = clamp(S.ffr + appliedMove/100, 0, 20);
+  }
+
+  // Jackson Hole guidance
+  let fgNote = "";
+  if(month1 === jacksonHoleMonth && S.fgMonths === 0){
+    const fgEl = document.querySelector('input[name="fg"]:checked');
+    const choice = fgEl ? fgEl.value : 'neutral';
+    S.fgBias = choice; S.fgMonths = 4; // 4 months after August
+    if(choice==='dovish') fgNote = "Jackson Hole guidance: dovish (demand ↑, expectations ↑)";
+    else if(choice==='hawkish') fgNote = "Jackson Hole guidance: hawkish (demand ↓, expectations ↓)";
+    else fgNote = "Jackson Hole guidance: neutral";
+  }
+
+  // Random event (force after 2 months without any)
+  const forceEvent = S.noEventStreak >= 2;
+  const ev = drawEvent(forceEvent);
+  if(ev) S.noEventStreak = 0; else S.noEventStreak += 1;
+  if(ev) S.events.push(ev);
+
+  // Effects
+  const eff = eventEffects();
+  const fgEff = guidanceEffects();
+
+  // Macro dynamics
+  const r_real = S.ffr - S.pce;
+  const gapNew = P.a_gap * S.gap - P.b_rate * (r_real - P.r_star) + eff.gap + fgEff.gap;
+  const pceNew  = P.rho * S.pce  + (1-P.rho)*(P.pi_exp + fgEff.piExpAdj) + P.kappa * gapNew + eff.head + fgEff.head;
+  const uNew = clamp(P.u_star - gapNew / P.okun_c, 2.5, 12.0);
+
+  const uSeries = [4.2, ...S.hist.map(h=>h.u), uNew];
+  const sahm = sahmJump(uSeries);
+
+  // Score (harsher)
+  let scoreDelta = 100;
+  scoreDelta -= 16 * Math.abs(pceNew - P.pi_star);
+  if(uNew > 5.0) scoreDelta -= 10 * (uNew - 5.0);
+  if(uNew < 3.2) scoreDelta -= 12 * (3.2 - uNew);
+  if(sahm >= 0.5) scoreDelta -= 15;
+  if(meeting && Math.abs(appliedMove) > 25) scoreDelta -= 4;
+  scoreDelta = Math.max(0, Math.round(scoreDelta));
+
+  // Commit
+  S.t += 1; S.gap = gapNew; S.pce = pceNew; S.u = uNew; S.score += scoreDelta;
+  if(S.fgMonths > 0) S.fgMonths -= 1;
+
+  const eventsArr = []; if(ev) eventsArr.push(ev.name); if(fgNote) eventsArr.push(fgNote);
+  const rec = { t:S.t, ffr:S.ffr, pce:S.pce, u:S.u, sahm, rateMove: meeting?appliedMove:0, meeting, events: eventsArr, scoreDelta };
+  S.hist.push(rec);
+
+  renderState(); renderLog(rec, ev, fgNote); renderTable(); renderCharts();
+  if(S.t >= P.months){ $("#end_turn").disabled = true; endGame(); }
+}
+
+function endGame(){
+  const last = S.hist[S.hist.length-1];
+  const p = last.pce, u = last.u, sahm = last.sahm;
+  const within = (x, lo, hi)=> x>=lo && x<=hi;
+  let grade = "D";
+  if (Math.abs(p-2.0)<=0.3 && within(u,3.6,4.6) && sahm < 0.3) grade = "A";
+  else if (Math.abs(p-2.0)<=0.6 && within(u,3.4,4.8)) grade = "B+";
+  else if (Math.abs(p-2.0)<=0.9 && within(u,3.3,5.2)) grade = "B";
+  else if (Math.abs(p-2.0)<=1.3 && within(u,3.1,6.0)) grade = "C";
+  else grade = "D";
+  $("#modal_body").innerHTML = `Final Headline PCE <strong>${fmt(p,2)}%</strong>, Unemployment <strong>${fmt(u,2)}%</strong>, Sahm 3m jump <strong>${fmt(sahm,2)} pp</strong>.<br>Score: <strong>${S.score}</strong>. Grade: <strong>${grade}</strong>.`;
+  $("#modal").style.display = "flex";
+}
+
+// --- Rendering ---
+function renderState(){
+  $("#score").textContent = S.score;
+  $("#turn").textContent = Math.min(S.t+1, P.months);
+  $("#k_pce").textContent = fmt(S.pce,1)+"%";
+  const latestSahm = S.hist.length ? S.hist[S.hist.length-1].sahm : 0;
+  $("#k_sahm").textContent= fmt(latestSahm,2)+" pp";
+  $("#sahm_hint").textContent = latestSahm >= 0.5 ? "Recession signal!" : "No signal (≥ 0.50 triggers)";
+  $("#k_u").textContent   = fmt(S.u,1)+"%";
+  $("#k_ffr").textContent = fmt(S.ffr,2)+"%";
+  $("#b_pce").style.width = clamp( (S.pce/5)*100, 0, 100) + "%";
+  $("#b_sahm").style.width= clamp( (latestSahm/1.5)*100,0,100) + "%";
+  $("#b_u").style.width   = clamp( (S.u/10)*100, 0, 100) + "%";
+  $("#b_ffr").style.width = clamp( (S.ffr/10)*100,0,100) + "%";
+
+  const month1 = S.t + 1;
+  const meeting = meetingMonths.includes(month1);
+  $("#meeting_hint").innerHTML = meeting
+    ? "This is an <strong>FOMC month</strong> — your selection will be <strong>applied now</strong>."
+    : "No FOMC this month — your selection is <strong>queued</strong> for the next meeting.";
+  $("#queued_badge").style.display = meeting ? "none" : "inline-block";
+
+  // Never disable rate inputs — allow pre-selection for next meeting
+  document.querySelectorAll('#rate_opts input').forEach(inp => { inp.disabled = false; });
+
+  $("#fg_row").style.display = (month1 === jacksonHoleMonth && S.fgMonths === 0) ? "block" : "none";
+
+  renderCalendar();
+}
+function renderLog(rec, ev, fgNote){
+  const div = document.createElement("div");
+  const evTxt  = ev ? `; event: <strong>${ev.name}</strong> (${ev.note})` : "";
+  const fgTxt = fgNote ? `; <em>${fgNote}</em>` : "";
+  const meetTxt = rec.meeting ? "" : " (no FOMC)";
+  div.innerHTML = `<span class="pill">Month ${rec.t}</span> You ${rateMoveText(rec.rateMove)}${meetTxt}${evTxt}${fgTxt}. → Headline ${fmt(rec.pce,2)}%, Unemp ${fmt(rec.u,2)}%, Sahm 3m ${fmt(rec.sahm,2)} pp. (+${rec.scoreDelta})`;
+  $("#log").prepend(div);
+}
+function rateMoveText(bps){ if(bps===0) return "held the policy rate"; return (bps>0? "hiked":"cut") + " " + Math.abs(bps) + " bps"; }
+function renderTable(){
+  const rows = [["Month","FOMC?","Policy %","Headline PCE %","Unemp %","Sahm 3m jump (pp)","Rate move bps","Events","Score +"]];
+  S.hist.forEach(h=> rows.push([h.t, h.meeting?"Yes":"No", fmt(h.ffr,2), fmt(h.pce,2), fmt(h.u,2), fmt(h.sahm,2), h.rateMove, h.events.join("; "), h.scoreDelta]));
+  $("#tbl").innerHTML = "<thead><tr>"+rows[0].map(h=>`<th>${h}</th>`).join("")+"</tr></thead>"
+    + "<tbody>" + rows.slice(1).map(r=>"<tr>"+r.map(c=>`<td>${c}</td>`).join("")+"</tr>").join("") + "</tbody>";
+}
+function renderCharts(){
+  lineChart($("#c_pce"),  [2.6, ...S.hist.map(h=>h.pce)]);
+  lineChart($("#c_sahm"), [0,   ...S.hist.map(h=>h.sahm)]);
+  lineChart($("#c_unemp"),[4.2, ...S.hist.map(h=>h.u)]);
+  lineChart($("#c_rate"), [4.375, ...S.hist.map(h=>h.ffr)]);
+}
+
+// --- Buttons / helpers ---
+function resetGame(){
+  Object.assign(S, { t:0, ffr:4.375, pce:2.6, u:4.2, gap:0.0, score:0, hist:[], events:[], lastEvName:null, fgBias:'neutral', fgMonths:0, noEventStreak:0 });
+  $("#log").innerHTML = "";
+  if ($("#end_turn")) $("#end_turn").disabled = false;
+  if ($("#modal")) $("#modal").style.display = "none";
+  // Reset radio selection to Hold
+  const hold = $("#r_0"); if(hold){ hold.checked = true; }
+  renderState(); renderCharts(); renderTable();
+  toast("Game reset");
+}
+function exportCSV(){
+  const rows = [["Month","FOMC?","Policy %","Headline PCE %","Unemp %","Sahm 3m jump (pp)","Rate move bps","Events","Score +"]];
+  S.hist.forEach(h=> rows.push([h.t, h.meeting?"Yes":"No", fmt(h.ffr,2), fmt(h.pce,2), fmt(h.u,2), fmt(h.sahm,2), h.rateMove, h.events.join("; "), h.scoreDelta]));
+  const csv = rows.map(r=>r.join(",")).join("\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = url; a.download = "fed_chair_year_game_v4_2.csv";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+function closeModal(){ $("#modal").style.display = "none"; }
+
+// --- Initialize immediately (no dependency on DOMContentLoaded) ---
+(function init(){
+  renderState(); renderCharts(); renderTable();
+  $("#log").innerHTML = "<div>Welcome! You can select a rate any time — it's <em>queued</em> and only applied in FOMC months. In August, choose forward guidance for the next 4 months. Goal: keep Headline PCE near 2% and avoid triggering the Sahm Rule (3m avg jump ≥ 0.50).</div>";
+  toast("Loaded v4.2 — queued rate selection");
+})();
+</script>
+</body>
+</html>

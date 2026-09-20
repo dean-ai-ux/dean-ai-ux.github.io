@@ -1,0 +1,168 @@
+[
+  {
+    "id": "w-0",
+    "title": "Challenges of Adapting a Rules Based Monetary Policy Approach to Crisis Intervention",
+    "subtitle": "Paper · with Zuber Chawla",
+    "href": "media/rules-based-monetary-policy-crisis-intervention.pdf",
+    "meta": [
+      {
+        "label": "Date",
+        "value": "May 2025"
+      },
+      {
+        "label": "Kind",
+        "value": "Paper"
+      },
+      {
+        "label": "Length",
+        "value": "17 pages"
+      }
+    ]
+  },
+  {
+    "id": "w-1",
+    "title": "Turning Turbulence into Opportunity with AI Personas",
+    "subtitle": "Case study · Prophet",
+    "href": "https://prophet.com/case-studies/men-boys-footwear-client/",
+    "meta": [
+      {
+        "label": "Client",
+        "value": "Footwear"
+      },
+      {
+        "label": "Kind",
+        "value": "Case study"
+      }
+    ]
+  },
+  {
+    "id": "w-2",
+    "title": "Driving TPRM revenue by decoding a niche audience at speed",
+    "subtitle": "Case study · Prophet",
+    "href": "https://prophet.com/case-studies/supply-wisdom/",
+    "meta": [
+      {
+        "label": "Respondents",
+        "value": "~20,000"
+      },
+      {
+        "label": "Kind",
+        "value": "Case study"
+      }
+    ]
+  },
+  {
+    "id": "ai-and-crypto",
+    "title": "AI and Crypto: Same Story, Different Technology",
+    "subtitle": "Essay",
+    "meta": [
+      {
+        "label": "Kind",
+        "value": "Essay"
+      }
+    ],
+    "essay": [
+      {
+        "heading": "The Parallel",
+        "text": "Crypto and AI share a structural similarity that gets overlooked: in both cases, the underlying technology is real, but the value assigned to companies is driven largely by narrative, presentation, and trust rather than by what the technology actually does. Understanding how that played out in crypto offers a useful lens for evaluating AI companies today."
+      },
+      {
+        "heading": "How Crypto Lost the Plot",
+        "text": "Three dynamics eroded crypto’s credibility:",
+        "points": [
+          {
+            "lead": "Ideology masking reality.",
+            "text": "Crypto’s core pitch was decentralization, removing the need to trust banks or institutions. But companies like FTX were deeply centralized, dependent on opaque decision-making by a small group. The ideology became a marketing layer that obscured what was actually happening operationally."
+          },
+          {
+            "lead": "Unverified claims.",
+            "text": "Exchanges made confident assertions about reserves, safety, and backing that were never independently audited. When reality diverged from the claims, the damage was catastrophic."
+          },
+          {
+            "lead": "Technology conflated with business model.",
+            "text": "Blockchain was real technology. But most crypto companies weren’t solving real problems, they were applying the tech to extract value through artificial scarcity and narrative-driven demand."
+          }
+        ]
+      },
+      {
+        "heading": "Why AI Faces the Same Pressures",
+        "text": "AI has something crypto never had: genuine, demonstrable utility. But the same structural vulnerabilities exist:",
+        "points": [
+          {
+            "lead": "The black box problem.",
+            "text": "Companies can’t reveal what’s actually inside their tools without destroying their competitive advantage. So trust gets built the same way crypto built it—through marketing, UI polish, and storytelling rather than transparency."
+          },
+          {
+            "lead": "The wrapper economy.",
+            "text": "Foundation models are essentially a commodity. Everyone is building on similar underlying models. The actual differentiation comes from the wrapper—the interface, the positioning, the narrative about what the tool does. That means the UI is the marketing, and aesthetic experience becomes the primary signal of value for most users."
+          },
+          {
+            "lead": "Unverifiable output quality.",
+            "text": "If an AI tool claims to simulate customer behavior or generate strategic insight, how do you validate that? Companies run internal tests, tune results, and present favorable outcomes. There’s no external standard for what “good output” actually means—which makes it easy to tell a compelling story that’s hard to falsify."
+          }
+        ]
+      },
+      {
+        "heading": "Lessons from Crypto for Evaluating AI Companies",
+        "points": [
+          {
+            "lead": "Demand verifiable claims.",
+            "text": "If a company can’t show you independent validation of their results—not internal benchmarks, not cherry-picked case studies—treat their claims the same way you’d treat an unaudited crypto exchange. The burden of proof should be on them."
+          },
+          {
+            "lead": "Separate the technology from the business model.",
+            "text": "AI is real and useful. But that doesn’t mean every company built on top of it is solving a real problem. Ask what the company does that the foundation model alone doesn’t—and whether that wrapper is genuinely valuable or just a story."
+          },
+          {
+            "lead": "Watch what the UI is doing.",
+            "text": "A polished interface is a signal, but it can also be a distraction. If the primary value proposition is how good the tool looks to use, that’s worth scrutinizing. Substance and aesthetics can diverge significantly."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "w-3",
+    "title": "What separates useful AI from merely impressive AI",
+    "subtitle": "Draft",
+    "meta": [
+      {
+        "label": "Status",
+        "value": "Draft"
+      }
+    ]
+  },
+  {
+    "id": "w-4",
+    "title": "Forward guidance only works when it names a threshold",
+    "subtitle": "Draft",
+    "meta": [
+      {
+        "label": "Status",
+        "value": "Draft"
+      }
+    ]
+  },
+  {
+    "id": "w-5",
+    "title": "A deck is a snapshot; a workbench keeps working",
+    "subtitle": "Draft",
+    "meta": [
+      {
+        "label": "Status",
+        "value": "Draft"
+      }
+    ]
+  },
+  {
+    "id": "w-6",
+    "title": "Reading the Sahm Rule in real time",
+    "subtitle": "Draft",
+    "meta": [
+      {
+        "label": "Status",
+        "value": "Draft"
+      }
+    ]
+  }
+]

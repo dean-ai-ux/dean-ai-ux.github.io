@@ -1,0 +1,25 @@
+{
+  "id": "about",
+  "title": "About",
+  "subtitle": "Dean Dowling",
+  "essay": [
+    {
+      "text": "I’m an Associate in Prophet’s Digital Discipline and a founding member of the AI Foundry, where I work across AI product development, client delivery, and capability building."
+    },
+    {
+      "text": "The Foundry develops applied AI systems for Prophet’s Digital and Strategy practices. Our flagship platform, MAIA, connects specialized tools, data sources, and reasoning systems through a single interface. My work has included interface design, tool development, and the delivery of reusable skills for client and partner workflows."
+    },
+    {
+      "text": "As much as I enjoy building multi-agent tools, the part of my work I find most interesting is what separates useful AI from merely impressive AI."
+    },
+    {
+      "text": "General-purpose models make it easy to generate an answer. Professional work requires more: the right data, domain-specific tools, consistent methods, transparent reasoning, and results that can be verified. The Foundry brings those elements together to create AI systems designed for real client workflows. That specialization makes the AI itself more capable, reliable, and valuable for the work it is intended to perform."
+    },
+    {
+      "text": "It also changes what consulting can deliver. A presentation captures the best thinking available at a particular moment. AI-enabled deliverables can remain active: living artifacts, digital twins, and production workbenches that clients can continue to use, test, and improve."
+    },
+    {
+      "text": "Outside work, I enjoy following developments in monetary policy. I founded Davidson College’s Fed Challenge team, now an advanced macroeconomics elective, and co-authored a paper on adapting rules-based policy to crisis intervention. On forward guidance, topical given Warsh’s communications task force, we argued that forward guidance works only when paired with explicit thresholds; without them, it can encourage complacency and weaken credibility."
+    }
+  ]
+}

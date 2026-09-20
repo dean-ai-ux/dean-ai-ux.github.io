@@ -1,0 +1,152 @@
+[
+  {
+    "id": "davidson-college",
+    "org": "Davidson College",
+    "role": "BA, Economics and Data Science",
+    "location": "Davidson, NC",
+    "start": "2021-08",
+    "end": "2025-05",
+    "summary": "Economics and data science, with monetary policy as the throughline — coursework, a co-authored paper, and founding the college's Fed Challenge team.",
+    "context": "Davidson is a liberal arts college, and the economics work here was deliberately paired with that: the argument of the Fed Challenge team was that an economics education is stronger read through a liberal arts perspective, not narrower.",
+    "actions": [
+      "Co-authored a paper on adapting rules-based monetary policy to crisis intervention for ECO 495, What's Wrong With Economics?, under Dr. Jaya Jha.",
+      "Founded and organized the college's first Fed Challenge team as an independent study with Prof. Caleb Stroup.",
+      "Served as a macroeconomics teaching assistant."
+    ],
+    "outcomes": [
+      {
+        "claim": "Co-authored a paper on the Federal Reserve's COVID-19 response, concluding with a three-pronged crisis playbook: deliver liquidity quickly, coordinate with fiscal policy, and tie every intervention to transparent, data-linked exit criteria.",
+        "evidence": [
+          "crisis-paper"
+        ]
+      },
+      {
+        "claim": "Graduated with a BA in Economics and Data Science.",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "id": "crisis-paper",
+        "type": "doc",
+        "title": "Challenges of Adapting a Rules Based Monetary Policy Approach to Crisis Intervention",
+        "url": "assets/rules-based-monetary-policy-crisis-intervention.pdf",
+        "note": "With Zuber Chawla. ECO 495, Dr. Jaya Jha, May 2025. Hosted here — open it."
+      }
+    ],
+    "attestations": [],
+    "skills": [
+      "Macroeconomics",
+      "Monetary policy",
+      "Data science",
+      "Econometrics",
+      "Academic writing"
+    ]
+  },
+  {
+    "id": "davidson-fed-challenge",
+    "org": "Davidson College",
+    "role": "Fed Challenge — founder, independent study",
+    "location": "Davidson, NC",
+    "start": "2024-07",
+    "end": "2024-12",
+    "summary": "Co-initiated Davidson's first Fed Challenge team as a student-led independent study; it placed in the top 15% nationally and became a permanent economics course.",
+    "context": "The College Fed Challenge is a national competition in which undergraduate teams simulate an FOMC meeting: analyzing conditions, forecasting, identifying risks and recommending policy. Davidson had never entered. There was no team, no syllabus and no precedent.",
+    "actions": [
+      "Initiated the team as a student-led independent study with Will Bacdayan and Bilal Razzak, under Prof. Caleb Stroup.",
+      "Wrote a syllabus and recruited a team to represent Davidson for the first time.",
+      "Sought out resources from economics faculty and students across the college.",
+      "Presented on monetary policy to residents of the Town of Davidson."
+    ],
+    "outcomes": [
+      {
+        "claim": "The inaugural team placed in the top 15% of 120 participating institutions.",
+        "evidence": [
+          "davidson-article"
+        ]
+      },
+      {
+        "claim": "Prof. Stroup formalized the effort as ECO 386, a permanent economics department course — so it outlived the team that started it.",
+        "evidence": [
+          "davidson-article"
+        ]
+      },
+      {
+        "claim": "The program went on to reach the 2026 national finals, finishing among the top six nationally against Harvard, UCLA, Penn and Chicago.",
+        "evidence": [
+          "davidson-article"
+        ]
+      },
+      {
+        "claim": "I was invited to dine with Federal Reserve Vice Chair Philip Jefferson during his visit to Davidson, at the president’s house.",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "id": "davidson-article",
+        "type": "link",
+        "title": "Davidson College — Davidson's Fed Challenge team reaches national finals",
+        "url": "https://www.davidson.edu/news/2026/04/08/davidsons-fed-challenge-team-reaches-national-finals",
+        "note": "Names the 2024 founding team and records both the top-15% debut and the 2026 finals run."
+      }
+    ],
+    "attestations": [],
+    "skills": [
+      "Monetary policy",
+      "Program design",
+      "Team building",
+      "Public speaking"
+    ]
+  },
+  {
+    "id": "davidson-macro-ta",
+    "org": "Davidson College",
+    "role": "Macroeconomics Teaching Assistant",
+    "location": "Davidson, NC",
+    "start": "2024-07",
+    "end": "2024-12",
+    "summary": "Teaching assistant for macroeconomics.",
+    "context": "Supported the macroeconomics course alongside founding the Fed Challenge team in the same period.",
+    "actions": [
+      "Assisted teaching and student support for macroeconomics."
+    ],
+    "outcomes": [
+      {
+        "claim": "Served as macroeconomics teaching assistant for a semester.",
+        "evidence": []
+      }
+    ],
+    "evidence": [],
+    "attestations": [],
+    "skills": [
+      "Macroeconomics",
+      "Teaching"
+    ]
+  },
+  {
+    "id": "davidson-spanish-ta",
+    "org": "Davidson College",
+    "role": "Spanish Teaching Assistant",
+    "location": "Davidson, NC",
+    "start": "2024-07",
+    "end": "2024-12",
+    "summary": "Teaching assistant for Spanish.",
+    "context": "Supported the Spanish course in the same semester as the macroeconomics assistantship.",
+    "actions": [
+      "Assisted teaching and student support for Spanish."
+    ],
+    "outcomes": [
+      {
+        "claim": "Served as Spanish teaching assistant for a semester.",
+        "evidence": []
+      }
+    ],
+    "evidence": [],
+    "attestations": [],
+    "skills": [
+      "Spanish",
+      "Teaching"
+    ]
+  }
+]

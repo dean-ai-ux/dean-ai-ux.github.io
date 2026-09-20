@@ -1,0 +1,130 @@
+[
+  {
+    "id": "breakthrough-2020",
+    "org": "Breakthrough Collaborative",
+    "role": "Summer Teaching Fellow",
+    "location": "Austin, TX (remote)",
+    "start": "2020-05",
+    "end": "2020-08",
+    "summary": "Returned for the 2020 program, which ran fully remote and invited back only experienced teachers.",
+    "context": "Breakthrough places fellows as teachers for middle school students. The 2020 program ran entirely over Zoom, and only teachers who had already done a summer were invited back to it.",
+    "actions": [
+      "Taught daily lessons to two sections of 6th–8th grade students over Zoom.",
+      "Led the physical education program, remotely."
+    ],
+    "outcomes": [
+      {
+        "claim": "Invited back to a program that only took teachers who had already taught a summer.",
+        "evidence": []
+      },
+      {
+        "claim": "Taught two sections daily through the program's first fully remote summer.",
+        "evidence": [
+          "breakthrough-team"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "breakthrough-team",
+        "type": "link",
+        "title": "Virtual Summer Academy 2020 — Team 4",
+        "url": "https://sites.google.com/view/virtual-summer-academy-2020/our-teams/team-4",
+        "note": "The program's own team page."
+      }
+    ],
+    "attestations": [],
+    "skills": [
+      "Teaching",
+      "Remote instruction",
+      "Curriculum delivery",
+      "Recruiting"
+    ]
+  },
+  {
+    "id": "breakthrough-2019",
+    "org": "Breakthrough Collaborative",
+    "role": "Summer Teaching Fellow",
+    "location": "Austin, TX",
+    "start": "2019-05",
+    "end": "2019-08",
+    "summary": "Youngest teacher on a team of 65 at Breakthrough's flagship program, on the UT Austin campus — a 60-hour week teaching 8th grade history.",
+    "context": "The 2019 program ran on the main campus of the University of Texas and is Breakthrough's flagship for middle schoolers. The fellowship is a full teaching load, not an assistantship: fellows write their own lessons and carry pastoral responsibility for named students.",
+    "actions": [
+      "Designed lesson plans and taught two sections of 8th grade history.",
+      "Led the physical education program.",
+      "Supervised lunch and conducted parent conferences.",
+      "Served as advisor to four students.",
+      "Spoke at my old high school about the program that autumn, and recruited students for future summers."
+    ],
+    "outcomes": [
+      {
+        "claim": "Was the youngest teacher on a team of 65.",
+        "evidence": []
+      },
+      {
+        "claim": "Carried a 60-hour week across teaching, PE, supervision and advising.",
+        "evidence": []
+      },
+      {
+        "claim": "Wrote and taught two sections of 8th grade history, rather than assisting someone else's course.",
+        "evidence": []
+      },
+      {
+        "claim": "Advised four students directly and ran their parent conferences.",
+        "evidence": []
+      },
+      {
+        "claim": "Went back to my old high school to speak about the program and recruit the next intake, so its pipeline did not rest only on staff.",
+        "evidence": []
+      }
+    ],
+    "evidence": [],
+    "attestations": [],
+    "skills": [
+      "Teaching",
+      "Curriculum design",
+      "Advising",
+      "Public speaking"
+    ],
+    "image": {
+      "file": "assets/breakthrough.jpeg",
+      "alt": "Speaking at a lectern in front of a seated audience, with a Breakthrough Central Texas slide projected on screen behind.",
+      "caption": "Speaking about Breakthrough and recruiting for the next summer, October 2019."
+    }
+  },
+  {
+    "id": "leap-overseas",
+    "org": "The Leap Overseas",
+    "role": "Volunteer, sea turtle conservation",
+    "start": "2021-01",
+    "end": "2021-03",
+    "summary": "Nine weeks of sea turtle conservation across two sites on the Costa Rican coast, where the main defense against poaching was simply being there.",
+    "context": "Poaching on that coast was a real and known problem, and the countermeasure was mostly bodies: people on the beach, visibly, so that anyone who came for the eggs would find it occupied. Volunteers rotated between two conservation sites, ASVO and Cirenas, in stretches.",
+    "actions": [
+      "Walked night patrols along the beach, hours at a stretch in the dark.",
+      "Sat staged hatchery watches overnight, checking the fenced-off nests when the rotation came around.",
+      "Slept out on the sand on the other nights — presence being the whole point rather than any task.",
+      "Worked the unglamorous end of conservation between turtle shifts: a river cleanup near Cirenas, painting trash bins, sorting recycling.",
+      "Studied Spanish each morning before the day's work."
+    ],
+    "outcomes": [
+      {
+        "claim": "Kept two conservation sites visibly occupied overnight for nine weeks — a deterrent that works by presence rather than enforcement.",
+        "evidence": []
+      },
+      {
+        "claim": "Rotated through both program sites, ASVO and Cirenas, across patrol, hatchery watch and site maintenance.",
+        "evidence": []
+      }
+    ],
+    "evidence": [],
+    "attestations": [],
+    "skills": [
+      "Conservation fieldwork",
+      "Night operations",
+      "Spanish"
+    ],
+    "location": "Costa Rica"
+  }
+]
