@@ -945,12 +945,13 @@ function EntryOverlay({
                     ))}
                   </div>
                 )}
-                {item.href && (
-                  <a href={item.href} target="_blank" rel="noopener noreferrer"
-                    className="t-label mt-6 inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-primary-foreground transition hover:opacity-90">
-                    Open <ArrowUpRight className="size-3.5" />
-                  </a>
-                )}
+                {/* No generic "Open" button here. It pointed at the first
+                    non-restricted piece of evidence, which the proof list above
+                    already renders under its own claim and under its real title
+                    — so it was a third copy of a link, labelled in a way that
+                    hid where it went. On the entries with two case studies it
+                    was worse than redundant: which one it opened came down to
+                    array order. */}
               </div>
             </div>
           )}
