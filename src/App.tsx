@@ -553,7 +553,7 @@ function SectionGrid({ section, onOpen }: { section: string; onOpen: (i: number)
                     event.preventDefault();
                     onOpen(i);
                   }}
-                  aria-label={`${item.title} — ${item.subtitle}`}
+                  aria-label={`${item.title}, ${item.subtitle}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ type: 'spring', stiffness: 380, damping: 30, delay: 0.04 + i * 0.05 }}
@@ -759,7 +759,7 @@ function ProofLink({ proof }: { proof: Proof }) {
   }
   return (
     <span className="t-caption text-muted-foreground" title={proof.note || undefined}>
-      {proof.title} — <em className="not-italic opacity-80">{proof.withheld}</em>
+      {proof.title}: <em className="not-italic opacity-80">{proof.withheld}</em>
     </span>
   );
 }

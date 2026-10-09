@@ -45,7 +45,7 @@ export function SectionDock({
       <button
         type="button"
         onClick={() => onSelect('home')}
-        aria-label="Dean Dowling — home"
+        aria-label="Dean Dowling, home"
         aria-current={active === 'home' ? 'page' : undefined}
         className="group flex shrink-0 items-center rounded-full transition hover:text-foreground"
       >

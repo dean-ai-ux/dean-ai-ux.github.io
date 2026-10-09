@@ -71,7 +71,7 @@ export function WorkTrack({
               <button
                 type="button"
                 onClick={() => onOpen(i)}
-                aria-label={`${entry.title} — ${entry.subtitle}`}
+                aria-label={`${entry.title}, ${entry.subtitle}`}
                 className="group relative aspect-[3/4] overflow-hidden rounded-2xl text-left outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {entry.art}
