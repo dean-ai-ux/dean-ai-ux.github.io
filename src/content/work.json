@@ -3,14 +3,26 @@
     "id": "prophet-senior-associate",
     "org": "Prophet",
     "role": "Senior Associate",
+    "location": "New York, NY",
     "start": "2026-10",
     "end": null,
-    "summary": "",
-    "actions": [],
+    "summary": "Product builder on AI engagements, managing the Foundry’s contractors and building end-to-end tools that augment and reimagine client workflows.",
+    "context": "On AI engagements the title is product builder rather than a consulting grade, and the difference is not cosmetic: the deliverable is a working tool, not a recommendation about one. That changes the unit of work — scoping what to build, directing the contractors who build it, and owning whether it survives contact with how the client actually works.",
+    "actions": [
+      "Carry the product builder title on AI engagements, where what ships is a working tool rather than a recommendation.",
+      "Manage the Foundry’s contractors — scoping the work, briefing it, and reviewing what comes back.",
+      "Build end-to-end AI tools that augment and reimagine how client teams work, from first scoping through deployment."
+    ],
     "outcomes": [],
     "evidence": [],
     "attestations": [],
-    "skills": []
+    "skills": [
+      "AI product development",
+      "End-to-end tooling",
+      "Contractor management",
+      "Workflow design",
+      "Client delivery"
+    ]
   },
   {
     "id": "prophet-ai-foundry",
