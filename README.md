@@ -1,3 +1,60 @@
+# verdevista
+
+Dean Dowling's living resume. Vite, React, TypeScript and Tailwind, built on the
+Verde design system.
+
+Live at <https://dean-ai-ux.github.io/>. Pushing to `main` builds and deploys it
+through `.github/workflows/deploy.yml`.
+
+```
+npm run dev      # local dev server
+npm run build    # tsc -b && vite build
+npm run lint     # oxlint
+```
+
+## Content
+
+Everything the site says lives in `src/content/*.json`. The components read it;
+none of it is written into the components themselves. Claims carry their own
+evidence, and evidence marked `restricted` renders as a withheld note rather
+than as a link.
+
+## Generated assets
+
+Four generators produce committed output, so a clean checkout builds without
+running any of them. Re-run one only when its inputs change.
+
+| Command | Produces | Needs |
+|---|---|---|
+| `node scripts/gen-ridge.mjs` | `src/generated/ridge.ts` | the Verde checkout, `VERDE=` to override |
+| `node scripts/gen-app-icons.mjs` | `src/generated/app-icons.ts`, project marks | nothing |
+| `node scripts/gen-work-crops.mjs` | `public/media/work-*.jpg` | the source photographs, `SOURCES=` to override |
+| `npm run video:render` | `public/media/intro.mp4` | Remotion, which downloads its own headless Chrome |
+
+### The intro film
+
+An 18 second film that plays over the landing page on a first visit and gets out
+of the way on the first scroll, click, key press or when it ends. Built with
+Remotion in `remotion/`, which is outside `src` and never enters the app bundle:
+the site ships a rendered mp4 and no Remotion code at all.
+
+```
+npm run video:studio    # preview and iterate
+npm run video:render    # public/media/intro.mp4
+npm run video:poster    # public/media/intro-poster.jpg
+```
+
+The composition reads the same `src/content/*.json` the site does, so the film
+cannot contradict the page. It does go stale: re-render after changing content
+that appears in it. CI does not render the film.
+
+Remotion is free for individuals and for companies of up to three people, and
+needs a paid Company License above that.
+
+---
+
+The notes below are from the Vite template this started as.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.

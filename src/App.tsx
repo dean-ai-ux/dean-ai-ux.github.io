@@ -5,6 +5,7 @@ import { SectionDock, type DockItem } from '@/components/ui/section-dock';
 import { RidgeFooter } from '@/components/ui/ridge-footer';
 import { SqueezeCarousel, type SqueezeSlide } from '@/components/ui/carousel-squeeze';
 import { WorkTrack } from '@/components/ui/work-track';
+import { Intro } from '@/components/ui/intro';
 import { APP_PHOTOS, APP_FIGURES } from '@/generated/app-icons';
 
 import profile from '@/content/profile.json';
@@ -1009,6 +1010,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
+      {/* First, and outside everything else: it covers the page rather than
+          replacing it, and it decides for itself whether it belongs on screen
+          at all. On every path that is not a first visit to the landing page it
+          renders nothing and requests nothing. */}
+      <Intro />
       <SectionDock
         items={dockItems}
         active={tab}

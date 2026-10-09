@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Remotion's bundle cache and any ad-hoc renders
+.remotion/
+out/

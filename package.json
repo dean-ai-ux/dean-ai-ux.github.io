@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "video:studio": "remotion studio remotion/index.ts",
+    "video:render": "remotion render remotion/index.ts Intro public/media/intro.mp4 --codec=h264 --crf=23",
+    "video:poster": "remotion still remotion/index.ts Intro public/media/intro-poster.jpg --frame=0"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -18,6 +21,8 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@remotion/cli": "^4.0.534",
+    "@remotion/google-fonts": "^4.0.534",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
@@ -25,6 +30,7 @@
     "autoprefixer": "^10.5.5",
     "oxlint": "^1.79.0",
     "postcss": "^8.5.28",
+    "remotion": "^4.0.534",
     "tailwindcss": "^3.4.19",
     "typescript": "~6.0.2",
     "vite": "^8.2.2"
