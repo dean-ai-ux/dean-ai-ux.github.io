@@ -9,8 +9,9 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "video:studio": "remotion studio remotion/index.ts",
-    "video:render": "remotion render remotion/index.ts Intro public/media/intro.mp4 --codec=h264 --crf=23",
-    "video:poster": "remotion still remotion/index.ts Intro public/media/intro-poster.jpg --frame=0"
+    "video:render": "remotion render remotion/index.ts Intro public/media/intro.mp4 --codec=h264 --crf=26 --timeout=60000",
+    "video:poster": "remotion still remotion/index.ts Intro public/media/intro-poster.jpg --frame=0",
+    "video:captures": "node scripts/gen-film-captures.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -23,6 +24,8 @@
   "devDependencies": {
     "@remotion/cli": "^4.0.534",
     "@remotion/google-fonts": "^4.0.534",
+    "@remotion/shapes": "^4.0.534",
+    "@remotion/transitions": "^4.0.534",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",

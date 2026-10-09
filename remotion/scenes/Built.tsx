@@ -1,6 +1,8 @@
 import React from 'react';
-import { AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Img, staticFile, useCurrentFrame } from 'remotion';
 import { ActLabel } from '../parts';
+import { GradientField, RuleGrid } from '../backdrops';
+import { ease, ramp, stagger, useDrift } from '../motion';
 import { type, verde } from '../theme';
 import projects from '../../src/content/projects.json';
 
@@ -21,43 +23,42 @@ const all = projects as Project[];
 const cards = SHOWN.map((id) => all.find((p) => p.id === id)).filter(Boolean) as Project[];
 
 /**
- * Act three. The things that exist because he made them.
+ * Act four. The things that exist because he made them.
  *
- * Four marks on the forest ground, entering on a stagger so they read as a
- * list being assembled rather than a grid appearing. Names come from
- * projects.json, so the cards cannot disagree with the Built section.
+ * Four marks entering on a stagger. The stagger is the whole effect: four
+ * things arriving together is a grid appearing, four things arriving seven
+ * frames apart is a list being set down, and the second reads as considered.
  */
 export const Built: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
-
-  const fade = interpolate(frame, [durationInFrames - 12, durationInFrames], [1, 0], {
-    extrapolateLeft: 'clamp',
-  });
+  const sway = useDrift(620, 5, 90);
 
   return (
-    <AbsoluteFill
-      style={{
-        background: verde.forest,
-        justifyContent: 'center',
-        alignItems: 'center',
-        opacity: fade,
-      }}
-    >
+    <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <GradientField seed="built" intensity={0.75} />
+      <RuleGrid opacity={0.045} spacing={160} />
+
       <div style={{ position: 'absolute', top: 120, left: 96 }}>
         <ActLabel>Built</ActLabel>
       </div>
 
-      <div style={{ display: 'flex', gap: 40, alignItems: 'flex-start' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 40,
+          alignItems: 'flex-start',
+          transform: `translateX(${sway}px)`,
+        }}
+      >
         {cards.map((p, i) => {
-          const s = spring({ frame: frame - 10 - i * 7, fps, config: { damping: 200 } });
+          const t = ramp(frame - stagger(i, 7, 8), [0, 30], [0, 1], ease.enter);
           return (
             <div
               key={p.id}
               style={{
                 width: 330,
-                opacity: s,
-                transform: `translateY(${interpolate(s, [0, 1], [44, 0])}px)`,
+                opacity: t,
+                transform: `translateY(${(1 - t) * 48}px)`,
               }}
             >
               <div
@@ -67,6 +68,9 @@ export const Built: React.FC = () => {
                   borderRadius: 28,
                   overflow: 'hidden',
                   background: verde.sage,
+                  /* The shadow grows with the card, so it reads as the card
+                     settling onto a ground rather than as part of the card. */
+                  boxShadow: `0 ${18 * t}px ${44 * t}px rgba(0,0,0,${0.4 * t})`,
                 }}
               >
                 <Img
@@ -76,10 +80,9 @@ export const Built: React.FC = () => {
               </div>
               {/* Two lines, reserved. The names come from projects.json and run
                   from "Verde" to "Davidson Course Compass", so they wrap to
-                  different depths and the subtitles sat at four different
-                  heights. 36px rather than the titleLg 48: at 48 the longest
-                  name took three lines, overran the reserved block and printed
-                  on top of its own subtitle. At 36 it takes two. */}
+                  different depths and the subtitles would otherwise sit at four
+                  different heights. 36px rather than titleLg's 48: at 48 the
+                  longest name took three lines and printed over its subtitle. */}
               <div
                 style={{
                   ...type.titleLg,

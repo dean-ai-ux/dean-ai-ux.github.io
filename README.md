@@ -29,6 +29,7 @@ running any of them. Re-run one only when its inputs change.
 | `node scripts/gen-ridge.mjs` | `src/generated/ridge.ts` | the Verde checkout, `VERDE=` to override |
 | `node scripts/gen-app-icons.mjs` | `src/generated/app-icons.ts`, project marks | nothing |
 | `node scripts/gen-work-crops.mjs` | `public/media/work-*.jpg` | the source photographs, `SOURCES=` to override |
+| `npm run video:captures` | `public/media/film-*.jpg` | a built `dist/`, Chrome |
 | `npm run video:render` | `public/media/intro.mp4` | Remotion, which downloads its own headless Chrome |
 
 ### The intro film
@@ -40,9 +41,19 @@ the site ships a rendered mp4 and no Remotion code at all.
 
 ```
 npm run video:studio    # preview and iterate
+npm run video:captures  # re-photograph the site and the game
 npm run video:render    # public/media/intro.mp4
 npm run video:poster    # public/media/intro-poster.jpg
 ```
+
+The film shows the real site and the real game, photographed from `dist/` by
+`scripts/gen-film-captures.mjs`. Run `npm run build` before the captures, and
+re-run them whenever the site's appearance changes, or the film will keep
+showing an older design.
+
+Every transition is DOM-based on purpose. The shader presentations in
+`@remotion/transitions` render at roughly five seconds a frame here against
+0.2 for everything else, which turns a one-minute render into six.
 
 The composition reads the same `src/content/*.json` the site does, so the film
 cannot contradict the page. It does go stale: re-render after changing content

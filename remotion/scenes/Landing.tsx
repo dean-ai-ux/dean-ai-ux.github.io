@@ -1,6 +1,8 @@
 import React from 'react';
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, staticFile, useCurrentFrame } from 'remotion';
 import { ArcLine, Arrow } from '../parts';
+import { ease, ramp } from '../motion';
+import { GradientField } from '../backdrops';
 import { fontFamily, type, verde } from '../theme';
 import profile from '../../src/content/profile.json';
 
@@ -110,24 +112,12 @@ export const Landing: React.FC = () => {
      were semi-transparent at once and the tile's small type printed through the
      middle of the large type as a double exposure. The hero is now fully out at
      64 before the tile starts at 66. */
-  const heroProgress = interpolate(frame, [6, 44], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const heroOut = interpolate(frame, [48, 64], [1, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const heroLift = interpolate(frame, [48, 64], [0, -40], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  const heroProgress = ramp(frame, [6, 50], [0, 1], ease.enter);
+  const heroOut = ramp(frame, [54, 72], [1, 0], ease.exit);
+  const heroLift = ramp(frame, [54, 72], [0, -44], ease.exit);
 
-  const tileIn = interpolate(frame, [66, 88], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const tileScale = interpolate(tileIn, [0, 1], [1.07, 1]);
+  const tileIn = ramp(frame, [74, 100], [0, 1], ease.enter);
+  const tileScale = 1.07 - tileIn * 0.07;
 
   /* The ground turns over to the page's own white in the last second.
      Up to here the film has been forest edge to edge, and the tile is forest
@@ -137,15 +127,13 @@ export const Landing: React.FC = () => {
      the overlay are the same picture, which is the point of ending here.
      PAGE is --background in src/index.css, light mode: 0 0% 100%. */
   const PAGE = '#FFFFFF';
-  const ground = interpolate(frame, [70, 94], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  const ground = ramp(frame, [78, 108], [0, 1], ease.inOut);
 
   return (
     <AbsoluteFill
       style={{ background: verde.forest, justifyContent: 'center', alignItems: 'center' }}
     >
+      <GradientField seed="landing" intensity={0.7} />
       <AbsoluteFill style={{ background: PAGE, opacity: ground }} />
       {heroOut > 0 && (
         <AbsoluteFill
@@ -174,9 +162,9 @@ export const Landing: React.FC = () => {
           opacity: tileIn,
         }}
       >
-        <div style={{ transform: `scale(${TILE_SCALE * tileScale})` }}>
-          <Tile />
-        </div>
+          <div style={{ transform: `scale(${TILE_SCALE * tileScale})` }}>
+            <Tile />
+          </div>
       </AbsoluteFill>
     </AbsoluteFill>
   );

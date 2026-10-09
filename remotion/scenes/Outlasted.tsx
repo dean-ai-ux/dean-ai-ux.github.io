@@ -1,6 +1,7 @@
 import React from 'react';
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Img, staticFile, useCurrentFrame } from 'remotion';
 import { ActLabel, ArcLine } from '../parts';
+import { ease, ramp, useKenBurns } from '../motion';
 import { type, verde } from '../theme';
 import education from '../../src/content/education.json';
 
@@ -21,23 +22,15 @@ const permanent = fed?.outcomes?.find((o) => /ECO 386/.test(o.claim))?.claim ?? 
  */
 export const Outlasted: React.FC = () => {
   const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
 
-  const progress = interpolate(frame, [10, 52], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const claimOpacity = interpolate(frame, [52, 76], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const fade = interpolate(frame, [durationInFrames - 12, durationInFrames], [1, 0], {
-    extrapolateLeft: 'clamp',
-  });
-  const push = interpolate(frame, [0, durationInFrames], [1.06, 1.12]);
+  const progress = ramp(frame, [10, 58], [0, 1], ease.enter);
+  const claim = ramp(frame, [52, 84], [0, 1], ease.enter);
+  /* Pushed in and drifting left, so the group behind the type is never still
+     and the shot has somewhere to go across its whole length. */
+  const camera = useKenBurns({ from: 1.08, to: 1.18, dx: -40 });
 
   return (
-    <AbsoluteFill style={{ background: verde.forest, opacity: fade }}>
+    <AbsoluteFill style={{ background: verde.forest }}>
       <AbsoluteFill>
         <Img
           src={staticFile('media/fed-challenge.jpg')}
@@ -45,7 +38,7 @@ export const Outlasted: React.FC = () => {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            transform: `scale(${push})`,
+            transform: camera,
           }}
         />
       </AbsoluteFill>
@@ -72,7 +65,8 @@ export const Outlasted: React.FC = () => {
           style={{
             ...type.headlineMd,
             color: verde.onForest,
-            opacity: claimOpacity,
+            opacity: claim,
+            transform: `translateY(${(1 - claim) * 14}px)`,
             marginTop: 30,
             maxWidth: 1180,
           }}
