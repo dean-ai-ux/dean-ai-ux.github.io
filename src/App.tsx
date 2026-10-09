@@ -764,10 +764,6 @@ function ProofLink({ proof }: { proof: Proof }) {
   );
 }
 
-/** Every proof point attached to an entry, cited or not. */
-const proofCount = (item: Item) =>
-  (item.outcomes ?? []).reduce((n, o) => n + o.proof.length, 0) + (item.extraProof?.length ?? 0);
-
 /**
  * Work, as a strip you scroll sideways.
  *
@@ -789,14 +785,12 @@ function WorkSection({ items, onOpen }: { items: Item[]; onOpen: (i: number) => 
       onOpen={onOpen}
       entries={items.map((item) => {
         const r = item.dateRange;
-        const n = proofCount(item);
         return {
           id: item.id,
           title: item.title,
           subtitle: item.subtitle,
           dates: item.dates ?? '',
           duration: r ? span(r.start, r.end) || undefined : undefined,
-          footnote: n ? `${n} proof point${n === 1 ? '' : 's'}` : undefined,
           art: <TileArt item={item} />,
           mark: item.subtitle === lead
             ? { src: 'media/prophet-mark.png', alt: `${lead} logo` }

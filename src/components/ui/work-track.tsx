@@ -10,7 +10,6 @@ export interface TrackEntry {
   dates: string;
   duration?: string;
   art: React.ReactNode;
-  footnote?: string;
   /** An employer's mark, set in the card's top corner over the art. */
   mark?: { src: string; alt: string };
 }
@@ -88,9 +87,6 @@ export function WorkTrack({
                 <span className="absolute inset-x-0 bottom-0 flex flex-col p-5 text-white">
                   <span className="t-title-lg">{entry.title}</span>
                   <span className="t-caption text-white/75">{entry.subtitle}</span>
-                  {entry.footnote && (
-                    <span className="t-caption mt-2 text-white/60">{entry.footnote}</span>
-                  )}
                 </span>
               </button>
 
