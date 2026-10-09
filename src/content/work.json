@@ -7,10 +7,10 @@
     "start": "2026-10",
     "end": null,
     "summary": "Product builder on AI engagements, managing the Foundry’s contractors and building end-to-end tools that augment and reimagine client workflows.",
-    "context": "On AI engagements the title is product builder rather than a consulting grade, and the difference is not cosmetic: the deliverable is a working tool, not a recommendation about one. That changes the unit of work — scoping what to build, directing the contractors who build it, and owning whether it survives contact with how the client actually works.",
+    "context": "On AI engagements the title is product builder rather than a consulting grade, and the difference is not cosmetic: the deliverable is a working tool, not a recommendation about one. That changes the unit of work: scoping what to build, directing the contractors who build it, and owning whether it survives contact with how the client actually works.",
     "actions": [
       "Carry the product builder title on AI engagements, where what ships is a working tool rather than a recommendation.",
-      "Manage the Foundry’s contractors — scoping the work, briefing it, and reviewing what comes back.",
+      "Manage the Foundry’s contractors: scoping the work, briefing it, and reviewing what comes back.",
       "Build end-to-end AI tools that augment and reimagine how client teams work, from first scoping through deployment."
     ],
     "outcomes": [],
@@ -32,7 +32,7 @@
     "start": "2025-12",
     "end": null,
     "summary": "Founding member of the AI Foundry, owning internal AI product development and the deployment pipeline behind it.",
-    "context": "The Foundry develops applied AI systems for Prophet's Digital and Strategy practices. Its flagship platform, MAIA, connects specialized tools, data sources and reasoning systems through a single interface. Building it is largely an exercise in translation — between what the technology can do and what consulting teams actually need.",
+    "context": "The Foundry develops applied AI systems for Prophet's Digital and Strategy practices. Its flagship platform, MAIA, connects specialized tools, data sources and reasoning systems through a single interface. Building it is largely an exercise in translation, between what the technology can do and what consulting teams actually need.",
     "actions": [
       "Own internal AI product development: multi-agent, multi-interface tools and the deployment pipeline behind them.",
       "Serve as North America customer success lead for an AI partner, covering the relationship and internal enablement.",
@@ -98,7 +98,7 @@
     "start": "2025-07",
     "end": "2025-12",
     "summary": "Client delivery across the Digital practice, including the engagement that became Prophet's published digital twin method.",
-    "context": "Prophet's Digital discipline runs Uncommon Growth Labs — a four-week sprint format for businesses facing disruption — alongside longer client engagements.",
+    "context": "Prophet's Digital discipline runs Uncommon Growth Labs, a four-week sprint format for businesses facing disruption, alongside longer client engagements.",
     "actions": [
       "Delivered five Uncommon Growth Lab sprints across different industries.",
       "Developed the firm's digital twin method on a heritage footwear engagement, turning tariff-driven brand switching into an acquisition playbook.",
@@ -134,14 +134,14 @@
       {
         "id": "footwear-case",
         "type": "link",
-        "title": "Prophet case study — men's and boys' footwear client",
+        "title": "Prophet case study: men's and boys' footwear client",
         "url": "https://prophet.com/case-studies/men-boys-footwear-client/",
         "note": "Published by Prophet."
       },
       {
         "id": "supply-wisdom-case",
         "type": "link",
-        "title": "Prophet case study — Supply Wisdom",
+        "title": "Prophet case study: Supply Wisdom",
         "url": "https://prophet.com/case-studies/supply-wisdom/",
         "note": "Published by Prophet."
       },
@@ -250,7 +250,7 @@
     "image": {
       "file": "assets/madrideasy.jpg",
       "alt": "A MadridEasy advertisement: two people holding pillows above their heads in a furnished Madrid flat, overlaid with the text Paseo de Perales (Madrid), Reserva tu piso and madrideasy.com.",
-      "caption": "A MadridEasy listing ad I appeared in — Paseo de Perales, Madrid."
+      "caption": "A MadridEasy listing ad I appeared in. Paseo de Perales, Madrid."
     }
   },
   {

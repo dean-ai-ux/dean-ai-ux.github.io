@@ -6,7 +6,7 @@
     "location": "Davidson, NC",
     "start": "2021-08",
     "end": "2025-05",
-    "summary": "Economics and data science, with monetary policy as the throughline — coursework, a co-authored paper, and founding the college's Fed Challenge team.",
+    "summary": "Economics and data science, with monetary policy as the throughline: coursework, a co-authored paper, and founding the college's Fed Challenge team.",
     "context": "Davidson is a liberal arts college, and the economics work here was deliberately paired with that: the argument of the Fed Challenge team was that an economics education is stronger read through a liberal arts perspective, not narrower.",
     "actions": [
       "Co-authored a paper on adapting rules-based monetary policy to crisis intervention for ECO 495, What's Wrong With Economics?, under Dr. Jaya Jha.",
@@ -31,7 +31,7 @@
         "type": "doc",
         "title": "Challenges of Adapting a Rules Based Monetary Policy Approach to Crisis Intervention",
         "url": "assets/rules-based-monetary-policy-crisis-intervention.pdf",
-        "note": "With Zuber Chawla. ECO 495, Dr. Jaya Jha, May 2025. Hosted here — open it."
+        "note": "With Zuber Chawla. ECO 495, Dr. Jaya Jha, May 2025. Hosted here. Open it."
       }
     ],
     "attestations": [],
@@ -46,7 +46,7 @@
   {
     "id": "davidson-fed-challenge",
     "org": "Davidson College",
-    "role": "Fed Challenge — founder, independent study",
+    "role": "Fed Challenge: founder, independent study",
     "location": "Davidson, NC",
     "start": "2024-07",
     "end": "2024-12",
@@ -66,7 +66,7 @@
         ]
       },
       {
-        "claim": "Prof. Stroup formalized the effort as ECO 386, a permanent economics department course — so it outlived the team that started it.",
+        "claim": "Prof. Stroup formalized the effort as ECO 386, a permanent economics department course, so it outlived the team that started it.",
         "evidence": [
           "davidson-article"
         ]
@@ -86,7 +86,7 @@
       {
         "id": "davidson-article",
         "type": "link",
-        "title": "Davidson College — Davidson's Fed Challenge team reaches national finals",
+        "title": "Davidson College: Davidson's Fed Challenge team reaches national finals",
         "url": "https://www.davidson.edu/news/2026/04/08/davidsons-fed-challenge-team-reaches-national-finals",
         "note": "Names the 2024 founding team and records both the top-15% debut and the 2026 finals run."
       }

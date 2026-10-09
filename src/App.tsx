@@ -55,7 +55,7 @@ const started = (start: string) => {
 
 /** The range as shown. A role that has not begun has no end to show. */
 const range = (start: string, end: string | null) =>
-  started(start) ? `${fmt(start)} — ${fmt(end)}` : `From ${fmt(start)}`;
+  started(start) ? `${fmt(start)} – ${fmt(end)}` : `From ${fmt(start)}`;
 
 function span(start: string, end: string | null) {
   const [ys, ms] = start.split('-').map(Number);

@@ -5,13 +5,13 @@
     "role": "Design system",
     "start": "2026-08",
     "end": null,
-    "summary": "A Swiss, rectilinear design system whose distinguishing idea is that every rule declares who is able to check it — and 14 of them fail the build.",
-    "context": "Most design systems write their rules down as though a build could verify all of them. It cannot: no linter decides whether a page uses one term per concept, and none decides whether a keyboard user can finish a flow. Verde's answer is to make that explicit rather than paper over it. Each of its 26 rules names its enforcer — a script, a model, or a person — and a report claiming every rule green without naming a checker for each is claiming coverage it does not have.",
+    "summary": "A Swiss, rectilinear design system whose distinguishing idea is that every rule declares who is able to check it, and 14 of them fail the build.",
+    "context": "Most design systems write their rules down as though a build could verify all of them. It cannot: no linter decides whether a page uses one term per concept, and none decides whether a keyboard user can finish a flow. Verde's answer is to make that explicit rather than paper over it. Each of its 26 rules names its enforcer, whether a script, a model, or a person, and a report claiming every rule green without naming a checker for each is claiming coverage it does not have.",
     "actions": [
       "Built the token layer as a single source of truth: one file, with the CSS custom properties, the machine-readable set, the slide constants and the icon catalogue all generated from it and never hand-edited.",
-      "Wrote the gate — 14 static rules that fail a build, covering hardcoded hex, off-scale spacing, contrast floors, the weight ladder, focus visibility and reduced motion.",
+      "Wrote the gate: 14 static rules that fail a build, covering hardcoded hex, off-scale spacing, contrast floors, the weight ladder, focus visibility and reduced motion.",
       "Gave the other 12 rules an honest register instead of a false pass: 11 that need a model to read the artifact, and 1 that needs a person at a keyboard.",
-      "Drew a 36-component canon where every component defines rest, hover, pressed, focus and disabled — or states which it omits and why.",
+      "Drew a 36-component canon where every component defines rest, hover, pressed, focus and disabled, or states which it omits and why.",
       "Built a generative imagery system, seeded so a figure can be cited and reproduced exactly, taking its colors as roles so the artwork follows light and dark.",
       "Chose Archivo, which is open-licensed, so the web system and the deck system cannot drift apart the way they do when only one of them can legally ship the typeface."
     ],
@@ -21,7 +21,7 @@
         "evidence": []
       },
       {
-        "claim": "Closed the verdict vocabulary to three — pass, fail and not_checkable — with not_checkable never omitted and never quietly promoted to a pass.",
+        "claim": "Closed the verdict vocabulary to three (pass, fail and not_checkable), with not_checkable never omitted and never quietly promoted to a pass.",
         "evidence": []
       },
       {
@@ -56,7 +56,7 @@
     "summary": "A single-file browser game that puts you on the FOMC for a year: set the policy rate, watch inflation, unemployment and the Sahm Rule respond.",
     "context": "Monetary policy is taught as a set of rules and explained as a set of tradeoffs, but neither conveys what it feels like to make the call with incomplete data and a lag before anything responds. A simulator does.",
     "actions": [
-      "Built the whole thing as one self-contained HTML file — no build step, no dependencies, and no external requests, so it runs from a file:// URL forever.",
+      "Built the whole thing as one self-contained HTML file: no build step, no dependencies, and no external requests, so it runs from a file:// URL forever.",
       "Modeled headline PCE, U3 unemployment, the Sahm Rule and the policy rate midpoint, with a news and events feed driving shocks.",
       "Drew the charts on canvas and kept a history panel so a player can see how their own path compares with where they started."
     ],
@@ -68,7 +68,7 @@
         ]
       },
       {
-        "claim": "Makes four indicators legible at once — headline PCE, U3, the Sahm Rule and the policy rate — against decisions the player actually made.",
+        "claim": "Makes four indicators legible at once (headline PCE, U3, the Sahm Rule and the policy rate) against decisions the player actually made.",
         "evidence": [
           "fed-chair-app"
         ]
@@ -80,7 +80,7 @@
         "type": "app",
         "title": "Play Fed Chair for a Year",
         "url": "assets/fed-chair-for-a-year.html",
-        "note": "Single file, v4.2. Hosted here — opens in a new tab."
+        "note": "Single file, v4.2. Hosted here. Opens in a new tab."
       }
     ],
     "attestations": [],
@@ -97,7 +97,7 @@
   },
   {
     "id": "maia",
-    "org": "MAIA — Prophet",
+    "org": "MAIA at Prophet",
     "role": "Agentic AI platform, contributor",
     "start": "2024-08",
     "end": null,
@@ -137,7 +137,7 @@
       {
         "id": "maia-announcement",
         "type": "link",
-        "title": "Prophet — introducing MAIA",
+        "title": "Prophet: introducing MAIA",
         "url": "https://okt.to/dwySXc",
         "note": "Prophet's public announcement."
       },
@@ -208,10 +208,10 @@
     "start": "2025-04",
     "end": "2025-05",
     "summary": "A custom-built AI assistant that helps Davidson students assemble conflict-free four-course schedules for a semester.",
-    "context": "Course registration at Davidson means satisfying major and minor requirements, the Ways of Knowing distribution, prerequisite chains and registration restrictions — then fitting four courses into a week without collisions. The information needed to do that is spread across a catalog PDF, the WebTree selection flowchart, and whatever a student can find out about instructors. Built as a class project.",
+    "context": "Course registration at Davidson means satisfying major and minor requirements, the Ways of Knowing distribution, prerequisite chains and registration restrictions, then fitting four courses into a week without collisions. The information needed to do that is spread across a catalog PDF, the WebTree selection flowchart, and whatever a student can find out about instructors. Built as a class project.",
     "actions": [
       "Grounded the assistant in four sources: the official Fall 2025 course catalog, the WebTree 2.0 selection logic, RateMyProfessor instructor ratings, and the student's own answers gathered conversationally.",
-      "Encoded the rules that make a schedule invalid — prerequisite chains, registration restrictions, time conflicts and credit overloads — so the assistant checks rather than suggests.",
+      "Encoded the rules that make a schedule invalid (prerequisite chains, registration restrictions, time conflicts and credit overloads) so the assistant checks rather than suggests.",
       "Wrote and shipped the tool's limitations alongside it rather than in a footnote."
     ],
     "outcomes": [
@@ -222,7 +222,7 @@
         ]
       },
       {
-        "claim": "Integrated four separate sources into one conversational interface — course catalog, WebTree selection logic, instructor ratings, and live student input.",
+        "claim": "Integrated four separate sources into one conversational interface: course catalog, WebTree selection logic, instructor ratings, and live student input.",
         "evidence": [
           "compass-flyer"
         ]
@@ -238,9 +238,9 @@
       {
         "id": "compass-flyer",
         "type": "doc",
-        "title": "Davidson Course Compass — what it is, what it was trained on, and what it cannot do",
+        "title": "Davidson Course Compass: what it is, what it was trained on, and what it cannot do",
         "url": "assets/davidson-course-compass.pdf",
-        "note": "The tool's own documentation. Hosted here — open it."
+        "note": "The tool's own documentation. Hosted here. Open it."
       }
     ],
     "attestations": [],
@@ -261,8 +261,8 @@
     "role": "Custom GPT for a Davidson eating house",
     "start": "2024-09",
     "end": "2024-09",
-    "summary": "An AI assistant for Rusk Eating House that answers on the bylaws, the handbook, the weekly menu and the cleanup rota — with a touch of southern charm.",
-    "context": "Rusk is a Davidson eating house, established 1977. Everything it runs on lives in four separate documents: a bylaws file, a handbook, a weekly menu and a cleanup schedule. Answering an ordinary question — whose week is it, what is the rule on this, what is for dinner — means knowing which of the four to open, so mostly nobody bothered and the same questions got asked out loud instead.",
+    "summary": "An AI assistant for Rusk Eating House that answers on the bylaws, the handbook, the weekly menu and the cleanup rota, with a touch of southern charm.",
+    "context": "Rusk is a Davidson eating house, established 1977. Everything it runs on lives in four separate documents: a bylaws file, a handbook, a weekly menu and a cleanup schedule. Answering an ordinary question (whose week is it, what is the rule on this, what is for dinner) means knowing which of the four to open, so mostly nobody bothered and the same questions got asked out loud instead.",
     "actions": [
       "Grounded the assistant in the house's own documents: the bylaws, the handbook, the weekly menu and the cleanup schedule.",
       "Gave it a voice that fits the house rather than a neutral corporate one, so people would actually use it.",
@@ -295,11 +295,11 @@
   {
     "id": "macro-health-tracker",
     "placeholder": true,
-    "org": "EXAMPLE — macroeconomic health tracker",
+    "org": "EXAMPLE: macroeconomic health tracker",
     "role": "What it is, in three words",
     "start": "2026-01",
     "end": null,
-    "summary": "REPLACE — one line on what it tracks and who it is for. You mentioned this one; fill it in and delete the placeholder flag.",
+    "summary": "REPLACE: one line on what it tracks and who it is for. You mentioned this one; fill it in and delete the placeholder flag.",
     "context": "Why you built it.",
     "actions": [
       "The interesting technical decision.",

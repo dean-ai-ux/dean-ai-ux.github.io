@@ -90,15 +90,15 @@
         "points": [
           {
             "lead": "The black box problem.",
-            "text": "Companies can’t reveal what’s actually inside their tools without destroying their competitive advantage. So trust gets built the same way crypto built it—through marketing, UI polish, and storytelling rather than transparency."
+            "text": "Companies can’t reveal what’s actually inside their tools without destroying their competitive advantage. So trust gets built the same way crypto built it, through marketing, UI polish, and storytelling rather than transparency."
           },
           {
             "lead": "The wrapper economy.",
-            "text": "Foundation models are essentially a commodity. Everyone is building on similar underlying models. The actual differentiation comes from the wrapper—the interface, the positioning, the narrative about what the tool does. That means the UI is the marketing, and aesthetic experience becomes the primary signal of value for most users."
+            "text": "Foundation models are essentially a commodity. Everyone is building on similar underlying models. The actual differentiation comes from the wrapper: the interface, the positioning, the narrative about what the tool does. That means the UI is the marketing, and aesthetic experience becomes the primary signal of value for most users."
           },
           {
             "lead": "Unverifiable output quality.",
-            "text": "If an AI tool claims to simulate customer behavior or generate strategic insight, how do you validate that? Companies run internal tests, tune results, and present favorable outcomes. There’s no external standard for what “good output” actually means—which makes it easy to tell a compelling story that’s hard to falsify."
+            "text": "If an AI tool claims to simulate customer behavior or generate strategic insight, how do you validate that? Companies run internal tests, tune results, and present favorable outcomes. There’s no external standard for what “good output” actually means, which makes it easy to tell a compelling story that’s hard to falsify."
           }
         ]
       },
@@ -107,11 +107,11 @@
         "points": [
           {
             "lead": "Demand verifiable claims.",
-            "text": "If a company can’t show you independent validation of their results—not internal benchmarks, not cherry-picked case studies—treat their claims the same way you’d treat an unaudited crypto exchange. The burden of proof should be on them."
+            "text": "If a company can’t show you independent validation of their results, not internal benchmarks and not cherry-picked case studies, treat their claims the same way you’d treat an unaudited crypto exchange. The burden of proof should be on them."
           },
           {
             "lead": "Separate the technology from the business model.",
-            "text": "AI is real and useful. But that doesn’t mean every company built on top of it is solving a real problem. Ask what the company does that the foundation model alone doesn’t—and whether that wrapper is genuinely valuable or just a story."
+            "text": "AI is real and useful. But that doesn’t mean every company built on top of it is solving a real problem. Ask what the company does that the foundation model alone doesn’t, and whether that wrapper is genuinely valuable or just a story."
           },
           {
             "lead": "Watch what the UI is doing.",
