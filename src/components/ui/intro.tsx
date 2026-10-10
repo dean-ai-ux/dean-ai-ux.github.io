@@ -35,7 +35,7 @@ const markSeen = () => {
 
 /**
  * Decided once, before the <video> is ever mounted, so a returning visitor does
- * not download 1.6MB to discover they are not going to watch it.
+ * not download the film to discover they are not going to watch it.
  */
 function shouldPlay(): boolean {
   if (typeof window === 'undefined') return false;
@@ -137,10 +137,12 @@ export function Intro() {
       onClick={dismiss}
       className="fixed inset-0 z-[60] flex items-center justify-center transition-[opacity,background-color] duration-[420ms]"
       style={{
-        /* Forest while the film is on its own ground, turning over to the
-           page's white as the film does. The bars either side of a 16:9 film in
-           a portrait window are therefore never a colour the film is not. */
-        backgroundColor: settling ? '#FFFFFF' : '#12352A',
+        /* The film's own near-black while it plays, turning over to the page's
+           white as the film does. The bars either side of a 16:9 film in a
+           portrait window are therefore never a colour the film is not. This
+           was forest green for the previous cut; left that way it would have
+           framed a black film in green bars on every phone. */
+        backgroundColor: settling ? '#FFFFFF' : '#07090A',
         opacity: state === 'leaving' ? 0 : 1,
       }}
     >

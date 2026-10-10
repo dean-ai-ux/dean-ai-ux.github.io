@@ -113,3 +113,22 @@ export const useDrift = (period: number, amplitude: number, phase = 0) => {
 
 /** Stagger helper: the delay for item `i` in a group. */
 export const stagger = (i: number, step = 6, base = 0) => base + i * step;
+
+/**
+ * Apple's springs.
+ *
+ * The easing curves above move things the way a good website does. Apple films
+ * move things the way iOS does: a little past where they are going, then back.
+ * `pop` overshoots a few percent and settles, which is the Dynamic Island feel;
+ * `glide` barely overshoots, for large panels that should feel heavy.
+ */
+export const springs = {
+  pop: { damping: 13, stiffness: 140, mass: 0.8 },
+  glide: { damping: 20, stiffness: 90, mass: 1.1 },
+} as const;
+
+export const usePop = (delay = 0, config: keyof typeof springs = 'pop') => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  return spring({ frame: frame - delay, fps, config: springs[config] });
+};

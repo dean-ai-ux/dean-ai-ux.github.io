@@ -34,8 +34,15 @@ running any of them. Re-run one only when its inputs change.
 
 ### The intro film
 
-An 18 second film that plays over the landing page on a first visit and gets out
-of the way on the first scroll, click, key press or when it ends. Built with
+A 24 second film that plays over the landing page on a first visit and gets out
+of the way on the first scroll, click, key press or when it ends. Apple keynote
+style with liquid glass: three thoughts from the bio, each followed by the work
+behind it, ending on the landing tile. Shot list in `remotion/shots/index.ts`;
+each shot is also its own composition, so one can be previewed or stilled alone.
+
+The glass (`remotion/glass.tsx`) draws its own copy of the scene behind it,
+nearly clear in the middle and magnified harder in a band at the rim. Glass
+that frames words is sized from the measured width of those words. Built with
 Remotion in `remotion/`, which is outside `src` and never enters the app bundle:
 the site ships a rendered mp4 and no Remotion code at all.
 

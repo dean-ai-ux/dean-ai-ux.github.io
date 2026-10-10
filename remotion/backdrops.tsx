@@ -1,8 +1,6 @@
 import React from 'react';
-import { AbsoluteFill, random, staticFile, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, staticFile, useCurrentFrame } from 'remotion';
 import { ease, ramp } from './motion';
-import { useDrift } from './motion';
-import { verde } from './theme';
 
 /**
  * What sits behind the type.
@@ -15,80 +13,6 @@ import { verde } from './theme';
  * the thing you look at, it has failed, so the contrast ceilings here are
  * deliberately low and should stay that way.
  */
-
-/**
- * Two large radial washes drifting against each other.
- *
- * This is what gives a flat fill depth. A single colour across 1920x1080 reads
- * as a slide; the same colour with a soft off-centre lift reads as a space with
- * light in it. The two washes move on different periods and are never in phase,
- * so the field never settles into a pattern you can read.
- */
-export const GradientField: React.FC<{
-  seed?: string;
-  intensity?: number;
-}> = ({ seed = 'verdevista', intensity = 1 }) => {
-  const a = random(`${seed}-a`);
-  const b = random(`${seed}-b`);
-
-  const ax = 28 + useDrift(520, 9, a * 200);
-  const ay = 22 + useDrift(610, 7, b * 200);
-  const bx = 76 + useDrift(470, 11, 140 + a * 200);
-  const by = 72 + useDrift(680, 8, 260 + b * 200);
-
-  return (
-    <AbsoluteFill style={{ background: verde.forest }}>
-      <AbsoluteFill
-        style={{
-          background: `radial-gradient(60% 55% at ${ax}% ${ay}%, ${verde.sage} 0%, transparent 70%)`,
-          opacity: 0.3 * intensity,
-        }}
-      />
-      <AbsoluteFill
-        style={{
-          background: `radial-gradient(55% 50% at ${bx}% ${by}%, #1E5140 0%, transparent 72%)`,
-          opacity: 0.42 * intensity,
-        }}
-      />
-      {/* A top-down darkening, so type set low always has a ground. */}
-      <AbsoluteFill
-        style={{
-          background: `linear-gradient(to bottom, transparent 35%, ${verde.forest} 100%)`,
-          opacity: 0.55,
-        }}
-      />
-    </AbsoluteFill>
-  );
-};
-
-/**
- * A sparse drifting rule grid.
- *
- * Verde is a Swiss, rectilinear system, so the one ornament the film allows
- * itself is the grid that system is built on. Held at 5% it is felt rather than
- * seen, which is the point: it gives the eye a sense of a plane behind the type
- * without giving it anything to read.
- */
-export const RuleGrid: React.FC<{ opacity?: number; spacing?: number }> = ({
-  opacity = 0.05,
-  spacing = 120,
-}) => {
-  const x = useDrift(900, 26);
-  const y = useDrift(1100, 18, 300);
-  return (
-    <AbsoluteFill
-      style={{
-        opacity,
-        transform: `translate(${x}px, ${y}px)`,
-        backgroundImage: `linear-gradient(${verde.onForest} 1px, transparent 1px),
-                          linear-gradient(90deg, ${verde.onForest} 1px, transparent 1px)`,
-        backgroundSize: `${spacing}px ${spacing}px`,
-        /* Oversized so the drift never exposes an edge. */
-        inset: -spacing * 2,
-      }}
-    />
-  );
-};
 
 /**
  * Film grain, as a tiled still.
