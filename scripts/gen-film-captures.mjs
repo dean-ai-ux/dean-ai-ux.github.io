@@ -47,6 +47,10 @@ const SHOTS = [
     note: 'the built section, one screen' },
   { out: 'film-game.jpg', url: '/media/fed-chair-for-a-year.html', width: 1280, height: 860,
     full: false, note: 'Fed Chair for a Year, running' },
+  /* The portrait cut shows the site as a phone sees it, not the desktop page
+     squeezed into a tall window. */
+  { out: 'film-site-mobile.jpg', url: '/', width: 430, height: 932, full: true, mobile: true,
+    note: 'the landing page at phone width, for the portrait cut' },
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -104,7 +108,7 @@ await send('Page.addScriptToEvaluateOnNewDocument', {
 const results = [];
 for (const shot of SHOTS) {
   await send('Emulation.setDeviceMetricsOverride', {
-    width: shot.width, height: shot.height, deviceScaleFactor: 2, mobile: false,
+    width: shot.width, height: shot.height, deviceScaleFactor: shot.mobile ? 3 : 2, mobile: !!shot.mobile,
   });
   await send('Page.navigate', { url: `http://127.0.0.1:${PORT}${shot.url}` });
   /* Long enough for the webfont, the images and framer's entrances. Entrances

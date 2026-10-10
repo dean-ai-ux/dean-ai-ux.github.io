@@ -9,13 +9,14 @@ import { ease, ramp } from './motion';
 import { SHOTS } from './shots';
 
 /**
- * Twenty-four seconds, nine shots: three of Dean's thoughts from his bio, each
- * followed by the work that backs it, ending on the landing page itself.
+ * Twenty-eight seconds, ten shots, in three chapters: what separates useful AI
+ * from merely impressive AI, why deliverables should stay alive, and why
+ * forward guidance needs explicit thresholds. Each idea is followed by the work
+ * that backs it, and the film ends on the landing page itself.
  *
- * The storyboard (reviewed and approved before this was built) fixed each
- * shot's length. Cross-fades overlap neighbours, so every shot but the last is
- * lengthened by the fade it shares with the next one, and the total still lands
- * on 720 frames: 816 of sequence minus 8 fades of 12.
+ * The storyboard fixed each shot's length. Cross-fades overlap neighbours, so
+ * every shot but the last is lengthened by the fade it shares with the next,
+ * and the total still lands on the sum of the shot lengths, 840 frames.
  *
  * Fades only, and short ones. Most of the movement between ideas happens inside
  * the shots, as glass travelling and settling, so the seams should be quiet.
@@ -60,8 +61,8 @@ export const Intro: React.FC = () => (
     </TransitionSeries>
 
     {/* Grain and vignette over the dark shots, lifted before the ground turns
-        white so the last frame is as flat as the page it hands off to. Shot 9
-        starts at frame 675. */}
-    <Finishing liftFrom={668} liftTo={692} />
+        white so the last frame is as flat as the page it hands off to. The
+        closing shot starts at frame 798. */}
+    <Finishing liftFrom={792} liftTo={816} />
   </AbsoluteFill>
 );

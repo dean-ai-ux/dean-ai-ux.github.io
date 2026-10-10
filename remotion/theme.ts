@@ -65,6 +65,6 @@ export const type = {
 export const TILE_SCALE = SCALE;
 
 export const FPS = 30;
-export const DURATION = 720; // 24 seconds
+export const DURATION = 840; // 28 seconds
 export const WIDTH = 1920;
 export const HEIGHT = 1080;

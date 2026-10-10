@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Img, staticFile, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, Img, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { useDrift } from './motion';
 import { verde } from './theme';
 
@@ -37,10 +37,15 @@ export const Glows: React.FC<{ glows?: Glow[]; drift?: number }> = ({
 const GlowPool: React.FC<{ glow: Glow; index: number; drift: number }> = ({ glow, index, drift }) => {
   const dx = useDrift(380 + index * 70, 4 * drift, index * 90);
   const dy = useDrift(450 + index * 55, 3 * drift, index * 140);
+  /* Radii are percentages of each side, so a circle needs the vertical radius
+     scaled by the frame's aspect. This was a fixed 1.6, tuned by eye for a wide
+     frame; in the portrait cut it stretched every glow into a tall streak. */
+  const { width, height } = useVideoConfig();
+  const ry = glow.r * 100 * (width / height) * 0.9;
   return (
     <AbsoluteFill
       style={{
-        background: `radial-gradient(${glow.r * 100}% ${glow.r * 100 * 1.6}% at ${glow.x + dx}% ${
+        background: `radial-gradient(${glow.r * 100}% ${ry}% at ${glow.x + dx}% ${
           glow.y + dy
         }%, ${glow.color} 0%, transparent 70%)`,
         opacity: glow.alpha,

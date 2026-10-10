@@ -1,20 +1,25 @@
-import { ShotClose, ShotOpen } from './bookends';
-import { ShotLiving, ShotNeeds, ShotThresholds, ShotUseful } from './thoughts';
-import { ShotEco, ShotFoundry, ShotLive } from './proofs';
+import { ShotClose, ShotOpen, ShotQuestion } from './open';
+import { ShotFoundry, ShotSystem } from './ai';
+import { ShotLiving, ShotProjects } from './deliverables';
+import { ShotDavidson, ShotGame, ShotGuidance } from './policy';
 
 /**
- * The approved storyboard, in order. `frames` is each shot's length on screen
- * and adds to 720; `key` is the frame its storyboard still was taken from, so
- * the review stills can be re-rendered at any time with the same framing.
+ * Storyboard v2, in order. `frames` is each shot's time on screen and adds to
+ * 840 (28 seconds). `key` is the frame its review still is taken from: late
+ * enough that the shot's diagram has finished drawing.
+ *
+ * Every diagram holds at least two seconds after it finishes drawing; the
+ * timings inside each shot are set against these lengths.
  */
 export const SHOTS = [
-  { id: 'Shot1-Open', component: ShotOpen, frames: 60, key: 46 },
-  { id: 'Shot2-Useful', component: ShotUseful, frames: 90, key: 72 },
-  { id: 'Shot3-Needs', component: ShotNeeds, frames: 90, key: 82 },
-  { id: 'Shot4-Foundry', component: ShotFoundry, frames: 105, key: 90 },
-  { id: 'Shot5-Living', component: ShotLiving, frames: 75, key: 68 },
-  { id: 'Shot6-Live', component: ShotLive, frames: 105, key: 66 },
-  { id: 'Shot7-Thresholds', component: ShotThresholds, frames: 75, key: 70 },
-  { id: 'Shot8-Eco', component: ShotEco, frames: 75, key: 70 },
-  { id: 'Shot9-Close', component: ShotClose, frames: 45, key: 44 },
+  { id: 'S01-Open', component: ShotOpen, frames: 54, key: 46 },
+  { id: 'S02-Question', component: ShotQuestion, frames: 60, key: 56 },
+  { id: 'S03-System', component: ShotSystem, frames: 156, key: 120 },
+  { id: 'S04-Foundry', component: ShotFoundry, frames: 108, key: 90 },
+  { id: 'S05-Living', component: ShotLiving, frames: 99, key: 92 },
+  { id: 'S06-Projects', component: ShotProjects, frames: 66, key: 60 },
+  { id: 'S07-Guidance', component: ShotGuidance, frames: 126, key: 110 },
+  { id: 'S08-Game', component: ShotGame, frames: 48, key: 44 },
+  { id: 'S09-Davidson', component: ShotDavidson, frames: 81, key: 72 },
+  { id: 'S10-Close', component: ShotClose, frames: 42, key: 41 },
 ] as const;

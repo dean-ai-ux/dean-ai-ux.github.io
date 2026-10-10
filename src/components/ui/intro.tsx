@@ -51,6 +51,12 @@ function shouldPlay(): boolean {
 }
 
 export function Intro() {
+  /* Which cut, decided once, before the <video> mounts, so a phone downloads
+     only the portrait file and a laptop only the landscape one. Portrait is
+     anything taller than it is wide. */
+  const [portrait] = React.useState(
+    () => typeof window !== 'undefined' && !!window.matchMedia?.('(max-aspect-ratio: 1/1)').matches,
+  );
   const [state, setState] = React.useState<'playing' | 'leaving' | 'gone'>(() =>
     shouldPlay() ? 'playing' : 'gone',
   );
@@ -148,8 +154,8 @@ export function Intro() {
     >
       <video
         ref={videoRef}
-        src="media/intro.mp4"
-        poster="media/intro-poster.jpg"
+        src={portrait ? 'media/intro-portrait.mp4' : 'media/intro.mp4'}
+        poster={portrait ? 'media/intro-portrait-poster.jpg' : 'media/intro-poster.jpg'}
         muted
         autoPlay
         playsInline
@@ -161,8 +167,11 @@ export function Intro() {
           const v = e.currentTarget;
           if (v.duration && v.currentTime > v.duration - 1.3) setSettling(true);
         }}
-        /* contain, not cover. Cover would crop a 16:9 film to a portrait phone
-           and show about a quarter of the frame, cutting the type in half. */
+        /* contain, not cover, even now that each device gets a cut shaped for
+           it. Phones are narrower than 9:16 (a 390x844 screen is 0.46 against
+           the film's 0.56), so cover would trim the sides where the chapter
+           labels and the left-aligned type sit. The bars contain leaves are
+           the film's own ink, and they turn white with it at the end. */
         className="size-full object-contain"
       />
 

@@ -1,73 +1,11 @@
 import React from 'react';
-import { AbsoluteFill, continueRender, delayRender } from 'remotion';
-import { Glass, Rect } from '../glass';
-import { fontFamily } from '../theme';
+import { continueRender, delayRender } from 'remotion';
+import { useOrientation, useType } from '../layout';
 
 /**
- * Type set the way Apple sets it: heavy, tight, and very large against very
- * small. Archivo rather than SF Pro, whose licence does not cover this use.
+ * Shared pieces for the shots: measuring real text so glass can be sized to
+ * it, and the chapter label.
  */
-const base: React.CSSProperties = { fontFamily, color: '#FFFFFF', fontVariationSettings: "'wdth' 100" };
-
-export const apple = {
-  hero: { ...base, fontSize: 210, fontWeight: 700, letterSpacing: '-0.045em', lineHeight: 1 },
-  display: { ...base, fontSize: 124, fontWeight: 700, letterSpacing: '-0.04em', lineHeight: 1.02 },
-  title: { ...base, fontSize: 68, fontWeight: 650, letterSpacing: '-0.03em', lineHeight: 1.08 },
-  body: { ...base, fontSize: 40, fontWeight: 550, letterSpacing: '-0.015em', lineHeight: 1.2 },
-  label: { ...base, fontSize: 24, fontWeight: 650, letterSpacing: '0.14em', textTransform: 'uppercase' as const },
-} as const;
-
-export const dim = (a: number) => `rgba(255,255,255,${a})`;
-
-/** A block of text centred on a point, so a lens can be placed around it by coordinates. */
-export const At: React.FC<{
-  x?: number;
-  y: number;
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  align?: 'center' | 'left';
-}> = ({ x = 960, y, children, style, align = 'center' }) => (
-  <div
-    style={{
-      position: 'absolute',
-      left: align === 'center' ? 0 : x,
-      right: align === 'center' ? 0 : undefined,
-      top: y,
-      transform: 'translateY(-50%)',
-      textAlign: align,
-      whiteSpace: 'nowrap',
-      ...style,
-    }}
-  >
-    {children}
-  </div>
-);
-
-/**
- * A glass capsule with text on it. The text sits on the glass rather than
- * behind it, which is how Apple labels controls, and it keeps the words crisp.
- */
-export const Chip: React.FC<{
-  rect: Rect;
-  backdrop: React.ReactNode;
-  children: React.ReactNode;
-  textStyle?: React.CSSProperties;
-  sheen?: number;
-  opacity?: number;
-  lift?: number;
-  scale?: number;
-}> = ({ rect, backdrop, children, textStyle, sheen = 0.3, opacity = 1, lift = 0, scale = 1 }) => {
-  const r = { ...rect, y: rect.y + lift };
-  return (
-    <div style={{ opacity, transform: `scale(${scale})`, transformOrigin: `${r.x + r.w / 2}px ${r.y + r.h / 2}px`, position: 'absolute', inset: 0 }}>
-      <Glass rect={r} radius={Math.min(r.h / 2, 48)} backdrop={backdrop} sheen={sheen} edgeBand={0.32}>
-        <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <div style={{ ...apple.body, ...textStyle }}>{children}</div>
-        </AbsoluteFill>
-      </Glass>
-    </div>
-  );
-};
 
 /** Rough text width, used only as a placeholder until the real measurement lands. */
 export const widthOf = (text: string, size: number, tracking = -0.04) =>
@@ -115,4 +53,27 @@ export const useWidths = (texts: string[], style: React.CSSProperties) => {
   const get = (i: number, fallbackSize = 40) =>
     widths ? widths[i] : widthOf(texts[i], fallbackSize);
   return { probe, get };
+};
+
+/**
+ * The chapter label. Same place in every shot of a cut, so it reads as
+ * navigation: the viewer always knows which of the three ideas they are in.
+ */
+export const Eyebrow: React.FC<{ children: React.ReactNode; appear?: number }> = ({ children, appear = 1 }) => {
+  const { portrait } = useOrientation();
+  const t = useType();
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: portrait ? 80 : 120,
+        top: portrait ? 150 : 96,
+        ...t.eyebrow,
+        opacity: appear,
+        transform: `translateY(${(1 - appear) * 12}px)`,
+      }}
+    >
+      {children}
+    </div>
+  );
 };

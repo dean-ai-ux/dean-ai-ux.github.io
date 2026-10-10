@@ -1,6 +1,5 @@
 import React from 'react';
-import { AbsoluteFill } from 'remotion';
-import { HEIGHT, WIDTH } from './theme';
+import { AbsoluteFill, useVideoConfig } from 'remotion';
 
 /**
  * Liquid glass.
@@ -37,6 +36,8 @@ export const Glass: React.FC<{
   /** 0 to 1, slides the highlight across the surface. */
   sheen?: number;
   tint?: number;
+  /** A dark layer inside the glass, for panels over photographs. */
+  shade?: number;
   children?: React.ReactNode;
   style?: React.CSSProperties;
 }> = ({
@@ -50,6 +51,7 @@ export const Glass: React.FC<{
   edgeBand = 0.2,
   sheen = 0.3,
   tint = 0.07,
+  shade = 0,
   children,
   style,
 }) => {
@@ -99,6 +101,11 @@ export const Glass: React.FC<{
           />
         </>
       )}
+
+      {/* Shade: over a photograph the refracted copy is bright, and white text
+          on it measured as low as 2.7:1. A dark layer inside the panel is how
+          Apple keeps text on glass readable over busy wallpaper. */}
+      {shade > 0 && <AbsoluteFill style={{ background: `rgba(7,9,10,${shade})` }} />}
 
       {/* Tint: a faint white body so even glass over pure black reads as an
           object rather than a hole. */}
@@ -159,7 +166,11 @@ const Layer: React.FC<{
   blur: number;
   backdrop: React.ReactNode;
   mask?: string;
-}> = ({ rect, magnify, blur, backdrop, mask }) => (
+}> = ({ rect, magnify, blur, backdrop, mask }) => {
+  /* The redrawn scene must be the size of the actual frame, which is 1080x1920
+     in the portrait cut. It was a fixed 1920x1080 before there was one. */
+  const { width, height } = useVideoConfig();
+  return (
   <div
     style={{
       position: 'absolute',
@@ -174,8 +185,8 @@ const Layer: React.FC<{
         position: 'absolute',
         left: -rect.x,
         top: -rect.y,
-        width: WIDTH,
-        height: HEIGHT,
+        width,
+        height,
         transform: `scale(${magnify})`,
         transformOrigin: `${rect.x + rect.w / 2}px ${rect.y + rect.h / 2}px`,
         filter: `blur(${blur}px) saturate(1.5) brightness(1.1)`,
@@ -184,7 +195,8 @@ const Layer: React.FC<{
       {backdrop}
     </div>
   </div>
-);
+  );
+};
 
 /**
  * A mask that is opaque in a band of `band` pixels around the panel's edge and

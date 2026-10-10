@@ -34,23 +34,30 @@ running any of them. Re-run one only when its inputs change.
 
 ### The intro film
 
-A 24 second film that plays over the landing page on a first visit and gets out
+A 28 second film that plays over the landing page on a first visit and gets out
 of the way on the first scroll, click, key press or when it ends. Apple keynote
-style with liquid glass: three thoughts from the bio, each followed by the work
-behind it, ending on the landing tile. Shot list in `remotion/shots/index.ts`;
-each shot is also its own composition, so one can be previewed or stilled alone.
+style with liquid glass, in three chapters taken from the bio, each followed by
+the work behind it, with diagrams where there is information to show. It ends on
+the landing tile.
 
-The glass (`remotion/glass.tsx`) draws its own copy of the scene behind it,
-nearly clear in the middle and magnified harder in a band at the rim. Glass
-that frames words is sized from the measured width of those words. Built with
-Remotion in `remotion/`, which is outside `src` and never enters the app bundle:
-the site ships a rendered mp4 and no Remotion code at all.
+Two cuts from one set of shots: `Intro` (1920x1080) for laptops and
+`IntroPortrait` (1080x1920) for phones. `src/components/ui/intro.tsx` picks one
+before the video element mounts, so each device downloads only its own file.
+Shots live in `remotion/shots/`, listed in `remotion/shots/index.ts`; each is also
+its own composition in both orientations for previewing.
+
+Type has a floor in `remotion/layout.ts`: nothing under 44px in the laptop cut or
+48px in the phone cut, so text never renders below about 17px on a phone. Glass
+that frames words is sized from their measured width. The forward guidance chart
+is drawn from `remotion/data/unrate-2012-2014.json` (BLS via FRED) and the FOMC
+statements of December 2012 and March 2014.
 
 ```
 npm run video:studio    # preview and iterate
 npm run video:captures  # re-photograph the site and the game
-npm run video:render    # public/media/intro.mp4
-npm run video:poster    # public/media/intro-poster.jpg
+npm run video:all       # both cuts and both posters
+npm run video:render    # public/media/intro.mp4 (laptop)
+npm run video:render:portrait  # public/media/intro-portrait.mp4 (phone)
 ```
 
 The film shows the real site and the real game, photographed from `dist/` by

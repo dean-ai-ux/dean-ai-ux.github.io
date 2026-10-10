@@ -9,9 +9,11 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "video:studio": "remotion studio remotion/index.ts",
-    "video:render": "remotion render remotion/index.ts Intro public/media/intro.mp4 --codec=h264 --crf=26 --timeout=60000",
-    "video:poster": "remotion still remotion/index.ts Intro public/media/intro-poster.jpg --frame=0",
-    "video:captures": "node scripts/gen-film-captures.mjs"
+    "video:render": "remotion render remotion/index.ts Intro public/media/intro.mp4 --codec=h264 --crf=28 --timeout=120000",
+    "video:poster": "remotion still remotion/index.ts Intro public/media/intro-poster.jpg --frame=0 && remotion still remotion/index.ts IntroPortrait public/media/intro-portrait-poster.jpg --frame=0",
+    "video:captures": "node scripts/gen-film-captures.mjs",
+    "video:render:portrait": "remotion render remotion/index.ts IntroPortrait public/media/intro-portrait.mp4 --codec=h264 --crf=28 --timeout=120000",
+    "video:all": "npm run video:render && npm run video:render:portrait && npm run video:poster"
   },
   "dependencies": {
     "clsx": "^2.1.1",
