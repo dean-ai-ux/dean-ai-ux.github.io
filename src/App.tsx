@@ -145,7 +145,6 @@ const ENTRY_ART: Record<string, string> = {
   'davidson-spanish-ta': 'media/spanish-ta.jpg',
   'verde-design-system': 'media/icon-verde-design-system.jpg',
   'fed-chair-for-a-year': 'media/icon-fed-chair-for-a-year.jpg',
-  'davidson-course-compass': 'media/icon-davidson-course-compass.jpg',
   maia: 'media/maia.jpg',
   'w-0': 'media/writing.jpg',
   'w-1': 'media/footwear.jpg',
@@ -792,7 +791,10 @@ function WorkSection({ items, onOpen }: { items: Item[]; onOpen: (i: number) => 
           subtitle: item.subtitle,
           dates: item.dates ?? '',
           duration: r ? span(r.start, r.end) || undefined : undefined,
-          art: <TileArt item={item} />,
+          /* label={false}: the card prints its own title over the art. A role
+             with no photograph (Cape Resorts) falls back to a tone tile, which
+             labels itself by default, and the name came out twice. */
+          art: <TileArt item={item} label={false} />,
           mark: item.subtitle === lead
             ? { src: 'media/prophet-mark.png', alt: `${lead} logo` }
             : undefined,

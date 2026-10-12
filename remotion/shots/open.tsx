@@ -109,16 +109,43 @@ export const ShotClose: React.FC = () => {
   const light = ramp(frame, [0, 24], [0, 1], ease.inOut);
   const tile = spring({ frame: frame - 8, fps: 30, config: springs.glide });
   const reach = 10 + light * 140;
-  const SCALE = portrait ? 1.8 : 2.15;
+  const settle = 0.94 + 0.06 * tile;
+
+  /* Where the tile lands. On a laptop it is centred, which matches the landing
+     page closely enough. On a phone it is placed where the page's own tile will
+     be when the overlay lifts, measured on a 390x844 screen: the tile sits at
+     x 16, y 80 and is 358x192, and the overlay shows this 1080x1920 film at
+     390/1080 scale with 75.3px of band above it. Centring it, as before, left
+     it half a screen away from where the page then put it. */
+  const PHONE = { s: 390 / 1080, top: (844 - 1920 * (390 / 1080)) / 2, x: 16, y: 80, w: 358, h: 192 };
+  const k = 1 / PHONE.s;
+  const cx = (PHONE.x + PHONE.w / 2) * k;
+  const cy = (PHONE.y - PHONE.top + PHONE.h / 2) * k;
+
   return (
     <AbsoluteFill style={{ background: '#07090A' }}>
-      <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 50%, #FFFFFF ${reach * 0.6}%, transparent ${reach}%)` }} />
+      <AbsoluteFill style={{ background: `radial-gradient(circle at 50% ${portrait ? (cy / 1920) * 100 : 50}%, #FFFFFF ${reach * 0.6}%, transparent ${reach}%)` }} />
       <AbsoluteFill style={{ background: '#FFFFFF', opacity: ramp(frame, [16, 30], [0, 1], ease.inOut) }} />
-      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ transform: `scale(${SCALE * (0.94 + 0.06 * tile)})`, opacity: Math.min(1, tile * 1.4) }}>
-          <Tile />
+      {portrait ? (
+        <div
+          style={{
+            position: 'absolute',
+            left: cx - PHONE.w / 2,
+            top: cy - PHONE.h / 2,
+            transform: `scale(${k * settle})`,
+            transformOrigin: 'center',
+            opacity: Math.min(1, tile * 1.4),
+          }}
+        >
+          <Tile phone />
         </div>
-      </AbsoluteFill>
+      ) : (
+        <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ transform: `scale(${2.15 * settle})`, opacity: Math.min(1, tile * 1.4) }}>
+            <Tile />
+          </div>
+        </AbsoluteFill>
+      )}
     </AbsoluteFill>
   );
 };

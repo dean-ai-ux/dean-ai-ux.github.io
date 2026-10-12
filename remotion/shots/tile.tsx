@@ -34,13 +34,19 @@ export const Arrow: React.FC<{ size: number; opacity?: number }> = ({ size, opac
  * src/App.tsx sets them, so the film's last frame and the page behind the
  * overlay are the same object. Scale it as a whole; never retype its sizes.
  */
-export const Tile: React.FC = () => (
+/**
+ * `phone` gives the tile its phone-width layout: App.tsx's base classes (p-6,
+ * gap-5) rather than the sm: ones, at the 358px it measures on a 390px screen.
+ */
+export const Tile: React.FC<{ phone?: boolean }> = ({ phone = false }) => (
   <div
     style={{
       display: 'flex',
       alignItems: 'center',
-      gap: 24, // sm:gap-6
-      padding: 32, // sm:p-8
+      gap: phone ? 20 : 24, // gap-5 / sm:gap-6
+      padding: phone ? 24 : 32, // p-6 / sm:p-8
+      width: phone ? 358 : undefined,
+      boxSizing: 'border-box',
       borderRadius: 16, // rounded-2xl
       background: verde.forest,
       color: verde.onForest,

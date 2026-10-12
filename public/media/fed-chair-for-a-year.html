@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fed Chair for a Year — Single-File HTML (v4.2)</title>
+<title>Fed Chair for a Year</title>
 <meta name="description" content="Interactive macro policy game: 12 months, 8 FOMC meetings, Jackson Hole guidance, Sahm Rule recession indicator, rich shocks.">
 <style>
   :root{
@@ -26,8 +26,9 @@
   }
   h1{margin:0 0 8px; font-weight:900; letter-spacing:.2px}
   h2{margin:14px 0 8px;} p{color:var(--muted); line-height:1.55}
-  .grid{display:grid; gap:14px; grid-template-columns: 380px 1fr;}
-  @media (max-width: 1100px){ .grid{ grid-template-columns: 1fr } }
+  .grid{display:grid; gap:14px; grid-template-columns: 380px minmax(0,1fr);}
+  .table-wrap{ overflow-x:auto; }
+  @media (max-width: 1100px){ .grid{ grid-template-columns: minmax(0,1fr) } }
   .panel{ background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.03)), var(--panel);
           border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow: var(--shadow); }
   .pill{ display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
@@ -77,14 +78,16 @@
 </head>
 <body>
   <header>
-    <h1>Fed Chair for a Year
+    <h1>Fed Chair for a Year</h1>
     <div class="chips">
       <span class="pill">12 months</span>
       <span class="pill">8 FOMC meetings</span>
       <span class="pill">Jackson Hole guidance in Aug</span>
-      <span class="pill">Sahm Rule: 3m avg jump ≥ 0.50</span>
+      <span class="pill">Sahm Rule: 3-month average vs prior 12-month low ≥ 0.50</span>
     </div>
     <p class="hint">You are the FOMC. At each meeting, you can select a rate option. At the Jackson Hole meeting in <strong>August</strong>, you deliver forward guidance that influences expectations. Each month, choose a <strong>policy rate move</strong>. Random events may occur. Your goal: <strong>Maintain Price Stability</strong> and <strong>Maximum Employment.</strong></p>
+    <p class="hint"><strong>Scoring:</strong> each month starts at 100 points, minus 45 × (inflation − 2)², minus 30 × (unemployment − 4.2)², minus 20 if the Sahm Rule triggers, minus 3 for a 50bp move. Misses are squared, so being far off target costs far more than being slightly off. A rate change takes about three months to work through.</p>
+    <p class="hint" id="vintage"></p>
   </header>
 
   <div class="grid">
@@ -97,7 +100,7 @@
       <div class="kpi">
         <div class="card">
           <div class="klabel">Headline PCE (YoY)</div>
-          <div class="kbig" id="k_pce">2.6%</div>
+          <div class="kbig" id="k_pce"></div>
           <div class="bar"><div class="fill" id="b_pce" style="width:52%"></div></div>
         </div>
         <div class="card">
@@ -108,12 +111,12 @@
         </div>
         <div class="card">
           <div class="klabel">Unemployment</div>
-          <div class="kbig" id="k_u">4.2%</div>
+          <div class="kbig" id="k_u"></div>
           <div class="bar"><div class="fill" id="b_u" style="width:42%"></div></div>
         </div>
         <div class="card">
           <div class="klabel">Policy rate (midpoint)</div>
-          <div class="kbig" id="k_ffr">4.38%</div>
+          <div class="kbig" id="k_ffr"></div>
           <div class="bar"><div class="fill" id="b_ffr" style="width:44%"></div></div>
         </div>
       </div>
@@ -186,7 +189,7 @@
       <div class="log" id="log"></div>
 
       <h2>History</h2>
-      <table id="tbl"></table>
+      <div class="table-wrap"><table id="tbl"></table></div>
     </section>
   </div>
 
@@ -243,20 +246,51 @@ function lineChart(container, data){
 }
 
 // --- Parameters & initial state ---
-const P = { months:12, r_star:0.6, pi_star:2.0, u_star:4.0, kappa:0.08, rho:0.6, a_gap:0.65, b_rate:0.20, okun_c:2.0, pi_exp:2.3 };
+// Calibrated so that policy choices matter. The previous model forgot any
+// deviation within about six weeks and a routine shock outweighed 195bp of
+// policy, so in 4,000 simulated years every strategy scored within 2% of every
+// other and doing nothing was best. Here a rate change works through a 3-month
+// lag, effects persist for months, and expectations drift with inflation.
+// r_star 1.0 gives a nominal neutral rate of 3.0% and u_star 4.2%, close to the
+// FOMC's longer-run projections.
+const P = { months:12, r_star:1.0, pi_star:2.0, u_star:4.2, kappa:0.14, rho:0.80, a_gap:0.85,
+            b_rate:0.30, okun_c:2.0, lambda:0.08, lag:3, shock:0.35 };
+
+// Starting conditions, all in one place so keeping the game current is a single
+// edit. Source: FRED. Unemployment (UNRATE) Sep 2026, headline PCE inflation
+// (PCEPI, year on year) Aug 2026, federal funds target range 3.75 to 4.00% as of
+// 12 Oct 2026. uHist is the 12 months of unemployment before the game starts,
+// which the Sahm Rule needs; BLS did not publish October 2025, so that month is
+// interpolated between its neighbours.
+const START = {
+  vintage: 'Starting conditions from FRED: unemployment Sep 2026, PCE inflation Aug 2026, target range as of 12 Oct 2026. October 2025 unemployment was not published and is interpolated.',
+  ffr: 3.875, pce: 3.4, u: 4.2, pi_exp: 2.7,
+  uHist: [4.4, 4.45, 4.5, 4.4, 4.3, 4.4, 4.3, 4.3, 4.3, 4.2, 4.1, 4.1],
+};
 const meetingMonths = [1,3,5,6,7,9,11,12];
 const jacksonHoleMonth = 8;
 
-const S = { t:0, ffr:4.375, pce:2.6, u:4.2, gap:0.0, score:0, hist:[], events:[], lastEvName:null,
-            fgBias:'neutral', fgMonths:0, noEventStreak:0 };
+const freshState = () => ({ t:0, ffr:START.ffr, pce:START.pce, u:START.u, pi_exp:START.pi_exp, gap:0.0,
+  score:0, hist:[], events:[], lastEvName:null, fgBias:'neutral', fgMonths:0, noEventStreak:0,
+  rr:[START.ffr-START.pi_exp, START.ffr-START.pi_exp, START.ffr-START.pi_exp] });
+const S = freshState();
 
-// --- Sahm Rule: max 3m jump in 3m average unemployment ---
-function sahmJump(series){
+// --- Sahm Rule ---
+// The current three-month average unemployment rate, minus the lowest
+// three-month average of the previous twelve months. A reading of 0.50 or more
+// signals recession. The previous version compared the raw monthly rate with
+// three months earlier, which misses a slow rise and can fire on a one-month
+// spike.
+const avg3 = (a, i) => (a[i] + a[i-1] + a[i-2]) / 3;
+function sahm(series){
   const n = series.length;
-  if (n < 4) return 0;            // need t and t-3
-  const rise = series[n - 1] - series[n - 4];
-  return Math.max(0, rise);       // only count increases
+  if (n < 15) return 0;
+  const now = avg3(series, n - 1);
+  let low = Infinity;
+  for (let i = n - 13; i <= n - 2; i++) low = Math.min(low, avg3(series, i));
+  return Math.max(0, now - low);
 }
+const uSeriesNow = (extra) => [...START.uHist, START.u, ...S.hist.map(h=>h.u), ...(extra!==undefined?[extra]:[])];
 
 // --- Events ---
 function drawEvent(force=false){
@@ -307,7 +341,7 @@ function drawEvent(force=false){
 
 function eventEffects(){
   let head = 0, gap = 0;
-  S.events.forEach(e => { head += e.head * e.ampl; gap += e.gap * e.ampl; e.ampl *= e.decay; e.monthsLeft -= 1; });
+  S.events.forEach(e => { head += e.head * e.ampl * P.shock; gap += e.gap * e.ampl * P.shock; e.ampl *= e.decay; e.monthsLeft -= 1; });
   S.events = S.events.filter(e => e.monthsLeft > 0 && Math.abs(e.ampl) > 0.01);
   return {head, gap};
 }
@@ -370,30 +404,34 @@ function step(){
   const eff = eventEffects();
   const fgEff = guidanceEffects();
 
-  // Macro dynamics
-  const r_real = S.ffr - S.pce;
-  const gapNew = P.a_gap * S.gap - P.b_rate * (r_real - P.r_star) + eff.gap + fgEff.gap;
-  const pceNew  = P.rho * S.pce  + (1-P.rho)*(P.pi_exp + fgEff.piExpAdj) + P.kappa * gapNew + eff.head + fgEff.head;
+  // Macro dynamics. The real rate that reaches the economy is the average of
+  // the last three months', so a move takes a quarter to bite. Expectations
+  // drift toward realised inflation: let inflation run and it gets harder to
+  // bring down.
+  S.rr.push(S.ffr - S.pi_exp);
+  const r_lag = S.rr.slice(-P.lag).reduce((a,b)=>a+b, 0) / P.lag;
+  const piExpNew = S.pi_exp + P.lambda * (S.pce - S.pi_exp) + fgEff.piExpAdj;
+  const gapNew = P.a_gap * S.gap - P.b_rate * (r_lag - P.r_star) + eff.gap + fgEff.gap;
+  const pceNew  = P.rho * S.pce + (1-P.rho) * piExpNew + P.kappa * gapNew + eff.head + fgEff.head;
   const uNew = clamp(P.u_star - gapNew / P.okun_c, 2.5, 12.0);
 
-  const uSeries = [4.2, ...S.hist.map(h=>h.u), uNew];
-  const sahm = sahmJump(uSeries);
+  const sahmNow = sahm(uSeriesNow(uNew));
 
-  // Score (harsher)
+  // Score. Squared misses, so being far off target costs much more than being
+  // slightly off, which is what makes a steady hand beat a lucky one.
   let scoreDelta = 100;
-  scoreDelta -= 16 * Math.abs(pceNew - P.pi_star);
-  if(uNew > 5.0) scoreDelta -= 10 * (uNew - 5.0);
-  if(uNew < 3.2) scoreDelta -= 12 * (3.2 - uNew);
-  if(sahm >= 0.5) scoreDelta -= 15;
-  if(meeting && Math.abs(appliedMove) > 25) scoreDelta -= 4;
+  scoreDelta -= 45 * (pceNew - P.pi_star) ** 2;
+  scoreDelta -= 30 * (uNew - P.u_star) ** 2;
+  if(sahmNow >= 0.5) scoreDelta -= 20;
+  if(meeting && Math.abs(appliedMove) > 25) scoreDelta -= 3;
   scoreDelta = Math.max(0, Math.round(scoreDelta));
 
   // Commit
-  S.t += 1; S.gap = gapNew; S.pce = pceNew; S.u = uNew; S.score += scoreDelta;
+  S.t += 1; S.gap = gapNew; S.pce = pceNew; S.u = uNew; S.pi_exp = piExpNew; S.score += scoreDelta;
   if(S.fgMonths > 0) S.fgMonths -= 1;
 
   const eventsArr = []; if(ev) eventsArr.push(ev.name); if(fgNote) eventsArr.push(fgNote);
-  const rec = { t:S.t, ffr:S.ffr, pce:S.pce, u:S.u, sahm, rateMove: meeting?appliedMove:0, meeting, events: eventsArr, scoreDelta };
+  const rec = { t:S.t, ffr:S.ffr, pce:S.pce, u:S.u, sahm:sahmNow, rateMove: meeting?appliedMove:0, meeting, events: eventsArr, scoreDelta };
   S.hist.push(rec);
 
   renderState(); renderLog(rec, ev, fgNote); renderTable(); renderCharts();
@@ -402,15 +440,11 @@ function step(){
 
 function endGame(){
   const last = S.hist[S.hist.length-1];
-  const p = last.pce, u = last.u, sahm = last.sahm;
-  const within = (x, lo, hi)=> x>=lo && x<=hi;
-  let grade = "D";
-  if (Math.abs(p-2.0)<=0.3 && within(u,3.6,4.6) && sahm < 0.3) grade = "A";
-  else if (Math.abs(p-2.0)<=0.6 && within(u,3.4,4.8)) grade = "B+";
-  else if (Math.abs(p-2.0)<=0.9 && within(u,3.3,5.2)) grade = "B";
-  else if (Math.abs(p-2.0)<=1.3 && within(u,3.1,6.0)) grade = "C";
-  else grade = "D";
-  $("#modal_body").innerHTML = `Final Headline PCE <strong>${fmt(p,2)}%</strong>, Unemployment <strong>${fmt(u,2)}%</strong>, Sahm 3m jump <strong>${fmt(sahm,2)} pp</strong>.<br>Score: <strong>${S.score}</strong>. Grade: <strong>${grade}</strong>.`;
+  // Cut-offs from simulating 4,000 years per strategy: a Taylor-rule player
+  // earns an A about two times in three, holding all year about half the time,
+  // random moves about a third of the time.
+  const g = S.score >= 660 ? "A" : S.score >= 580 ? "B" : S.score >= 480 ? "C" : "D";
+  $("#modal_body").innerHTML = `Final headline PCE <strong>${fmt(last.pce,2)}%</strong>, unemployment <strong>${fmt(last.u,2)}%</strong>, Sahm Rule <strong>${fmt(last.sahm,2)} pp</strong>.<br>Score: <strong>${S.score}</strong> of a possible 1,200. Grade: <strong>${g}</strong> (A 660+, B 580+, C 480+).`;
   $("#modal").style.display = "flex";
 }
 
@@ -448,26 +482,26 @@ function renderLog(rec, ev, fgNote){
   const evTxt  = ev ? `; event: <strong>${ev.name}</strong> (${ev.note})` : "";
   const fgTxt = fgNote ? `; <em>${fgNote}</em>` : "";
   const meetTxt = rec.meeting ? "" : " (no FOMC)";
-  div.innerHTML = `<span class="pill">Month ${rec.t}</span> You ${rateMoveText(rec.rateMove)}${meetTxt}${evTxt}${fgTxt}. → Headline ${fmt(rec.pce,2)}%, Unemp ${fmt(rec.u,2)}%, Sahm 3m ${fmt(rec.sahm,2)} pp. (+${rec.scoreDelta})`;
+  div.innerHTML = `<span class="pill">Month ${rec.t}</span> You ${rateMoveText(rec.rateMove)}${meetTxt}${evTxt}${fgTxt}. → Headline ${fmt(rec.pce,2)}%, Unemp ${fmt(rec.u,2)}%, Sahm ${fmt(rec.sahm,2)} pp. (+${rec.scoreDelta})`;
   $("#log").prepend(div);
 }
 function rateMoveText(bps){ if(bps===0) return "held the policy rate"; return (bps>0? "hiked":"cut") + " " + Math.abs(bps) + " bps"; }
 function renderTable(){
-  const rows = [["Month","FOMC?","Policy %","Headline PCE %","Unemp %","Sahm 3m jump (pp)","Rate move bps","Events","Score +"]];
+  const rows = [["Month","FOMC?","Policy %","Headline PCE %","Unemp %","Sahm Rule (pp)","Rate move bps","Events","Score +"]];
   S.hist.forEach(h=> rows.push([h.t, h.meeting?"Yes":"No", fmt(h.ffr,2), fmt(h.pce,2), fmt(h.u,2), fmt(h.sahm,2), h.rateMove, h.events.join("; "), h.scoreDelta]));
   $("#tbl").innerHTML = "<thead><tr>"+rows[0].map(h=>`<th>${h}</th>`).join("")+"</tr></thead>"
     + "<tbody>" + rows.slice(1).map(r=>"<tr>"+r.map(c=>`<td>${c}</td>`).join("")+"</tr>").join("") + "</tbody>";
 }
 function renderCharts(){
-  lineChart($("#c_pce"),  [2.6, ...S.hist.map(h=>h.pce)]);
-  lineChart($("#c_sahm"), [0,   ...S.hist.map(h=>h.sahm)]);
-  lineChart($("#c_unemp"),[4.2, ...S.hist.map(h=>h.u)]);
-  lineChart($("#c_rate"), [4.375, ...S.hist.map(h=>h.ffr)]);
+  lineChart($("#c_pce"),  [START.pce, ...S.hist.map(h=>h.pce)]);
+  lineChart($("#c_sahm"), [sahm([...START.uHist, START.u]), ...S.hist.map(h=>h.sahm)]);
+  lineChart($("#c_unemp"),[START.u, ...S.hist.map(h=>h.u)]);
+  lineChart($("#c_rate"), [START.ffr, ...S.hist.map(h=>h.ffr)]);
 }
 
 // --- Buttons / helpers ---
 function resetGame(){
-  Object.assign(S, { t:0, ffr:4.375, pce:2.6, u:4.2, gap:0.0, score:0, hist:[], events:[], lastEvName:null, fgBias:'neutral', fgMonths:0, noEventStreak:0 });
+  Object.assign(S, freshState());
   $("#log").innerHTML = "";
   if ($("#end_turn")) $("#end_turn").disabled = false;
   if ($("#modal")) $("#modal").style.display = "none";
@@ -477,7 +511,7 @@ function resetGame(){
   toast("Game reset");
 }
 function exportCSV(){
-  const rows = [["Month","FOMC?","Policy %","Headline PCE %","Unemp %","Sahm 3m jump (pp)","Rate move bps","Events","Score +"]];
+  const rows = [["Month","FOMC?","Policy %","Headline PCE %","Unemp %","Sahm Rule (pp)","Rate move bps","Events","Score +"]];
   S.hist.forEach(h=> rows.push([h.t, h.meeting?"Yes":"No", fmt(h.ffr,2), fmt(h.pce,2), fmt(h.u,2), fmt(h.sahm,2), h.rateMove, h.events.join("; "), h.scoreDelta]));
   const csv = rows.map(r=>r.join(",")).join("\n");
   const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
@@ -490,8 +524,8 @@ function closeModal(){ $("#modal").style.display = "none"; }
 // --- Initialize immediately (no dependency on DOMContentLoaded) ---
 (function init(){
   renderState(); renderCharts(); renderTable();
-  $("#log").innerHTML = "<div>Welcome! You can select a rate any time — it's <em>queued</em> and only applied in FOMC months. In August, choose forward guidance for the next 4 months. Goal: keep Headline PCE near 2% and avoid triggering the Sahm Rule (3m avg jump ≥ 0.50).</div>";
-  toast("Loaded v4.2 — queued rate selection");
+  $("#log").innerHTML = "<div>Welcome! You can select a rate any time — it's <em>queued</em> and only applied in FOMC months. In August, choose forward guidance for the next 4 months. Goal: bring headline PCE back to 2% without pushing unemployment up so fast that the Sahm Rule triggers.</div>";
+  $("#vintage").textContent = START.vintage;
 })();
 </script>
 </body>
