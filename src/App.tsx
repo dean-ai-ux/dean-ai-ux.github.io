@@ -420,7 +420,10 @@ function LandingTile({
 function FilmTile() {
   const [playing, setPlaying] = React.useState(false);
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-[#0D0D0D]">
+    /* Capped below lg, where the tile is the full width: on a phone held
+       sideways 16:9 of 800px is taller than the screen, and the landing was
+       nothing but the poster. */
+    <div className="relative aspect-video max-h-[75svh] w-full overflow-hidden rounded-2xl bg-[#0D0D0D] lg:max-h-none">
       {playing ? (
         <video
           src="media/many-heads.mp4"
@@ -573,16 +576,24 @@ function SectionGrid({ section, onOpen }: { section: string; onOpen: (i: number)
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ type: 'spring', stiffness: 380, damping: 30, delay: 0.04 + i * 0.05 }}
-                  className="group flex cursor-pointer gap-5 rounded-2xl border bg-card p-5 text-left outline-none ring-offset-background transition-colors hover:border-foreground/30 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="group grid cursor-pointer grid-cols-[88px_minmax(0,1fr)] gap-x-4 gap-y-3 rounded-2xl border bg-card p-4 text-left sm:grid-cols-[160px_minmax(0,1fr)] sm:gap-x-5 sm:gap-y-0 sm:p-5 outline-none ring-offset-background transition-colors hover:border-foreground/30 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
-                  <div className="relative size-40 shrink-0 overflow-hidden rounded-xl border transition group-hover:brightness-95">
+                  {/* A grid rather than a row, so a phone can put the text under
+                      the icon. At 390px a 160px icon beside the text left the
+                      text 110px: titles over three lines and one tag a line.
+                      There the icon drops to 88px beside the name, and the
+                      summary, tags and action run the card's full width. From
+                      sm the icon spans both rows and it reads as it did. */}
+                  <div className="relative size-[88px] overflow-hidden rounded-xl border transition group-hover:brightness-95 sm:row-span-2 sm:size-40">
                     <AppIcon item={item} />
                   </div>
-                  <div className="flex min-w-0 flex-1 flex-col">
+                  <div className="min-w-0 self-center sm:self-start">
                     <p className="t-title-lg">{item.title}</p>
                     <p className="t-caption text-muted-foreground">{item.subtitle}</p>
+                  </div>
+                  <div className="col-span-2 flex min-w-0 flex-col sm:col-span-1 sm:col-start-2">
                     {item.summary && (
-                      <p className="t-body-sm mt-2 line-clamp-3 text-foreground/80">{item.summary}</p>
+                      <p className="t-body-sm text-foreground/80 sm:mt-2 sm:line-clamp-3">{item.summary}</p>
                     )}
                     {!!item.skills?.length && (
                       <div className="mt-3 flex flex-wrap gap-1.5">
@@ -595,14 +606,15 @@ function SectionGrid({ section, onOpen }: { section: string; onOpen: (i: number)
                     )}
                     {/* The way in, named for what it opens. stopPropagation or
                         the card's own handler fires too and the detail panel
-                        opens behind the new tab. */}
+                        opens behind the new tab. 44px tall on a phone, the size
+                        of a thumb, and the usual 32 with a mouse. */}
                     {item.href && verb && (
                       <a
                         href={item.href}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(event) => event.stopPropagation()}
-                        className="t-label mt-auto inline-flex w-fit items-center gap-1.5 pt-3 underline underline-offset-4 transition hover:opacity-70"
+                        className="t-label mt-auto inline-flex min-h-11 w-fit items-center gap-1.5 pt-3 underline underline-offset-4 transition hover:opacity-70 fine:min-h-0"
                       >
                         {verb} <ArrowUpRight aria-hidden className="size-3.5" />
                       </a>
@@ -690,7 +702,11 @@ function SectionGrid({ section, onOpen }: { section: string; onOpen: (i: number)
                   <TileArt item={item} />
                   {ENTRY_ART[item.id] && (
                     <>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                      {/* Darker through the middle than the wide layouts need. On a phone
+                          the text block is a third of the tile's height, so it
+                          reaches up into the photograph: a date sat on bright
+                          sky and a card on a page of handwriting. */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-black/5" />
                       <div className="absolute inset-x-0 bottom-0 p-3">
                         <p className="t-caption text-white/75">{item.subtitle}</p>
                         <p className="t-title-md text-white">{item.title}</p>
@@ -726,7 +742,11 @@ function SectionGrid({ section, onOpen }: { section: string; onOpen: (i: number)
                   give the space something to carry, and the role leads because
                   "Davidson College" is the line that repeats. */}
               <div className={`absolute inset-0 flex flex-col justify-end p-4 ${
-                ENTRY_ART[item.id] ? 'bg-gradient-to-t from-black/85 via-black/45 to-transparent text-white' : ''
+                /* Darker through the middle below lg. There the tile is short and
+                   the text fills most of it, so the gradient has to hold behind
+                   the top line too: the BA's dates sat on bright sky and the
+                   Spanish TA's on a page of handwriting. */
+                ENTRY_ART[item.id] ? 'bg-gradient-to-t from-black/90 via-black/65 to-black/20 text-white lg:from-black/85 lg:via-black/45 lg:to-transparent' : ''
               }`}>
                 {item.dates && (
                   <p className={`t-caption tabular-nums ${ENTRY_ART[item.id] ? 'text-white/70' : 'opacity-70'}`}>
@@ -1040,6 +1060,7 @@ export default function App() {
         contact={(profile.contact.links || [])[0]}
         dark={dark}
         onToggleTheme={() => setDark(!dark)}
+        onAbout={() => setAbout(true)}
       />
       {/* Mounted once, outside the tab switch: the range is the ground the whole
           site stands on, so it must not remount as you move between screens. */}

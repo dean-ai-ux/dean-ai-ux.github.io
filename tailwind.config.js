@@ -5,6 +5,11 @@ export default {
   theme: {
     container: { center: true, padding: '2rem', screens: { '2xl': '1400px' } },
     extend: {
+      /* A mouse or trackpad, at any width. Touch targets are 44px by default and
+         shrink only under `fine:`, because a phone held sideways is 844px wide
+         and still a thumb: keying the sizes to width gave it the desktop's
+         22px links. */
+      screens: { fine: { raw: '(hover: hover) and (pointer: fine)' } },
       /* Verde's stack, exactly: one family, no monospace dependency — tabular
          figures come from a font feature rather than a second face. */
       fontFamily: { sans: ['Archivo', 'Helvetica Neue', 'Arial', 'sans-serif'] },

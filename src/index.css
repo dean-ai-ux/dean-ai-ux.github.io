@@ -127,4 +127,10 @@
     font-size: 12px; line-height: 18px; letter-spacing: 0;
     font-weight: 400; font-variation-settings: 'wdth' 100;
   }
+  /* Captions carry dates, organisations and tags. At 12px they are fine on a
+     laptop and too small on a phone, so a narrow screen or any touch screen
+     (a phone held sideways is 844px wide) takes 13. */
+  @media (max-width: 639px), (pointer: coarse) {
+    .t-caption { font-size: 13px; line-height: 19px; }
+  }
 }
