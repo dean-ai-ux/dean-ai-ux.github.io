@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Play, X } from 'lucide-react';
+import { ArrowUpRight, Play, X } from 'lucide-react';
 import { SectionDock, type DockItem } from '@/components/ui/section-dock';
 import { RidgeFooter } from '@/components/ui/ridge-footer';
 import { SqueezeCarousel, type SqueezeSlide } from '@/components/ui/carousel-squeeze';
@@ -408,7 +408,8 @@ function LandingTile({
 
 /**
  * Vista: Many Heads, the brand film of Dean's essay "Software isn't losing its
- * head. It's growing thousands." Its opening plays over the landing page (see
+ * head. It's growing thousands." The first tile on the landing page, and
+ * nothing else in it: no portrait, no arc. Its wordmark opens the site (see
  * intro.tsx); this is the whole film, with its piano score, on request.
  *
  * A poster and a play control until someone asks for it, so nobody downloads
@@ -418,7 +419,7 @@ function LandingTile({
 function FilmTile() {
   const [playing, setPlaying] = React.useState(false);
   return (
-    <div className="relative aspect-video w-full min-w-[180px] overflow-hidden rounded-xl bg-[#0D0D0D] sm:ml-auto sm:w-[clamp(200px,40%,320px)] lg:ml-0 lg:w-[260px] min-[1400px]:ml-auto min-[1400px]:w-[clamp(200px,40%,320px)]">
+    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-[#0D0D0D]">
       {playing ? (
         <video
           src="media/many-heads.mp4"
@@ -432,23 +433,25 @@ function FilmTile() {
         <button
           type="button"
           onClick={() => setPlaying(true)}
+          /* The tile is 16:9 and the film is 16:9, so the poster shows whole. */
           aria-label="Play the film Software isn't losing its head, 1 minute 33 seconds, with sound"
           className="group/film absolute inset-0 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/80"
         >
           <img src="media/many-heads-poster.jpg" alt="" className="size-full object-cover" />
-          <span className="absolute inset-0 flex items-center justify-center">
-            <span className="flex size-12 items-center justify-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur transition group-hover/film:scale-105 group-hover/film:bg-black/60 motion-reduce:transition-none">
-              <Play aria-hidden className="ml-0.5 size-5 fill-current" />
-            </span>
+          {/* In the corner, not the centre: the poster's title sits mid-left
+              and a centred button covered it. */}
+          <span className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-white/30 bg-black/55 py-2 pl-3 pr-4 text-white backdrop-blur transition group-hover/film:bg-black/75 motion-reduce:transition-none">
+            <Play aria-hidden className="size-4 fill-current" />
+            <span className="t-label">Play film</span>
+            <span className="t-label tabular-nums opacity-70">1:33</span>
           </span>
-          <span className="t-label absolute bottom-2 right-2.5 rounded bg-black/55 px-1.5 py-0.5 tabular-nums text-white">1:33</span>
         </button>
       )}
     </div>
   );
 }
 
-function Home({ setTab, onAbout }: { setTab: (t: string) => void; onAbout: () => void }) {
+function Home({ setTab }: { setTab: (t: string) => void }) {
   const by = (key: string) => {
     const i = TILES.findIndex((t) => t.key === key);
     return { tile: TILES[i], index: i };
@@ -479,55 +482,17 @@ function Home({ setTab, onAbout }: { setTab: (t: string) => void; onAbout: () =>
           {/* The statement is the way into the about panel now. The contact link
               it used to carry has moved up beside the name in the bar, where it
               is on every screen rather than only this one. */}
-          {/* Two controls in one tile, so the tile is a div and each half is its
-              own button: a button inside a button is invalid, and a click on
-              the film would also have opened the about panel. */}
-          <div
-            className="flex flex-col gap-5 rounded-2xl p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-8 lg:flex-col lg:items-start min-[1400px]:flex-row min-[1400px]:items-center"
-            style={{ background: 'var(--verde-viz-forest)', color: 'var(--verde-viz-forest-on)' }}
-          >
-            <button
-              type="button"
-              onClick={onAbout}
-              aria-label="About Dean Dowling"
-              aria-haspopup="dialog"
-              className="group flex min-w-0 items-center gap-5 rounded-xl min-[1400px]:shrink-0 text-left outline-none ring-offset-2 ring-offset-[var(--verde-viz-forest)] focus-visible:ring-2 focus-visible:ring-white/80 sm:gap-6"
-            >
-              <div className="shrink-0">
-                {/* portrait.jpg is the original headshot, 400x400 and untouched.
-                    It is square, so object-cover crops nothing and the framing is
-                    entirely in the file. Do not substitute a taller crop: a square
-                    crop centred in one takes the top off the head. */}
-                <img src="media/portrait.jpg" alt="Dean Dowling" className="size-24 rounded-full object-cover" />
-                {/* Under the portrait rather than after the list, so the identity
-                    column carries it and the four lines alone set the tile's
-                    height — which is how it stays the height it already was. */}
-                <span className="t-label mt-3 inline-flex items-center gap-1.5 whitespace-nowrap underline underline-offset-4 opacity-80 transition group-hover:opacity-100 group-focus-visible:opacity-100">
-                  About me <ArrowUpRight aria-hidden className="size-3.5" />
-                </span>
-              </div>
-              {/* Four moves rather than a sentence. The left of each is where it
-                  started and is set back; the right is where it is now. */}
-              <ul className="t-headline-md">
-                {(profile.arc || []).map(([from, to]: string[]) => (
-                  <li key={from} className="flex items-center gap-2.5">
-                    <span className="opacity-60">{from}</span>
-                    <ArrowRight aria-hidden className="size-5 shrink-0 opacity-50" />
-                    <span>{to}</span>
-                  </li>
-                ))}
-              </ul>
-            </button>
-            <FilmTile />
-          </div>
+          <FilmTile />
           <div className="grid grid-cols-2 gap-4">
             <LandingTile {...work} setTab={setTab} />
             <LandingTile {...education} setTab={setTab} />
           </div>
         </div>
 
-        <div className="grid gap-4 lg:grid-rows-[minmax(0,414fr)_minmax(0,408fr)]">
-          <LandingTile {...volunteering} setTab={setTab} />
+        {/* The same rows as the left column, with Volunteering the film's 16:9,
+            so the two columns' gutters line up exactly. */}
+        <div className="grid gap-4 lg:grid-rows-[auto_minmax(0,1fr)]">
+          <LandingTile {...volunteering} setTab={setTab} className="lg:aspect-video" />
           <div className="grid grid-cols-2 gap-4">
             <LandingTile {...built} setTab={setTab} />
             <LandingTile {...writing} setTab={setTab} />
@@ -1079,7 +1044,7 @@ export default function App() {
           site stands on, so it must not remount as you move between screens. */}
       <RidgeFooter />
 
-      {onHome ? <Home setTab={setTab} onAbout={() => setAbout(true)} /> : <SectionGrid section={tab} onOpen={setOpen} />}
+      {onHome ? <Home setTab={setTab} /> : <SectionGrid section={tab} onOpen={setOpen} />}
 
       {/* One item, so the arrow keys have nowhere to page to — which is right:
           there is one of these, and the same panel a writing piece opens. */}

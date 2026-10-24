@@ -34,18 +34,18 @@ running any of them. Re-run one only when its inputs change.
 
 ### The landing films
 
-The landing page opens on the first 8.7 seconds of **Vista: Many Heads**, the
-brand film of Dean's essay "Software isn't losing its head. It's growing
-thousands.", made with his Vista video toolkit (a separate, private repo). The
-clip plays silently over the page on a first visit and gets out of the way on
-the first scroll, click, key press or when it ends. The whole film, with its
-piano score, plays from the statement tile at the top left of the landing grid,
-and is only downloaded when someone presses play.
+The landing page opens on the Vista intro: the VISTA wordmark from the first
+three seconds of **Vista: Many Heads**, the brand film of Dean's essay
+"Software isn't losing its head. It's growing thousands.", made with his Vista
+video toolkit (a separate, private repo). It plays silently over the page on a
+first visit, then the landing page shows; a scroll, click or key press skips
+it. The whole film, with its piano score, is the top left tile of the landing
+grid, and is only downloaded when someone presses play.
 
 Both files are cut from the toolkit's render, `Vista-Many-Heads-v3.mp4`:
 
 ```
-ffmpeg -i Vista-Many-Heads-v3.mp4 -t 8.7 -an -vf "fade=t=out:st=8.2:d=0.5" \
+ffmpeg -i Vista-Many-Heads-v3.mp4 -t 3.0 -an \
   -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -movflags +faststart public/media/vista-intro.mp4
 ffmpeg -i Vista-Many-Heads-v3.mp4 -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p \
   -c:a aac -b:a 128k -movflags +faststart public/media/many-heads.mp4

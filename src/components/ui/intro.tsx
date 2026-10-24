@@ -51,32 +51,20 @@ function shouldPlay(): boolean {
 }
 
 /**
- * The opening of Vista: Many Heads, the brand film Dean made in his own Vista
- * design system: the VISTA wordmark, then "Software isn't losing its head. It's
- * growing thousands." Cut from the film at 8.7s, silent, so it can autoplay.
- * The whole film, with its score, plays from the statement tile on the landing
- * page (see FilmTile in App.tsx).
+ * The Vista intro: the VISTA wordmark that opens Vista: Many Heads, the brand
+ * film Dean made in his own Vista design system. The first three seconds of
+ * the film, which is exactly the wordmark settling and fading, silent so it can
+ * autoplay. Then the landing page. The whole film plays only on request, from
+ * the first tile on the landing page (FilmTile in App.tsx).
  *
- * One cut for every screen. The film exists only at 16:9, and cropping it to a
- * phone would cut the title in half, so a phone gets it letterboxed in the
- * film's own ink.
+ * The wordmark sits dead centre on an empty field, so the clip can cover any
+ * screen, a phone included, without cropping anything that matters.
  */
 const INK = '#0D0D0D';
 
 export function Intro() {
   const [state, setState] = React.useState<'playing' | 'leaving' | 'gone'>(() =>
     shouldPlay() ? 'playing' : 'gone',
-  );
-  /* Fill the screen when it is close to the film's shape, 16:10 to 2:1, which
-     is most laptops and monitors. Cover trims at most 96px a side there, clear
-     of the title; anything else keeps the bars, because a deeper crop would cut
-     the type. Chrome draws the film a few levels darker than the ink it was
-     made in, so wherever there are bars a faint seam shows. This keeps them
-     off the common screens. */
-  const [fill] = React.useState(
-    () =>
-      typeof window !== 'undefined' &&
-      !!window.matchMedia?.('(min-aspect-ratio: 8/5) and (max-aspect-ratio: 2/1)').matches,
   );
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const skipRef = React.useRef<HTMLButtonElement>(null);
@@ -157,8 +145,7 @@ export function Intro() {
       onClick={dismiss}
       className="fixed inset-0 z-[60] flex items-center justify-center transition-[opacity,background-color] duration-[420ms]"
       style={{
-        /* The film's own ink, so the bars around it on a screen that is not
-           16:9 are never a colour the film is not. */
+        /* The film's own ink, behind it while it loads and as it fades. */
         backgroundColor: INK,
         opacity: state === 'leaving' ? 0 : 1,
       }}
@@ -174,7 +161,7 @@ export function Intro() {
         aria-hidden
         onEnded={dismiss}
         onError={dismiss}
-        className={`size-full ${fill ? 'object-cover' : 'object-contain'}`}
+        className="size-full object-cover"
       />
 
       <button
