@@ -10,7 +10,7 @@ import * as React from 'react';
  *
  * It is deliberately easy to escape. A resume is read by people with very
  * little time, and a film they cannot skip is worse than no film: the ending,
- * a scroll, a click, Escape, Space, the arrow keys and a visible Skip control
+ * a scroll, a click, Escape, Space and the arrow keys
  * all dismiss it.
  */
 
@@ -67,7 +67,6 @@ export function Intro() {
     shouldPlay() ? 'playing' : 'gone',
   );
   const videoRef = React.useRef<HTMLVideoElement>(null);
-  const skipRef = React.useRef<HTMLButtonElement>(null);
 
   const dismiss = React.useCallback(() => {
     setState((s) => (s === 'playing' ? 'leaving' : s));
@@ -111,7 +110,6 @@ export function Intro() {
 
   React.useEffect(() => {
     if (state !== 'playing') return;
-    skipRef.current?.focus();
     const v = videoRef.current;
     if (!v) return;
 
@@ -140,8 +138,8 @@ export function Intro() {
 
   return (
     <div
-      role="dialog"
-      aria-label="Introduction"
+      data-intro
+      aria-hidden
       onClick={dismiss}
       className="fixed inset-0 z-[60] flex items-center justify-center transition-[opacity,background-color] duration-[420ms]"
       style={{
@@ -164,14 +162,6 @@ export function Intro() {
         className="size-full object-cover"
       />
 
-      <button
-        ref={skipRef}
-        type="button"
-        onClick={dismiss}
-        className="absolute bottom-6 right-6 rounded-full border border-white/25 bg-black/30 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-      >
-        Skip
-      </button>
     </div>
   );
 }

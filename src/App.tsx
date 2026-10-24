@@ -484,15 +484,15 @@ function Home({ setTab }: { setTab: (t: string) => void }) {
               is on every screen rather than only this one. */}
           <FilmTile />
           <div className="grid grid-cols-2 gap-4">
-            <LandingTile {...work} setTab={setTab} />
+            <LandingTile {...volunteering} setTab={setTab} />
             <LandingTile {...education} setTab={setTab} />
           </div>
         </div>
 
-        {/* The same rows as the left column, with Volunteering the film's 16:9,
+        {/* The same rows as the left column, with Work the film's 16:9,
             so the two columns' gutters line up exactly. */}
         <div className="grid gap-4 lg:grid-rows-[auto_minmax(0,1fr)]">
-          <LandingTile {...volunteering} setTab={setTab} className="lg:aspect-video" />
+          <LandingTile {...work} setTab={setTab} className="lg:aspect-video" />
           <div className="grid grid-cols-2 gap-4">
             <LandingTile {...built} setTab={setTab} />
             <LandingTile {...writing} setTab={setTab} />

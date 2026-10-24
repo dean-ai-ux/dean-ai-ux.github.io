@@ -34,19 +34,21 @@ running any of them. Re-run one only when its inputs change.
 
 ### The landing films
 
-The landing page opens on the Vista intro: the VISTA wordmark from the first
-three seconds of **Vista: Many Heads**, the brand film of Dean's essay
+The landing page opens on the Vista intro: the VISTA wordmark that opens
+**Vista: Many Heads**, the brand film of Dean's essay
 "Software isn't losing its head. It's growing thousands.", made with his Vista
 video toolkit (a separate, private repo). It plays silently over the page on a
-first visit, then the landing page shows; a scroll, click or key press skips
-it. The whole film, with its piano score, is the top left tile of the landing
+first visit, about two seconds, then the landing page shows; a scroll, click
+or key press ends it early. The clip is the film's first 2.45 seconds with the
+fade-up played at double speed and nothing after the fade-out. The whole film, with its piano score, is the top left tile of the landing
 grid, and is only downloaded when someone presses play.
 
 Both files are cut from the toolkit's render, `Vista-Many-Heads-v3.mp4`:
 
 ```
-ffmpeg -i Vista-Many-Heads-v3.mp4 -t 3.0 -an \
-  -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -movflags +faststart public/media/vista-intro.mp4
+ffmpeg -i Vista-Many-Heads-v3.mp4 -filter_complex \
+  "[0:v]trim=0:0.9,setpts=0.5*(PTS-STARTPTS)[a];[0:v]trim=0.9:2.45,setpts=PTS-STARTPTS[b];[a][b]concat=n=2:v=1,fps=30[v]" \
+  -map "[v]" -an -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -movflags +faststart public/media/vista-intro.mp4
 ffmpeg -i Vista-Many-Heads-v3.mp4 -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p \
   -c:a aac -b:a 128k -movflags +faststart public/media/many-heads.mp4
 ffmpeg -ss 0.3 -i Vista-Many-Heads-v3.mp4 -frames:v 1 -q:v 3 public/media/vista-intro-poster.jpg
