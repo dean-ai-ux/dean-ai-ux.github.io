@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Play, X } from 'lucide-react';
 import { SectionDock, type DockItem } from '@/components/ui/section-dock';
 import { RidgeFooter } from '@/components/ui/ridge-footer';
 import { SqueezeCarousel, type SqueezeSlide } from '@/components/ui/carousel-squeeze';
@@ -406,6 +406,48 @@ function LandingTile({
   );
 }
 
+/**
+ * Vista: Many Heads, the brand film of Dean's essay "Software isn't losing its
+ * head. It's growing thousands." Its opening plays over the landing page (see
+ * intro.tsx); this is the whole film, with its piano score, on request.
+ *
+ * A poster and a play control until someone asks for it, so nobody downloads
+ * five megabytes of film to read a resume. The <video> mounts on the click, and
+ * because the click is a user gesture the browser lets it play with sound.
+ */
+function FilmTile() {
+  const [playing, setPlaying] = React.useState(false);
+  return (
+    <div className="relative aspect-video w-full min-w-[180px] overflow-hidden rounded-xl bg-[#0D0D0D] sm:ml-auto sm:w-[clamp(200px,40%,320px)] lg:ml-0 lg:w-[260px] min-[1400px]:ml-auto min-[1400px]:w-[clamp(200px,40%,320px)]">
+      {playing ? (
+        <video
+          src="media/many-heads.mp4"
+          poster="media/many-heads-poster.jpg"
+          controls
+          autoPlay
+          playsInline
+          className="size-full object-contain"
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPlaying(true)}
+          aria-label="Play the film Software isn't losing its head, 1 minute 33 seconds, with sound"
+          className="group/film absolute inset-0 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/80"
+        >
+          <img src="media/many-heads-poster.jpg" alt="" className="size-full object-cover" />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="flex size-12 items-center justify-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur transition group-hover/film:scale-105 group-hover/film:bg-black/60 motion-reduce:transition-none">
+              <Play aria-hidden className="ml-0.5 size-5 fill-current" />
+            </span>
+          </span>
+          <span className="t-label absolute bottom-2 right-2.5 rounded bg-black/55 px-1.5 py-0.5 tabular-nums text-white">1:33</span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 function Home({ setTab, onAbout }: { setTab: (t: string) => void; onAbout: () => void }) {
   const by = (key: string) => {
     const i = TILES.findIndex((t) => t.key === key);
@@ -437,39 +479,47 @@ function Home({ setTab, onAbout }: { setTab: (t: string) => void; onAbout: () =>
           {/* The statement is the way into the about panel now. The contact link
               it used to carry has moved up beside the name in the bar, where it
               is on every screen rather than only this one. */}
-          <button
-            type="button"
-            onClick={onAbout}
-            aria-label="About Dean Dowling"
-            aria-haspopup="dialog"
-            className="group flex items-center gap-5 rounded-2xl p-6 text-left outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:gap-6 sm:p-8"
+          {/* Two controls in one tile, so the tile is a div and each half is its
+              own button: a button inside a button is invalid, and a click on
+              the film would also have opened the about panel. */}
+          <div
+            className="flex flex-col gap-5 rounded-2xl p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-8 lg:flex-col lg:items-start min-[1400px]:flex-row min-[1400px]:items-center"
             style={{ background: 'var(--verde-viz-forest)', color: 'var(--verde-viz-forest-on)' }}
           >
-            <div className="shrink-0">
-              {/* portrait.jpg is the original headshot, 400x400 and untouched.
-                  It is square, so object-cover crops nothing and the framing is
-                  entirely in the file. Do not substitute a taller crop: a square
-                  crop centred in one takes the top off the head. */}
-              <img src="media/portrait.jpg" alt="Dean Dowling" className="size-24 rounded-full object-cover" />
-              {/* Under the portrait rather than after the list, so the identity
-                  column carries it and the four lines alone set the tile's
-                  height — which is how it stays the height it already was. */}
-              <span className="t-label mt-3 inline-flex items-center gap-1.5 whitespace-nowrap underline underline-offset-4 opacity-80 transition group-hover:opacity-100 group-focus-visible:opacity-100">
-                About me <ArrowUpRight aria-hidden className="size-3.5" />
-              </span>
-            </div>
-            {/* Four moves rather than a sentence. The left of each is where it
-                started and is set back; the right is where it is now. */}
-            <ul className="t-headline-md">
-              {(profile.arc || []).map(([from, to]: string[]) => (
-                <li key={from} className="flex items-center gap-2.5">
-                  <span className="opacity-60">{from}</span>
-                  <ArrowRight aria-hidden className="size-5 shrink-0 opacity-50" />
-                  <span>{to}</span>
-                </li>
-              ))}
-            </ul>
-          </button>
+            <button
+              type="button"
+              onClick={onAbout}
+              aria-label="About Dean Dowling"
+              aria-haspopup="dialog"
+              className="group flex min-w-0 items-center gap-5 rounded-xl min-[1400px]:shrink-0 text-left outline-none ring-offset-2 ring-offset-[var(--verde-viz-forest)] focus-visible:ring-2 focus-visible:ring-white/80 sm:gap-6"
+            >
+              <div className="shrink-0">
+                {/* portrait.jpg is the original headshot, 400x400 and untouched.
+                    It is square, so object-cover crops nothing and the framing is
+                    entirely in the file. Do not substitute a taller crop: a square
+                    crop centred in one takes the top off the head. */}
+                <img src="media/portrait.jpg" alt="Dean Dowling" className="size-24 rounded-full object-cover" />
+                {/* Under the portrait rather than after the list, so the identity
+                    column carries it and the four lines alone set the tile's
+                    height — which is how it stays the height it already was. */}
+                <span className="t-label mt-3 inline-flex items-center gap-1.5 whitespace-nowrap underline underline-offset-4 opacity-80 transition group-hover:opacity-100 group-focus-visible:opacity-100">
+                  About me <ArrowUpRight aria-hidden className="size-3.5" />
+                </span>
+              </div>
+              {/* Four moves rather than a sentence. The left of each is where it
+                  started and is set back; the right is where it is now. */}
+              <ul className="t-headline-md">
+                {(profile.arc || []).map(([from, to]: string[]) => (
+                  <li key={from} className="flex items-center gap-2.5">
+                    <span className="opacity-60">{from}</span>
+                    <ArrowRight aria-hidden className="size-5 shrink-0 opacity-50" />
+                    <span>{to}</span>
+                  </li>
+                ))}
+              </ul>
+            </button>
+            <FilmTile />
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <LandingTile {...work} setTab={setTab} />
             <LandingTile {...education} setTab={setTab} />

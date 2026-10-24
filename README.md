@@ -32,10 +32,33 @@ running any of them. Re-run one only when its inputs change.
 | `npm run video:captures` | `public/media/film-*.jpg` | a built `dist/`, Chrome |
 | `npm run video:render` | `public/media/intro.mp4` | Remotion, which downloads its own headless Chrome |
 
-### The intro film
+### The landing films
 
-A 28 second film that plays over the landing page on a first visit and gets out
-of the way on the first scroll, click, key press or when it ends. Apple keynote
+The landing page opens on the first 8.7 seconds of **Vista: Many Heads**, the
+brand film of Dean's essay "Software isn't losing its head. It's growing
+thousands.", made with his Vista video toolkit (a separate, private repo). The
+clip plays silently over the page on a first visit and gets out of the way on
+the first scroll, click, key press or when it ends. The whole film, with its
+piano score, plays from the statement tile at the top left of the landing grid,
+and is only downloaded when someone presses play.
+
+Both files are cut from the toolkit's render, `Vista-Many-Heads-v3.mp4`:
+
+```
+ffmpeg -i Vista-Many-Heads-v3.mp4 -t 8.7 -an -vf "fade=t=out:st=8.2:d=0.5" \
+  -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -movflags +faststart public/media/vista-intro.mp4
+ffmpeg -i Vista-Many-Heads-v3.mp4 -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p \
+  -c:a aac -b:a 128k -movflags +faststart public/media/many-heads.mp4
+ffmpeg -ss 0.3 -i Vista-Many-Heads-v3.mp4 -frames:v 1 -q:v 3 public/media/vista-intro-poster.jpg
+ffmpeg -ss 7.5 -i Vista-Many-Heads-v3.mp4 -frames:v 1 -vf scale=960:-1 -q:v 3 public/media/many-heads-poster.jpg
+```
+
+### The Remotion film (not in use)
+
+The film below played over the landing page until October 2026. The site no
+longer loads it; the source stays so it can be rendered again.
+
+A 28 second film, Apple keynote
 style with liquid glass, in three chapters taken from the bio, each followed by
 the work behind it, with diagrams where there is information to show. It ends on
 the landing tile.

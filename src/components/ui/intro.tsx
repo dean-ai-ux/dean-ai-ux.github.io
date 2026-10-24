@@ -50,20 +50,34 @@ function shouldPlay(): boolean {
   return true;
 }
 
+/**
+ * The opening of Vista: Many Heads, the brand film Dean made in his own Vista
+ * design system: the VISTA wordmark, then "Software isn't losing its head. It's
+ * growing thousands." Cut from the film at 8.7s, silent, so it can autoplay.
+ * The whole film, with its score, plays from the statement tile on the landing
+ * page (see FilmTile in App.tsx).
+ *
+ * One cut for every screen. The film exists only at 16:9, and cropping it to a
+ * phone would cut the title in half, so a phone gets it letterboxed in the
+ * film's own ink.
+ */
+const INK = '#0D0D0D';
+
 export function Intro() {
-  /* Which cut, decided once, before the <video> mounts, so a phone downloads
-     only the portrait file and a laptop only the landscape one. Portrait is
-     anything taller than it is wide. */
-  const [portrait] = React.useState(
-    () => typeof window !== 'undefined' && !!window.matchMedia?.('(max-aspect-ratio: 1/1)').matches,
-  );
   const [state, setState] = React.useState<'playing' | 'leaving' | 'gone'>(() =>
     shouldPlay() ? 'playing' : 'gone',
   );
-  /* True for the last stretch of the film, where its own ground turns white.
-     The overlay follows it, so the letterbox bars turn white at the same moment
-     and the final frame reads as the page rather than as a card on a field. */
-  const [settling, setSettling] = React.useState(false);
+  /* Fill the screen when it is close to the film's shape, 16:10 to 2:1, which
+     is most laptops and monitors. Cover trims at most 96px a side there, clear
+     of the title; anything else keeps the bars, because a deeper crop would cut
+     the type. Chrome draws the film a few levels darker than the ink it was
+     made in, so wherever there are bars a faint seam shows. This keeps them
+     off the common screens. */
+  const [fill] = React.useState(
+    () =>
+      typeof window !== 'undefined' &&
+      !!window.matchMedia?.('(min-aspect-ratio: 8/5) and (max-aspect-ratio: 2/1)').matches,
+  );
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const skipRef = React.useRef<HTMLButtonElement>(null);
 
@@ -143,19 +157,16 @@ export function Intro() {
       onClick={dismiss}
       className="fixed inset-0 z-[60] flex items-center justify-center transition-[opacity,background-color] duration-[420ms]"
       style={{
-        /* The film's own near-black while it plays, turning over to the page's
-           white as the film does. The bars either side of a 16:9 film in a
-           portrait window are therefore never a colour the film is not. This
-           was forest green for the previous cut; left that way it would have
-           framed a black film in green bars on every phone. */
-        backgroundColor: settling ? '#FFFFFF' : '#07090A',
+        /* The film's own ink, so the bars around it on a screen that is not
+           16:9 are never a colour the film is not. */
+        backgroundColor: INK,
         opacity: state === 'leaving' ? 0 : 1,
       }}
     >
       <video
         ref={videoRef}
-        src={portrait ? 'media/intro-portrait.mp4' : 'media/intro.mp4'}
-        poster={portrait ? 'media/intro-portrait-poster.jpg' : 'media/intro-poster.jpg'}
+        src="media/vista-intro.mp4"
+        poster="media/vista-intro-poster.jpg"
         muted
         autoPlay
         playsInline
@@ -163,16 +174,7 @@ export function Intro() {
         aria-hidden
         onEnded={dismiss}
         onError={dismiss}
-        onTimeUpdate={(e) => {
-          const v = e.currentTarget;
-          if (v.duration && v.currentTime > v.duration - 1.3) setSettling(true);
-        }}
-        /* contain, not cover, even now that each device gets a cut shaped for
-           it. Phones are narrower than 9:16 (a 390x844 screen is 0.46 against
-           the film's 0.56), so cover would trim the sides where the chapter
-           labels and the left-aligned type sit. The bars contain leaves are
-           the film's own ink, and they turn white with it at the end. */
-        className="size-full object-contain"
+        className={`size-full ${fill ? 'object-cover' : 'object-contain'}`}
       />
 
       <button
