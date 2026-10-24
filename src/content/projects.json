@@ -1,50 +1,108 @@
 [
   {
-    "id": "verde-design-system",
-    "org": "Verde",
+    "id": "vista-design-system",
+    "org": "Vista",
     "role": "Design system",
-    "start": "2026-08",
+    "start": "2026-10",
     "end": null,
-    "summary": "A Swiss, rectilinear design system whose distinguishing idea is that every rule declares who is able to check it, and 14 of them fail the build.",
-    "context": "Most design systems write their rules down as though a build could verify all of them. It cannot: no linter decides whether a page uses one term per concept, and none decides whether a keyboard user can finish a flow. Verde's answer is to make that explicit rather than paper over it. Each of its 26 rules names its enforcer, whether a script, a model, or a person, and a report claiming every rule green without naming a checker for each is claiming coverage it does not have.",
+    "summary": "Verde Vista's own design system, taken from verdevista.net and written down so films, pages and tools can share one look: ink and bone, Lato Light, spaced capitals and hairlines.",
+    "context": "verdevista.net had a clear look but no system behind it: the values lived in one stylesheet and the decisions in nobody's notes. A film or a tool that wanted to match the site had to guess. Vista writes the site down as tokens, and where the site is silent (a film needs accents, chapter fields and motion the site never uses) it derives the value from the site and records how.",
     "actions": [
-      "Built the token layer as a single source of truth: one file, with the CSS custom properties, the machine-readable set, the slide constants and the icon catalogue all generated from it and never hand-edited.",
-      "Wrote the gate: 14 static rules that fail a build, covering hardcoded hex, off-scale spacing, contrast floors, the weight ladder, focus visibility and reduced motion.",
-      "Gave the other 12 rules an honest register instead of a false pass: 11 that need a model to read the artifact, and 1 that needs a person at a keyboard.",
-      "Drew a 36-component canon where every component defines rest, hover, pressed, focus and disabled, or states which it omits and why.",
-      "Built a generative imagery system, seeded so a figure can be cited and reproduced exactly, taking its colors as roles so the artwork follows light and dark.",
-      "Chose Archivo, which is open-licensed, so the web system and the deck system cannot drift apart the way they do when only one of them can legally ship the typeface."
+      "Took every core value from the published site: its stylesheet, its four pages and its splash image.",
+      "Made one file the source of truth. tokens.json generates the CSS and the video kit's tokens, so the site, the films and the tools cannot drift apart.",
+      "Set a floor for text at 60% bone. The site sets some labels at 50%, which measures 4.42:1 on ink, just under AA, so Vista keeps 50% out of the system.",
+      "Derived two accents, a cool haze and a warm ember, from the smoke in the splash image, so they belong to the same light as everything else.",
+      "Shipped Lato Light and Regular in the repo under the SIL Open Font License, declared under a name of its own so a renderer uses the files beside the page instead of downloading a copy."
     ],
     "outcomes": [
       {
-        "claim": "26 rules, each naming its own enforcer: 14 that fail a build, 11 that need a model, and 1 that needs a person.",
+        "claim": "Every text pair is contrast checked on every build, and the check fails the build when anything drops under AA or falls out of step with tokens.json.",
         "evidence": []
       },
       {
-        "claim": "Closed the verdict vocabulary to three (pass, fail and not_checkable), with not_checkable never omitted and never quietly promoted to a pass.",
-        "evidence": []
-      },
-      {
-        "claim": "Exposed the gate over MCP so it can audit output that never enters the repository, which is how this site is checked.",
-        "evidence": []
-      },
-      {
-        "claim": "This site is built on it, and passes all 14 static rules with zero findings on every page.",
-        "evidence": []
+        "claim": "Vista: Many Heads, the film on this site's landing page, is built on it.",
+        "evidence": [
+          "many-heads-film-ds"
+        ]
       }
     ],
-    "evidence": [],
+    "evidence": [
+      {
+        "id": "many-heads-film-ds",
+        "type": "video",
+        "title": "Watch Vista: Many Heads",
+        "url": "assets/many-heads.mp4",
+        "note": "A brand film set entirely in Vista. Hosted here."
+      }
+    ],
     "attestations": [],
     "skills": [
       "Design systems",
       "Design tokens",
       "Accessibility",
-      "Static analysis",
-      "Generative imagery"
+      "Typography"
     ],
     "icon": {
-      "file": "assets/icon-verde-design-system.jpg",
-      "alt": "The Verde design system home screen."
+      "file": "assets/icon-vista-design-system.jpg",
+      "alt": "The Vista specimen page, showing the colour tokens from ink and bone to the haze and ember accents."
+    }
+  },
+  {
+    "id": "vista-video-toolkit",
+    "org": "Vista Video Production Tool",
+    "role": "Brand films and demo videos, made as code",
+    "start": "2026-10",
+    "end": null,
+    "summary": "A Claude Code plugin that makes brand films and app demo videos in the Vista design system, built as code and rendered entirely on your own machine.",
+    "context": "A short film usually means a timeline editor, stock assets and a look that drifts from everything else the studio makes. Building films as HTML on the design system's own tokens makes every frame reproducible, keeps the look in step with the site, and lets each film pass measured checks before anyone watches it.",
+    "actions": [
+      "Rebuilt an existing video toolkit around Vista: a new design system, the film kit's look, the templates and the documentation.",
+      "Brand films: a storyline traced line by line to its sources, a look check before the build, then the film built on a shared kit and rendered locally with HyperFrames, with a composed score.",
+      "Demo videos: records a real walkthrough of a web app with Playwright, logs every click, and cuts a titled teaser whose zooms follow the work, in a choice of five tones, with a voiceover or a music version.",
+      "Keeps everything local: telemetry off, no cloud rendering, and fonts shipped with each film so nothing is fetched at render time.",
+      "Checks every film before it ships: contrast, fonts, audio levels, and motion with no jumps or flashes."
+    ],
+    "outcomes": [
+      {
+        "claim": "Made Vista: Many Heads, a 93 second brand film of my essay “Software isn’t losing its head. It’s growing thousands.”, with a composed piano score, rendered end to end on one machine.",
+        "evidence": [
+          "many-heads-film"
+        ]
+      },
+      {
+        "claim": "Two skills in one plugin: make-brand-film and make-demo-video.",
+        "evidence": [
+          "toolkit-repo"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "many-heads-film",
+        "type": "video",
+        "title": "Watch Vista: Many Heads",
+        "url": "assets/many-heads.mp4",
+        "note": "Made with the tool. Hosted here."
+      },
+      {
+        "id": "toolkit-repo",
+        "type": "repo",
+        "title": "vista-video-toolkit on GitHub",
+        "restricted": {
+          "reason": "Private repository."
+        }
+      }
+    ],
+    "attestations": [],
+    "skills": [
+      "Video production",
+      "Claude Code plugins",
+      "HyperFrames",
+      "Playwright"
+    ],
+    "icon": {
+      "file": "assets/icon-vista-video-toolkit.jpg",
+      "alt": "A frame from Vista: Many Heads: one engine with a window for every person and task growing from it."
     }
   },
   {

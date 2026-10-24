@@ -12,9 +12,13 @@
  */
 
 export const APP_PHOTOS: Record<string, { src: string; alt: string }> = {
-  "verde-design-system": {
-    "src": "media/icon-verde-design-system.jpg",
-    "alt": "The Verde design system home screen."
+  "vista-design-system": {
+    "src": "media/icon-vista-design-system.jpg",
+    "alt": "The Vista specimen page, showing the colour tokens from ink and bone to the haze and ember accents."
+  },
+  "vista-video-toolkit": {
+    "src": "media/icon-vista-video-toolkit.jpg",
+    "alt": "A frame from Vista: Many Heads: one engine with a window for every person and task growing from it."
   },
   "fed-chair-for-a-year": {
     "src": "media/icon-fed-chair-for-a-year.jpg",

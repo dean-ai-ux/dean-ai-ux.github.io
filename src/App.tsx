@@ -75,7 +75,7 @@ const openLink = (e: Entry) => asset(openEvidence(e)?.url);
 /* What the thing behind the link actually is. The verb was a guess before —
    "Open" for a game, a PDF and an announcement alike — and the content has
    always known the difference. */
-const ACTION_VERB: Record<string, string> = { app: 'Play', doc: 'Open', repo: 'Code', link: 'Read' };
+const ACTION_VERB: Record<string, string> = { app: 'Play', doc: 'Open', repo: 'Code', link: 'Read', video: 'Watch' };
 
 /**
  * A claim's proof.
@@ -103,7 +103,7 @@ type Tile = { key: string; title: string; desc: string; url: string; span: strin
 const TILES: Tile[] = [
   { key: 'work', title: 'Work', desc: '', url: 'media/work.jpg', tab: 'work',
     span: 'col-span-1 row-span-3 sm:col-span-1 sm:row-span-4 lg:col-start-1 lg:col-span-1 lg:row-start-1 lg:row-span-5' },
-  { key: 'built', title: 'Built', desc: 'Verde, Fed Chair for a Year, MAIA, Course Compass', url: 'media/built-ridges.jpg', tab: 'built',
+  { key: 'built', title: 'Built', desc: 'Vista, the Vista Video Production Tool, Fed Chair for a Year, MAIA, Course Compass', url: 'media/built-ridges.jpg', tab: 'built',
     span: 'col-span-1 row-span-2 sm:col-span-1 sm:row-span-2 lg:col-start-4 lg:col-span-1 lg:row-start-1 lg:row-span-3' },
   { key: 'education', title: 'Education', desc: '', url: 'media/davidson.jpg', tab: 'education',
     span: 'col-span-1 row-span-2 sm:col-span-2 sm:row-span-2 lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-3' },
@@ -143,7 +143,8 @@ const ENTRY_ART: Record<string, string> = {
      portrait phone photo, and a centred cover crop starts below the heads. */
   'davidson-fed-challenge': 'media/fed-challenge.jpg',
   'davidson-spanish-ta': 'media/spanish-ta.jpg',
-  'verde-design-system': 'media/icon-verde-design-system.jpg',
+  'vista-design-system': 'media/icon-vista-design-system.jpg',
+  'vista-video-toolkit': 'media/icon-vista-video-toolkit.jpg',
   'fed-chair-for-a-year': 'media/icon-fed-chair-for-a-year.jpg',
   maia: 'media/maia.jpg',
   'w-0': 'media/writing.jpg',
