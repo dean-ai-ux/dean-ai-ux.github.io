@@ -1,5 +1,112 @@
 [
   {
+    "id": "many-heads",
+    "title": "Software Isn’t Losing Its Head. It’s Growing Thousands.",
+    "subtitle": "Essay · with film",
+    "summary": "Why strategy firms should turn their methodology into software",
+    "film": {
+      "src": "media/many-heads.mp4",
+      "poster": "media/many-heads-poster.jpg",
+      "title": "Vista: Many Heads",
+      "duration": "1:33"
+    },
+    "meta": [
+      {
+        "label": "Date",
+        "value": "Oct 2026"
+      },
+      {
+        "label": "Kind",
+        "value": "Essay"
+      },
+      {
+        "label": "Film",
+        "value": "Vista: Many Heads, 1:33"
+      }
+    ],
+    "essay": [
+      {
+        "text": "Every strategy firm is building AI products right now. Most of them are building the wrong thing."
+      },
+      {
+        "text": "Look across the industry’s AI launches and you’ll find two camps."
+      },
+      {
+        "text": "The first gives its software a fixed head. A branded dashboard, a bespoke client tool, a polished interface designed to look like the future. It demos beautifully. It’s also frozen the day it ships, while the models and tools around it improve every few months. By the time the client finishes onboarding, the tool is already behind.",
+        "figure": {
+          "src": "media/many-heads-fig-1.jpg",
+          "alt": "The fixed head: a hairline window, a polished chart, and a label reading “The fixed head”.",
+          "caption": "The fixed head. A polished tool that demos beautifully."
+        }
+      },
+      {
+        "text": "The second camp cuts the head off entirely. It wraps the firm’s knowledge in a connector and drops it behind a chat window. This is the “headless” future many claim will kill SaaS: no interface, just a prompt. Flexible, cheap, technically impressive. Then a strategist opens it, stares at the blinking cursor, and has no idea what to ask. A blank box isn’t an interface.",
+        "figure": {
+          "src": "media/many-heads-fig-2.jpg",
+          "alt": "An empty input box with a blinking cursor, under the label “No head”.",
+          "caption": "No head. A blank box isn’t an interface."
+        }
+      },
+      {
+        "text": "That’s the deeper problem with both camps. They treat the interface as a way to access software, when in strategy work it’s where the thinking happens."
+      },
+      {
+        "text": "Strategy isn’t retrieval. Nobody walks into a growth problem knowing the answer and needing a faster way to type it. You find the answer by working through it: sketching a market map, arguing with a 2x2, pulling a number apart until it breaks. The human judgment in that process is the whole product. Clients don’t pay for the data. They pay for what an experienced person decides it means.",
+        "figure": {
+          "src": "media/many-heads-fig-3.jpg",
+          "alt": "Three hairline sketches: a market map of circles, a 2x2, and a bar pulled apart into pieces.",
+          "caption": "Strategy isn’t retrieval: a market map, a 2x2, a number pulled apart."
+        }
+      },
+      {
+        "text": "And yet the tools decide how that thinking happens. A slide forces you into a linear story. A spreadsheet forces you into a grid. A chat window forces you into prose, and asks you to articulate the question before you’ve figured out what it is. Each is a reasonable constraint for some moments and the wrong one for most. We’ve spent decades bending how strategists think around the shape of their tools, and calling the result a deliverable.",
+        "figure": {
+          "src": "media/many-heads-fig-4.jpg",
+          "alt": "A menu of three tools, Slide, Spreadsheet and Chat, with Spreadsheet active and a grid beside it.",
+          "caption": "Every tool decides how you think. A spreadsheet forces a grid."
+        }
+      },
+      {
+        "text": "If human input is what makes strategy valuable, the interface should serve the way that human thinks, not the other way around."
+      },
+      {
+        "text": "One head is too rigid. No head is too empty. The answer is more heads.",
+        "pull": true
+      },
+      {
+        "text": "Many-headed software keeps a single engine underneath: the firm’s data, frameworks, quality bar, and point of view. On top, it grows a new head for every person and every task. The partner preparing for a board meeting gets one view. The analyst stress-testing a market sizing gets another. Each is generated when it’s needed and discarded when it isn’t. Personal front end. Shared back end.",
+        "figure": {
+          "src": "media/many-heads-fig-5.jpg",
+          "alt": "One engine at the centre, with four windows growing from it on drawn lines, two labelled for the partner and the analyst.",
+          "caption": "One engine: data, frameworks, quality bar and point of view, with a head for every person and task."
+        }
+      },
+      {
+        "text": "This isn’t a prettier dashboard. It’s a different idea of what software is. The interface stops being the product and becomes the output.",
+        "figure": {
+          "src": "media/many-heads-fig-6.jpg",
+          "alt": "A single generated window standing on a bar labelled “Shared back end”.",
+          "caption": "The interface stops being the product. It becomes the output."
+        }
+      },
+      {
+        "text": "For strategy firms, that changes the question. It’s no longer “what tool should we build?” It’s “how well have we encoded the way we think?” The firms that answer it won’t ship tools that expire. They’ll ship methodology that compounds.",
+        "figure": {
+          "src": "media/many-heads-fig-7.jpg",
+          "alt": "A ring of four points, labelled data, frameworks, quality bar and point of view, under the line “It’s how well we’ve encoded the way we think”.",
+          "caption": "The question changes: how well have we encoded the way we think?"
+        }
+      },
+      {
+        "figure": {
+          "src": "media/many-heads-fig-8.jpg",
+          "alt": "Two curves over time: tools rise and then fall away, while methodology keeps climbing.",
+          "caption": "Tools expire. Methodology compounds. An illustration, not data."
+        }
+      }
+    ]
+  },
+  {
     "id": "w-0",
     "title": "Challenges of Adapting a Rules Based Monetary Policy Approach to Crisis Intervention",
     "subtitle": "Paper · with Zuber Chawla",

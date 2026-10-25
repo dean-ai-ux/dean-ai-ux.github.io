@@ -147,6 +147,7 @@ const ENTRY_ART: Record<string, string> = {
   'vista-video-toolkit': 'media/icon-vista-video-toolkit.jpg',
   'fed-chair-for-a-year': 'media/icon-fed-chair-for-a-year.jpg',
   maia: 'media/maia.jpg',
+  'many-heads': 'media/many-heads-poster.jpg',
   'w-0': 'media/writing.jpg',
   'w-1': 'media/footwear.jpg',
   'w-2': 'media/supply-wisdom.jpg',
@@ -191,7 +192,18 @@ type Item = {
      prose, a list of points, or both. The role-shaped fields above (actions,
      outcomes) describe work done; this one carries an argument, and forcing an
      essay through them would lose its shape. */
-  essay?: { heading?: string; text?: string; points?: { lead?: string; text: string }[] }[];
+  essay?: {
+    heading?: string;
+    text?: string;
+    points?: { lead?: string; text: string }[];
+    /** Set larger, as the line the piece turns on. */
+    pull?: boolean;
+    /** A still from the piece's film, placed after the paragraph it illustrates. */
+    figure?: { src: string; alt: string; caption?: string };
+  }[];
+  /* A piece that has a film of its own. Its detail opens as an article: the film
+     across the top, then the text in one reading column with the figures. */
+  film?: { src: string; poster: string; title: string; duration: string };
 };
 
 /** A tile's face: its photograph if it has one, otherwise its name on a tone. */
@@ -417,17 +429,23 @@ function LandingTile({
  * five megabytes of film to read a resume. The <video> mounts on the click, and
  * because the click is a user gesture the browser lets it play with sound.
  */
-function FilmTile() {
+function FilmTile({
+  src = 'media/many-heads.mp4',
+  poster = 'media/many-heads-poster.jpg',
+  title = "Software isn't losing its head",
+  duration = '1:33',
+  className = 'rounded-2xl max-h-[75svh] lg:max-h-none',
+}: { src?: string; poster?: string; title?: string; duration?: string; className?: string } = {}) {
   const [playing, setPlaying] = React.useState(false);
   return (
     /* Capped below lg, where the tile is the full width: on a phone held
        sideways 16:9 of 800px is taller than the screen, and the landing was
        nothing but the poster. */
-    <div className="relative aspect-video max-h-[75svh] w-full overflow-hidden rounded-2xl bg-[#0D0D0D] lg:max-h-none">
+    <div className={`relative aspect-video w-full overflow-hidden bg-[#0D0D0D] ${className}`}>
       {playing ? (
         <video
-          src="media/many-heads.mp4"
-          poster="media/many-heads-poster.jpg"
+          src={src}
+          poster={poster}
           controls
           autoPlay
           playsInline
@@ -438,16 +456,16 @@ function FilmTile() {
           type="button"
           onClick={() => setPlaying(true)}
           /* The tile is 16:9 and the film is 16:9, so the poster shows whole. */
-          aria-label="Play the film Software isn't losing its head, 1 minute 33 seconds, with sound"
+          aria-label={`Play the film ${title}, ${duration}, with sound`}
           className="group/film absolute inset-0 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/80"
         >
-          <img src="media/many-heads-poster.jpg" alt="" className="size-full object-cover" />
+          <img src={poster} alt="" className="size-full object-cover" />
           {/* In the corner, not the centre: the poster's title sits mid-left
               and a centred button covered it. */}
           <span className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-white/30 bg-black/55 py-2 pl-3 pr-4 text-white backdrop-blur transition group-hover/film:bg-black/75 motion-reduce:transition-none">
             <Play aria-hidden className="size-4 fill-current" />
             <span className="t-label">Play film</span>
-            <span className="t-label tabular-nums opacity-70">1:33</span>
+            <span className="t-label tabular-nums opacity-70">{duration}</span>
           </span>
         </button>
       )}
@@ -843,6 +861,63 @@ function WorkSection({ items, onOpen }: { items: Item[]; onOpen: (i: number) => 
 /* ── the detail ────────────────────────────────────────────── */
 
 /**
+ * A piece with its own film, opened as an article rather than as an entry.
+ *
+ * The entry layout puts a 320px image beside the text, which suits a role and
+ * not 600 words with eight figures. Here the film runs the full width of the
+ * card, the text keeps to one 600px reading column (about 70 characters of body
+ * text; a width in ch would grow with the pull quote's larger type and push it
+ * out past the column), and each
+ * figure sits after the paragraph it illustrates, a little wider than the text
+ * so a still from a 16:9 film is large enough to read.
+ */
+function Article({ item }: { item: Item }) {
+  const film = item.film!;
+  return (
+    <article className="overflow-hidden rounded-2xl border bg-card">
+      <FilmTile src={film.src} poster={film.poster} title={film.title} duration={film.duration} className="" />
+      <div className="px-5 pb-10 pt-8 sm:px-10 sm:pb-14 sm:pt-10">
+        <header className="mx-auto max-w-[600px]">
+          <p className="t-body-sm text-muted-foreground">{item.subtitle}</p>
+          <h2 className="t-headline-md sm:t-headline-lg mt-2 text-balance">{item.title}</h2>
+          {item.summary && <p className="t-title-lg mt-3 font-normal text-muted-foreground">{item.summary}</p>}
+          {!!item.meta?.length && (
+            <p className="t-caption mt-4 text-muted-foreground">
+              {item.meta.map((m) => m.value).join('  ·  ')}
+            </p>
+          )}
+        </header>
+        <div className="mt-8 flex flex-col gap-5">
+          {(item.essay ?? []).map((section, i) => (
+            <React.Fragment key={i}>
+              {section.heading && <h3 className="t-title-lg mx-auto w-full max-w-[600px]">{section.heading}</h3>}
+              {section.text && (
+                <p className={`mx-auto w-full max-w-[600px] ${section.pull ? 't-headline-md my-3 text-balance' : 't-body-md text-foreground/90'}`}>
+                  {section.text}
+                </p>
+              )}
+              {section.figure && (
+                <figure className="mx-auto my-3 w-full max-w-3xl">
+                  <img
+                    src={section.figure.src}
+                    alt={section.figure.alt}
+                    loading="lazy"
+                    className="aspect-video w-full rounded-lg border bg-[#0D0D0D] object-cover"
+                  />
+                  {section.figure.caption && (
+                    <figcaption className="t-caption mt-2 text-muted-foreground">{section.figure.caption}</figcaption>
+                  )}
+                </figure>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/**
  * Modelled on the gallery's own modal — full backdrop, the art enlarged, a close
  * control, and the draggable strip of siblings along the bottom with its tilt
  * and scale.
@@ -894,7 +969,7 @@ function EntryOverlay({
         className="absolute inset-0 flex items-start justify-center overflow-y-auto p-4 outline-none sm:p-8"
       >
         <div className="my-auto w-full max-w-5xl pb-28">
-          {body ?? (
+          {body ?? (item.film ? <Article item={item} /> : (
             <div className="grid gap-6 rounded-2xl border bg-card p-5 sm:p-8 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl lg:aspect-square">
                 <TileArt item={item} size="large" />
@@ -987,7 +1062,7 @@ function EntryOverlay({
                     array order. */}
               </div>
             </div>
-          )}
+          ))}
         </div>
       </motion.div>
 
