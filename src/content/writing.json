@@ -88,6 +88,10 @@
     "href": "media/rules-based-monetary-policy-crisis-intervention.pdf",
     "meta": [
       {
+        "label": "Course",
+        "value": "ECO 495: What’s Wrong With Economics?"
+      },
+      {
         "label": "Date",
         "value": "May 2025"
       },
@@ -99,6 +103,58 @@
         "label": "Length",
         "value": "17 pages"
       }
+    ],
+    "summary": "Excerpts from the paper: its abstract, what worked, what went wrong, and the playbook it proposes.",
+    "hrefLabel": "Read the full paper (PDF)",
+    "essay": [
+      {
+        "heading": "Abstract",
+        "text": "The paper investigates the Federal Reserve’s response to COVID-19, tracing how rapid rate reductions, aggressive quantitative easing, and special credit facilities kept markets afloat but cultivated the most resilient inflation since the early 1980s. Drawing on empirical evidence, we highlight the challenges of adapting a rules based monetary policy approach to crisis intervention. In contrast to the Great Recession’s slower pace of stimulus, the pandemic response overshot toward excess. The analysis concludes with a feasible three-pronged crisis playbook: deliver liquidity quickly, coordinate with fiscal policy, and tie every intervention to transparent, data-linked exit criteria. The findings emphasize that there is no need to reinvent the wheel, rather the Federal Reserve needs to maintain public trust and limit mission creep."
+      },
+      {
+        "heading": "What worked",
+        "text": "The Federal Reserve’s response to the COVID-19 pandemic reflected a direct application of monetary policy tools designed to stabilize financial markets and support recovery. Following a sharp contraction in spending and a surge in unemployment early in 2020, the Fed implemented expansionary policies to prevent a prolonged recession. During this period, the FOMC relied on three primary tools: adjusting the federal funds rate, balance sheet policies, and forward guidance."
+      },
+      {
+        "heading": "What went wrong",
+        "text": "These insights highlight critical refinements necessary for future monetary policy: prudent interpretation of traditional economic indicators, reliance on thoroughly revised economic data, and the provision of detailed and transparent forward guidance.",
+        "points": [
+          {
+            "lead": "Indicators.",
+            "text": "One notable limitation was the Fed’s dependence on conventional economic indicators, specifically the Sahm Rule, which typically identifies recessions by observing a 0.5 percentage-point increase or greater in the three-month moving average of the unemployment rate from its recent low. During the pandemic, unusual labor-market dynamics, characterized by large numbers of workers rapidly re-entering rather than leaving employment, compromised the reliability of this indicator."
+          },
+          {
+            "lead": "Data.",
+            "text": "Moreover, preliminary economic data significantly hindered effective policy formulation. Initial metrics regarding employment growth and consumer savings underwent notable subsequent revisions, substantially altering policymakers’ initial perceptions of economic conditions. For example, the personal saving rate, initially reported at 2.9%, was later revised upward to 4.9%, demonstrating how reliance on early, incomplete data can misguide essential monetary policy decisions."
+          },
+          {
+            "lead": "Forward guidance.",
+            "text": "Additionally, forward guidance faced challenges. Forward guidance generally aims to shape market expectations by providing clarity on future policy intentions. However, empirical analysis revealed that forward guidance during the pandemic was only effective in influencing market behavior when accompanied by explicit numerical projections, such as those provided in the SEP."
+          }
+        ]
+      },
+      {
+        "heading": "A playbook for the next crisis",
+        "text": "What, then, should the playbook be for the next economic crisis? The Great Recession demonstrated the dangers of relying too heavily on markets to correct themselves, while the pandemic revealed the risks of excessive government intervention. An appropriate framework should integrate three key lessons from these downturns.",
+        "points": [
+          {
+            "text": "First, liquidity needs to reach stressed areas swiftly, but support measures must include clear end dates to avoid shifting expectations."
+          },
+          {
+            "text": "Second, effective fiscal policies must be in place to allow monetary policy to remain focused on the dual mandate, rather than becoming a catch-all rescue method."
+          },
+          {
+            "text": "Third, transparency is essential. Clear forward guidance about the criteria for both expansionary and contractionary policy reduces moral hazard by reminding markets that support is conditional and temporary."
+          }
+        ]
+      },
+      {
+        "text": "Neither a hands-off approach nor heavy intervention provides a lasting solution.",
+        "pull": true
+      },
+      {
+        "text": "The future of monetary policy lies somewhere in between, wherein the Federal Reserve acts swiftly in a crisis, tapers effectively afterward, and avoids unnecessary expansion of its role. This balanced approach upholds the dual mandate and protects the Fed’s credibility for future uncertain challenges."
+      }
     ]
   },
   {
@@ -109,11 +165,42 @@
     "meta": [
       {
         "label": "Client",
-        "value": "Footwear"
+        "value": "Footwear client"
       },
       {
         "label": "Kind",
         "value": "Case study"
+      },
+      {
+        "label": "Source",
+        "value": "Published by Prophet"
+      }
+    ],
+    "summary": "Turning tariff turbulence into opportunity with AI personas and rapid creative testing",
+    "essay": [
+      {
+        "heading": "Challenge",
+        "text": "A heritage men’s and boys’ footwear brand in the sub-$100 comfort segment was shifting to a product- and brand-led model anchored by a reengineered line built on proprietary technology."
+      },
+      {
+        "text": "Tariffs and global price volatility were squeezing margins and pushing retail prices up, so Prophet was tasked with turning turbulence into a growth opportunity. AI-driven research and cited industry studies indicated that tariff-linked price increases make consumers more likely to switch shoe brands, elevating price as a deciding factor."
+      },
+      {
+        "text": "In response, we focused on new-to-brand acquisition by (1) identifying and bringing to life high-potential segments and (2) aligning creative and messaging to what those switchers value most."
+      },
+      {
+        "heading": "Solution",
+        "text": "To rapidly brainstorm and test in an ever-evolving, uncertain environment, we paired Prophet craft with consumr.ai’s digital-twin platform. Together with the client team, we defined and prioritized acquisition personas, then brought them to life as digital twins using consumr.ai. We ran simulated focus groups with the twins to map needs, pain points, and triggers across the purchase journey. We used these signals to translate insights into decision drivers while flagging friction to reduce."
+      },
+      {
+        "text": "We then benchmarked some of the client’s existing creative assets against persona preferences and iterated quickly. Using agentic image-generation, we built refined creative mockups (headline/visual/offer combinations tailored to each persona) and re-tested to converge on winners. Working in tight loops with the client leadership team, we cross-checked AI-derived findings against retail realities to de-risk decisions and codified the learnings into a persona-driven creative framework that scales across paid and onsite."
+      },
+      {
+        "heading": "Results",
+        "text": "Our footwear client now has a persona-driven acquisition playbook and an end-to-end creative system that extends from paid media to onsite experiences. Refined ads consistently outperformed legacy creative on engagement testing, and clearer messaging around the benefit of their proprietary technology, as well as the refined promise, improved relevance scores. A repeatable test-and-iterate model now enables the client team to quickly identify and scale what works."
+      },
+      {
+        "text": "After creating the digital twins, we launched a one-day rapid email test to identify the top-performing creative. This proof point demonstrates that our client is now equipped with a strategy that turns past constraints to continue to deliver tangible growth."
       }
     ]
   },
@@ -125,11 +212,41 @@
     "meta": [
       {
         "label": "Respondents",
-        "value": "~20,000"
+        "value": "~20,000 agentic respondents"
       },
       {
         "label": "Kind",
         "value": "Case study"
+      },
+      {
+        "label": "Source",
+        "value": "Published by Prophet"
+      }
+    ],
+    "essay": [
+      {
+        "heading": "Challenge",
+        "text": "Coming off a Series B with a new CEO, Supply Wisdom, an emerging TPRM SaaS company, set out to turn momentum into revenue growth. Its platform continuously monitors 300+ indicators across financial, cyber, operational, nth-party, and location risk, but market signals pointed to tighter budgets, reduced price elasticity, and longer enterprise buying cycles. In a category where decision-makers are notoriously hard to interview, growth hinged on two imperatives: (1) sharpen buyer and user insight and (2) unify the message so marketing, sales, and product tell one simple, defensible story that increases qualified lead volume and improves conversion."
+      },
+      {
+        "heading": "Solution",
+        "text": "To overcome the research constraint, we paired Prophet craft with Aaru’s survey simulations, drawing on millions of underlying data points to surface reliable patterns quickly. We ran two coordinated studies totaling ~20,000 agentic respondents across buyer and user roles and translated the findings into a market-ready narrative."
+      },
+      {
+        "text": "Working in rapid iteration loops with the Supply Wisdom leadership team, we pressure-tested direction in working sessions and cross-checked AI-derived signals against market expectations and prior research to de-risk decisions."
+      },
+      {
+        "text": "We first identified pain points and focus areas for key buyers (Chief Risk Officer, Chief Compliance Officer, Chief Financial Officer) and users (analysts and TPRM champions). We then generated splash-page mockups and tested hundreds of imagery/copy combinations to see what truly resonates, converging on outcome-tied clarity and low perceived lift as the most persuasive themes."
+      },
+      {
+        "heading": "Results",
+        "text": "Supply Wisdom is now equipped with a unified, adaptable message and creative framework that scales across web, paid, and sales enablement, built to reach key buyers and users, and accelerate conversion without sacrificing rigor or credibility."
+      },
+      {
+        "text": "The work aligned marketing, sales, and product on clear priorities and gave revenue teams assets that map to each stage of the funnel. Select hero imagery and layout patterns resonated strongly with Supply Wisdom’s CEO and CFO, and the message architecture was designed to increase qualified pipeline, lift stage-to-stage conversion, and improve win rate."
+      },
+      {
+        "text": "By pairing Prophet craft with Aaru’s simulations, Supply Wisdom is positioned not just to grow, but to set the pace in third-party risk management."
       }
     ]
   },
@@ -212,7 +329,8 @@
         "label": "Status",
         "value": "Draft"
       }
-    ]
+    ],
+    "hidden": true
   },
   {
     "id": "w-4",
@@ -223,7 +341,8 @@
         "label": "Status",
         "value": "Draft"
       }
-    ]
+    ],
+    "hidden": true
   },
   {
     "id": "w-5",
@@ -234,7 +353,8 @@
         "label": "Status",
         "value": "Draft"
       }
-    ]
+    ],
+    "hidden": true
   },
   {
     "id": "w-6",
@@ -245,6 +365,7 @@
         "label": "Status",
         "value": "Draft"
       }
-    ]
+    ],
+    "hidden": true
   }
 ]

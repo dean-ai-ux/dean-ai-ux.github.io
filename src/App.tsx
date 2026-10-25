@@ -308,7 +308,9 @@ const fromEntry = (e: Entry, lead: 'org' | 'role' = 'org'): Item => {
    file. It read as a carousel, then as a grid, and reads as a carousel again —
    but a piece is a thing you open either way, and the pieces themselves should
    not have to be edited in a component to add one. */
-const WRITING = writing as Item[];
+/* A piece marked hidden stays in writing.json, title and all, and is left off
+   the site until its text is written. */
+const WRITING = (writing as (Item & { hidden?: boolean })[]).filter((w) => !w.hidden);
 
 /* The about panel, as one item, so it uses the same detail view every section
    already opens. It opens on its own first paragraph — the tagline that used to
