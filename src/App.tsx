@@ -148,7 +148,7 @@ const ENTRY_ART: Record<string, string> = {
   'fed-chair-for-a-year': 'media/icon-fed-chair-for-a-year.jpg',
   maia: 'media/maia.jpg',
   'many-heads': 'media/many-heads-sizzle-poster.jpg',
-  'w-0': 'media/writing.jpg',
+  'w-0': 'media/rules-in-a-crisis-poster.jpg',
   'w-1': 'media/footwear.jpg',
   'w-2': 'media/supply-wisdom.jpg',
 };

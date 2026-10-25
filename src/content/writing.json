@@ -101,7 +101,11 @@
       },
       {
         "label": "Length",
-        "value": "17 pages"
+        "value": "14 pages"
+      },
+      {
+        "label": "Film",
+        "value": "Rules in a Crisis, 1:46"
       }
     ],
     "summary": "Excerpts from the paper: its abstract, what worked, what went wrong, and the playbook it proposes.",
@@ -109,7 +113,12 @@
     "essay": [
       {
         "heading": "Abstract",
-        "text": "The paper investigates the Federal Reserve’s response to COVID-19, tracing how rapid rate reductions, aggressive quantitative easing, and special credit facilities kept markets afloat but cultivated the most resilient inflation since the early 1980s. Drawing on empirical evidence, we highlight the challenges of adapting a rules based monetary policy approach to crisis intervention. In contrast to the Great Recession’s slower pace of stimulus, the pandemic response overshot toward excess. The analysis concludes with a feasible three-pronged crisis playbook: deliver liquidity quickly, coordinate with fiscal policy, and tie every intervention to transparent, data-linked exit criteria. The findings emphasize that there is no need to reinvent the wheel, rather the Federal Reserve needs to maintain public trust and limit mission creep."
+        "text": "The paper investigates the Federal Reserve’s response to COVID-19, tracing how rapid rate reductions, aggressive quantitative easing, and special credit facilities kept markets afloat but cultivated the most resilient inflation since the early 1980s. Drawing on empirical evidence, we highlight the challenges of adapting a rules based monetary policy approach to crisis intervention. In contrast to the Great Recession’s slower pace of stimulus, the pandemic response overshot toward excess. The analysis concludes with a feasible three-pronged crisis playbook: deliver liquidity quickly, coordinate with fiscal policy, and tie every intervention to transparent, data-linked exit criteria. The findings emphasize that there is no need to reinvent the wheel, rather the Federal Reserve needs to maintain public trust and limit mission creep.",
+        "figure": {
+          "src": "media/rules-fig-1.jpg",
+          "alt": "Two seesaws, after 2008 and after 2020, with slow growth and inflation at the ends. After 2008 the stimulus is too light to level the beam; after 2020 it is so heavy the beam tips the other way.",
+          "caption": "How much stimulus, and what it did: too little, too slowly after 2008; too much, too fast after 2020. The aim is a level beam."
+        }
       },
       {
         "heading": "What worked",
@@ -131,7 +140,12 @@
             "lead": "Forward guidance.",
             "text": "Additionally, forward guidance faced challenges. Forward guidance generally aims to shape market expectations by providing clarity on future policy intentions. However, empirical analysis revealed that forward guidance during the pandemic was only effective in influencing market behavior when accompanied by explicit numerical projections, such as those provided in the SEP."
           }
-        ]
+        ],
+        "figure": {
+          "src": "media/rules-fig-2.jpg",
+          "alt": "A timeline of recessions from 1960 to 2020, each marked as called by the Sahm Rule, with an open mark at 2024 where it fired and no recession came.",
+          "caption": "The Sahm Rule called every recession since 1960. In 2024 it fired, and no recession came. Recessions: NBER. The Sahm Rule: Congressional Research Service."
+        }
       },
       {
         "heading": "A playbook for the next crisis",
@@ -146,7 +160,12 @@
           {
             "text": "Third, transparency is essential. Clear forward guidance about the criteria for both expansionary and contractionary policy reduces moral hazard by reminding markets that support is conditional and temporary."
           }
-        ]
+        ],
+        "figure": {
+          "src": "media/rules-fig-3.jpg",
+          "alt": "Three panels: liquidity with an end date, fiscal and monetary policy moving together, and an intervention tied to an exit threshold.",
+          "caption": "The playbook: deliver liquidity fast with clear end dates, coordinate with fiscal policy, and tie every intervention to its exit."
+        }
       },
       {
         "text": "Neither a hands-off approach nor heavy intervention provides a lasting solution.",
@@ -155,7 +174,13 @@
       {
         "text": "The future of monetary policy lies somewhere in between, wherein the Federal Reserve acts swiftly in a crisis, tapers effectively afterward, and avoids unnecessary expansion of its role. This balanced approach upholds the dual mandate and protects the Fed’s credibility for future uncertain challenges."
       }
-    ]
+    ],
+    "film": {
+      "src": "media/rules-in-a-crisis.mp4",
+      "poster": "media/rules-in-a-crisis-poster.jpg",
+      "title": "Rules in a Crisis",
+      "duration": "1:46"
+    }
   },
   {
     "id": "w-1",
