@@ -283,6 +283,10 @@
       {
         "label": "Kind",
         "value": "Essay"
+      },
+      {
+        "label": "Film",
+        "value": "AI and Crypto, 1:49"
       }
     ],
     "essay": [
@@ -306,7 +310,12 @@
             "lead": "Technology conflated with business model.",
             "text": "Blockchain was real technology. But most crypto companies weren’t solving real problems, they were applying the tech to extract value through artificial scarcity and narrative-driven demand."
           }
-        ]
+        ],
+        "figure": {
+          "src": "media/ai-crypto-fig-1.jpg",
+          "alt": "A mesh of points joined by faint dotted links, the network as pitched, with every point wired by a solid line to one centre, the network as operated.",
+          "caption": "Ideology masking reality: decentralized in the pitch, centralized inside."
+        }
       },
       {
         "heading": "Why AI Faces the Same Pressures",
@@ -324,7 +333,12 @@
             "lead": "Unverifiable output quality.",
             "text": "If an AI tool claims to simulate customer behavior or generate strategic insight, how do you validate that? Companies run internal tests, tune results, and present favorable outcomes. There’s no external standard for what “good output” actually means, which makes it easy to tell a compelling story that’s hard to falsify."
           }
-        ]
+        ],
+        "figure": {
+          "src": "media/ai-crypto-fig-2.jpg",
+          "alt": "Five interface windows, each wired down to one shared bar labelled foundation model.",
+          "caption": "The wrapper economy: the model is a commodity, and the UI is the marketing."
+        }
       },
       {
         "heading": "Lessons from Crypto for Evaluating AI Companies",
@@ -341,9 +355,20 @@
             "lead": "Watch what the UI is doing.",
             "text": "A polished interface is a signal, but it can also be a distraction. If the primary value proposition is how good the tool looks to use, that’s worth scrutinizing. Substance and aesthetics can diverge significantly."
           }
-        ]
+        ],
+        "figure": {
+          "src": "media/ai-crypto-fig-3.jpg",
+          "alt": "A tall dotted bar marked claimed, beside an independent ruler whose marker stops partway up, at what is verified.",
+          "caption": "Demand verifiable claims: independent validation, not internal benchmarks."
+        }
       }
-    ]
+    ],
+    "film": {
+      "src": "media/ai-and-crypto.mp4",
+      "poster": "media/ai-and-crypto-poster.jpg",
+      "title": "AI and Crypto",
+      "duration": "1:49"
+    }
   },
   {
     "id": "w-3",

@@ -151,6 +151,7 @@ const ENTRY_ART: Record<string, string> = {
   'w-0': 'media/rules-in-a-crisis-poster.jpg',
   'w-1': 'media/footwear.jpg',
   'w-2': 'media/supply-wisdom.jpg',
+  'ai-and-crypto': 'media/ai-and-crypto-poster.jpg',
 };
 
 /* Verde's six landscape tones. The foreground for each is Verde's own onFill
