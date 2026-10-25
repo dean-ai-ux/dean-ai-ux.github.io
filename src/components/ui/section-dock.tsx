@@ -159,7 +159,7 @@ function MenuSheet({
      every render, and as a dependency it re-ran the effect each time: toggling
      the theme from the menu pulled focus back to the close button. */
   const onCloseRef = React.useRef(onClose);
-  onCloseRef.current = onClose;
+  React.useLayoutEffect(() => { onCloseRef.current = onClose; });
   React.useEffect(() => {
     closeRef.current?.focus();
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onCloseRef.current(); };

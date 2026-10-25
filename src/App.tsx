@@ -482,7 +482,11 @@ function Home({ setTab }: { setTab: (t: string) => void }) {
   const built = by('built'), volunteering = by('volunteering'), writing = by('writing');
 
   return (
-    <div className="min-h-[calc(100vh+380px)] px-4 pb-28 pt-20 sm:px-6">
+    /* Below lg the reserve under the content is 120px, not 380: the range rises
+       over whatever scroll there is (up to 340px), so it still comes up in full,
+       and 380 left a phone a screen of blank white before it. pb-[280px] keeps
+       the risen range (260px) clear of the last tiles. */
+    <div className="min-h-[calc(100svh+120px)] px-4 pb-[280px] pt-20 sm:px-6 lg:min-h-[calc(100vh+380px)] lg:pb-28">
       {/* Sized to the screen. The reserve below is 200px rather than the 272 it
           was: that number was set when the range showed a sliver at rest, and it
           shows nothing now until you scroll, so 72px of it was held back for
@@ -543,7 +547,8 @@ function SectionGrid({ section, onOpen }: { section: string; onOpen: (i: number)
   const spans = SECTION_LAYOUT[section];
 
   return (
-    <div className="min-h-[calc(100vh+380px)]">
+    /* The same reserve as the landing: 120px below lg, 380 from it. */
+    <div className="min-h-[calc(100svh+120px)] lg:min-h-[calc(100vh+380px)]">
       {/* The tile, promoted.
           It carries the same layoutId the gallery puts on the landing tile, so
           framer flies it from its cell up to here without a line written for the
@@ -565,7 +570,7 @@ function SectionGrid({ section, onOpen }: { section: string; onOpen: (i: number)
         </motion.div>
       </section>
 
-      <section className="px-4 pb-28 sm:px-6">
+      <section className="px-4 pb-[280px] sm:px-6 lg:pb-28">
         {section === 'work' ? (
           <WorkSection items={items} onOpen={onOpen} />
         ) : section === 'built' ? (
@@ -952,6 +957,15 @@ function EntryOverlay({
     return () => window.removeEventListener('keydown', onKey);
   }, [index, items.length, onIndex, onClose]);
 
+  /* The page behind holds still while a panel is open. Without this a phone
+     scrolled the section underneath, and closing the panel left you somewhere
+     else. Its own effect, so paging between items does not unlock and relock. */
+  React.useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
   return (
     <div className="fixed inset-0 z-[60]">
       <motion.div
@@ -1102,6 +1116,64 @@ export default function App() {
   const [open, setOpen] = React.useState<number | null>(null);
 
   const setTab = (t: string) => { setOpen(null); window.location.hash = t; setTabState(t); };
+
+  /* Every section opens at its top. The landing's scroll position used to carry
+     over, so a tile tapped halfway down the landing opened its section halfway
+     down, header and first entries already gone. Coming back to the landing
+     returns you to where you were on it, so you are not re-scrolling to the
+     tile you came from. A layout effect, so it lands before the first paint
+     and the tile's flight goes to a header that is on screen. */
+  const homeY = React.useRef(0);
+  const prevTab = React.useRef(tab);
+  React.useEffect(() => {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  }, []);
+  /* Recorded as you scroll the landing, not read when you leave it: by the time
+     the section has rendered, a shorter section has already clamped scrollY to
+     its own height, and reading it then saved the wrong place. */
+  React.useEffect(() => {
+    if (tab !== 'home') return;
+    const onScroll = () => { homeY.current = window.scrollY; };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [tab]);
+  React.useLayoutEffect(() => {
+    if (prevTab.current === tab) return;
+    prevTab.current = tab;
+    if (tab !== 'home') { window.scrollTo(0, 0); return; }
+    /* Back on the landing, re-applied for up to half a second until it holds,
+       in case the page is not yet its full height on the first frame. */
+    const y = homeY.current;
+    let frames = 0, raf = 0;
+    const restore = () => {
+      window.scrollTo(0, y);
+      if (Math.abs(window.scrollY - y) > 2 && frames++ < 30) raf = requestAnimationFrame(restore);
+    };
+    restore();
+    return () => cancelAnimationFrame(raf);
+  }, [tab]);
+
+  /* A panel is a step in history, so Back closes it, which is how a phone
+     closes things. Opening pushes an entry at the same address; closing by any
+     other route (the button, Escape, the backdrop) steps back over it, so the
+     history never collects dead entries. Paging between items stays one step. */
+  const openDetail = (i: number) => {
+    if (open === null) window.history.pushState({ panel: true }, '');
+    setOpen(i);
+  };
+  const openAbout = () => {
+    window.history.pushState({ panel: true }, '');
+    setAbout(true);
+  };
+  const closePanel = () => {
+    if (window.history.state?.panel) window.history.back();
+    else { setOpen(null); setAbout(false); }
+  };
+  React.useEffect(() => {
+    const onPop = () => { setOpen(null); setAbout(false); };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
   React.useEffect(() => {
     const onHash = () => {
       const h = window.location.hash.slice(1);
@@ -1138,18 +1210,18 @@ export default function App() {
         contact={(profile.contact.links || [])[0]}
         dark={dark}
         onToggleTheme={() => setDark(!dark)}
-        onAbout={() => setAbout(true)}
+        onAbout={openAbout}
       />
       {/* Mounted once, outside the tab switch: the range is the ground the whole
           site stands on, so it must not remount as you move between screens. */}
       <RidgeFooter />
 
-      {onHome ? <Home setTab={setTab} /> : <SectionGrid section={tab} onOpen={setOpen} />}
+      {onHome ? <Home setTab={setTab} /> : <SectionGrid section={tab} onOpen={openDetail} />}
 
       {/* One item, so the arrow keys have nowhere to page to — which is right:
           there is one of these, and the same panel a writing piece opens. */}
       {about && (
-        <EntryOverlay items={[ABOUT]} index={0} onIndex={() => {}} onClose={() => setAbout(false)} />
+        <EntryOverlay items={[ABOUT]} index={0} onIndex={() => {}} onClose={closePanel} />
       )}
 
       {open !== null && !onHome && (
@@ -1157,7 +1229,7 @@ export default function App() {
           items={ITEMS[tab]}
           index={open}
           onIndex={setOpen}
-          onClose={() => setOpen(null)}
+          onClose={closePanel}
         />
       )}
     </div>

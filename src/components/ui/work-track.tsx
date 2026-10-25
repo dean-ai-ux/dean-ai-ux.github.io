@@ -59,13 +59,16 @@ export function WorkTrack({
         tabIndex={0}
         role="group"
         aria-label="Work history, scroll sideways"
-        className="overflow-x-auto overscroll-x-contain rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="snap-x snap-mandatory overflow-x-auto overscroll-x-contain rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {/* Room below the last line. overflow-x:auto forces the other axis to
             clip too, so text sitting flush with the foot of the strip gets its
             descenders shaved — measured at exactly 0px clearance on six of the
             seven cards. */}
-        <div className="flex w-max gap-6 pb-3 snap-x snap-mandatory">
+        {/* The snap is on the scroller above, the element that scrolls. It sat on
+            this row, which does not scroll, so nothing ever snapped and a swipe
+            stopped wherever the finger left off, cards cut in half. */}
+        <div className="flex w-max gap-6 pb-3">
           {entries.map((entry, i) => (
             <div key={entry.id} className="flex w-[clamp(240px,19vw,320px)] shrink-0 snap-start flex-col">
               <button

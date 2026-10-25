@@ -13,7 +13,8 @@
     "video:poster": "remotion still remotion/index.ts Intro public/media/intro-poster.jpg --frame=0 && remotion still remotion/index.ts IntroPortrait public/media/intro-portrait-poster.jpg --frame=0",
     "video:captures": "node scripts/gen-film-captures.mjs",
     "video:render:portrait": "remotion render remotion/index.ts IntroPortrait public/media/intro-portrait.mp4 --codec=h264 --crf=28 --timeout=120000",
-    "video:all": "npm run video:render && npm run video:render:portrait && npm run video:poster"
+    "video:all": "npm run video:render && npm run video:render:portrait && npm run video:poster",
+    "check:mobile": "node scripts/check-mobile.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -34,6 +35,7 @@
     "@vitejs/plugin-react": "^6.1.0",
     "autoprefixer": "^10.5.5",
     "oxlint": "^1.79.0",
+    "playwright-core": "^1.64.1",
     "postcss": "^8.5.28",
     "remotion": "^4.0.534",
     "tailwindcss": "^3.4.19",

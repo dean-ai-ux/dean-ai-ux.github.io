@@ -32,6 +32,20 @@ running any of them. Re-run one only when its inputs change.
 | `npm run video:captures` | `public/media/film-*.jpg` | a built `dist/`, Chrome |
 | `npm run video:render` | `public/media/intro.mp4` | Remotion, which downloads its own headless Chrome |
 
+### Checking it on a phone
+
+```
+npm run build && npm run check:mobile
+```
+
+`scripts/check-mobile.mjs` serves `dist/` and replays what a phone visitor does,
+in the Chrome already on this machine (`CHROME=` to point elsewhere). It fails
+on: anything wider than the screen, text under 13px or a tap target under 44px
+at 360, 390 and 430 wide and held sideways; a section that opens with its header
+off screen, from a tile or the menu; Back to the landing not returning to where
+you were; a Work swipe that does not settle on a card; a detail panel that lets
+the page behind scroll, or that Back does not close. It is not run in CI.
+
 ### The landing films
 
 The landing page opens on the Vista intro: the VISTA wordmark that opens
