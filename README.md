@@ -32,6 +32,23 @@ running any of them. Re-run one only when its inputs change.
 | `npm run video:captures` | `public/media/film-*.jpg` | a built `dist/`, Chrome |
 | `npm run video:render` | `public/media/intro.mp4` | Remotion, which downloads its own headless Chrome |
 
+### Writing pieces
+
+Every piece in `src/content/writing.json` opens as an article: a wide head, the
+title, a facts line, a link to the published original where there is one
+(`href`, labelled from its address, or `hrefLabel`), then the text in one 780px
+column. The head is the piece's film if it has one, otherwise its photograph or
+its tone. To give a piece a film, add:
+
+```json
+"film": { "src": "media/<file>.mp4", "poster": "media/<file>-poster.jpg", "title": "<name>", "duration": "0:39" }
+```
+
+The text is `essay`, a list of blocks, each with any of `heading`, `text`,
+`points` (`[{ "lead", "text" }]`), `pull: true` for the line the piece turns on,
+and `figure` (`{ "src", "alt", "caption" }`) for a still placed after that block.
+Keep figures to two or three a piece.
+
 ### Checking it on a phone
 
 ```

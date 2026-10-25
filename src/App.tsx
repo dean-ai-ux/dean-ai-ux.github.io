@@ -204,6 +204,8 @@ type Item = {
   /* A piece that has a film of its own. Its detail opens as an article: the film
      across the top, then the text in one reading column with the figures. */
   film?: { src: string; poster: string; title: string; duration: string };
+  /** What the link at the top of an article says. Defaults from the address. */
+  hrefLabel?: string;
 };
 
 /** A tile's face: its photograph if it has one, otherwise its name on a tone. */
@@ -679,29 +681,19 @@ function SectionGrid({ section, onOpen }: { section: string; onOpen: (i: number)
                        open panel names itself rather than depending on a line
                        of copy below it that can sit under the fold. */
                     overlay: <span className="t-title-lg text-white">{item.title}</span>,
-                    /* Straight out to the piece where one is published; into the
-                       detail overlay where there is nothing yet to link to. */
-                    action: item.href ? 'Read' : 'Open',
-                    href: item.href,
-                    target: item.href ? '_blank' : undefined,
-                    onAction: item.href ? undefined : () => onOpen(i),
+                    /* Into the article every time. A published original is the
+                       first thing in it, so a piece with a link loses nothing. */
+                    action: 'Read',
+                    onAction: () => onOpen(i),
                   };
                 })}
                 height="clamp(240px, 33cqi, 520px)"
                 radius={12}
-                /* Clicking the open panel goes to the piece itself where one is
-                   published — the detail panel for those carried a title, a
-                   subtitle and a link, so it was a step asking you to take
-                   another step. The five with nothing to link to still open it,
-                   because it is the only place their detail exists.
-
-                   noopener,noreferrer: the opened page gets no handle back on
-                   this one. */
-                onOpen={(i) => {
-                  const href = items[i]?.href;
-                  if (href) window.open(href, '_blank', 'noopener,noreferrer');
-                  else onOpen(i);
-                }}
+                /* Clicking the open panel opens the article. It used to go
+                   straight out to a published original, when the panel had
+                   nothing but a title and a link; every piece now opens its own
+                   article, with the original linked at its head. */
+                onOpen={onOpen}
                 /* No arrow row. A slat is the control — click one and it opens —
                    and the arrow keys still step both ways from the open panel.
                    Worth knowing: without the arrows a pointer can only go
@@ -878,20 +870,57 @@ function WorkSection({ items, onOpen }: { items: Item[]; onOpen: (i: number) => 
  * the paragraph it illustrates at the card's full width, so a still from a
  * 16:9 film is large enough to read.
  */
+/** The link at the head of an article, named for where it goes. */
+const hrefLabel = (item: Item) => {
+  if (item.hrefLabel) return item.hrefLabel;
+  const href = item.href ?? '';
+  if (/\.pdf$/i.test(href)) return 'Read the paper (PDF)';
+  try {
+    return `Read it on ${new URL(href).hostname.replace(/^www\./, '')}`;
+  } catch {
+    return 'Read the original';
+  }
+};
+
 function Article({ item }: { item: Item }) {
-  const film = item.film!;
+  const film = item.film;
+  const photo = ENTRY_ART[item.id];
   return (
     <article className="overflow-hidden rounded-2xl border bg-card">
-      <FilmTile src={film.src} poster={film.poster} title={film.title} duration={film.duration} className="" />
+      {/* The head of the piece: its film where it has one. Until then its
+          photograph, or its tone, in a wide band, so every piece has the same
+          shape and gaining a film is one field in writing.json. */}
+      {film ? (
+        <FilmTile src={film.src} poster={film.poster} title={film.title} duration={film.duration} className="" />
+      ) : (
+        <div className="relative aspect-[21/9] w-full overflow-hidden">
+          {photo
+            ? <img src={photo} alt="" className="absolute inset-0 size-full object-cover" />
+            : <TileArt item={item} size="large" label={false} />}
+        </div>
+      )}
       <div className="px-5 pb-12 pt-8 sm:px-12 sm:pb-16 sm:pt-12">
         <header className="mx-auto max-w-[780px]">
           <p className="t-body-md text-muted-foreground">{item.subtitle}</p>
           <h2 className="t-headline-lg sm:t-display-md mt-2 text-balance">{item.title}</h2>
           {item.summary && <p className="mt-4 text-[20px] leading-[30px] text-muted-foreground sm:text-[24px] sm:leading-[34px]">{item.summary}</p>}
-          {!!item.meta?.length && (
-            <p className="t-body-sm mt-5 text-muted-foreground">
-              {item.meta.map((m) => m.value).join('  ·  ')}
-            </p>
+          {/* The facts line, without what the label above already says: "Essay"
+              over "Essay", "Draft" over "Draft". */}
+          {(() => {
+            const facts = (item.meta ?? []).map((m) => m.value).filter((v) => !item.subtitle.includes(v));
+            return facts.length ? <p className="t-body-sm mt-5 text-muted-foreground">{facts.join('  ·  ')}</p> : null;
+          })()}
+          {/* Where the piece was published, first, before the text: the
+              original is the authority and the text here is the reading copy. */}
+          {item.href && (
+            <a
+              href={asset(item.href)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="t-label mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border px-5 transition hover:bg-muted"
+            >
+              {hrefLabel(item)} <ArrowUpRight aria-hidden className="size-4" />
+            </a>
           )}
         </header>
         <div className="mt-10 flex flex-col gap-7">
@@ -902,6 +931,16 @@ function Article({ item }: { item: Item }) {
                 <p className={`mx-auto w-full max-w-[780px] ${section.pull ? 'my-4 text-balance text-[26px] font-medium leading-[34px] sm:text-[36px] sm:leading-[46px]' : 'text-[18px] leading-[30px] text-foreground/90 sm:text-[21px] sm:leading-[35px]'}`}>
                   {section.text}
                 </p>
+              )}
+              {!!section.points?.length && (
+                <ul className="mx-auto flex w-full max-w-[780px] flex-col gap-4">
+                  {section.points.map((point, j) => (
+                    <li key={j} className="border-l-2 border-border pl-5 text-[18px] leading-[30px] text-muted-foreground sm:text-[21px] sm:leading-[35px]">
+                      {point.lead && <span className="font-medium text-foreground">{point.lead} </span>}
+                      {point.text}
+                    </li>
+                  ))}
+                </ul>
               )}
               {section.figure && (
                 <figure className="mx-auto my-5 w-full">
@@ -945,6 +984,9 @@ function EntryOverlay({
   body?: React.ReactNode;
 }) {
   const item = items[index];
+  /* Every piece of writing opens as an article, film or not, so the section
+     reads as one publication; the work and education entries keep the card. */
+  const isArticle = WRITING.includes(item);
   const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -986,8 +1028,8 @@ function EntryOverlay({
       >
         {/* An article takes the wider card: its text column is fixed, so the
             extra width goes to the film and the figures. */}
-        <div className={`my-auto w-full pb-28 ${item.film && !body ? 'max-w-6xl' : 'max-w-5xl'}`}>
-          {body ?? (item.film ? <Article item={item} /> : (
+        <div className={`my-auto w-full pb-28 ${isArticle && !body ? 'max-w-6xl' : 'max-w-5xl'}`}>
+          {body ?? (isArticle ? <Article item={item} /> : (
             <div className="grid gap-6 rounded-2xl border bg-card p-5 sm:p-8 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl lg:aspect-square">
                 <TileArt item={item} size="large" />
