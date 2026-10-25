@@ -32,20 +32,10 @@
         "text": "Look across the industry’s AI launches and you’ll find two camps."
       },
       {
-        "text": "The first gives its software a fixed head. A branded dashboard, a bespoke client tool, a polished interface designed to look like the future. It demos beautifully. It’s also frozen the day it ships, while the models and tools around it improve every few months. By the time the client finishes onboarding, the tool is already behind.",
-        "figure": {
-          "src": "media/many-heads-fig-1.jpg",
-          "alt": "The fixed head: a hairline window, a polished chart, and a label reading “The fixed head”.",
-          "caption": "The fixed head. A polished tool that demos beautifully."
-        }
+        "text": "The first gives its software a fixed head. A branded dashboard, a bespoke client tool, a polished interface designed to look like the future. It demos beautifully. It’s also frozen the day it ships, while the models and tools around it improve every few months. By the time the client finishes onboarding, the tool is already behind."
       },
       {
-        "text": "The second camp cuts the head off entirely. It wraps the firm’s knowledge in a connector and drops it behind a chat window. This is the “headless” future many claim will kill SaaS: no interface, just a prompt. Flexible, cheap, technically impressive. Then a strategist opens it, stares at the blinking cursor, and has no idea what to ask. A blank box isn’t an interface.",
-        "figure": {
-          "src": "media/many-heads-fig-2.jpg",
-          "alt": "An empty input box with a blinking cursor, under the label “No head”.",
-          "caption": "No head. A blank box isn’t an interface."
-        }
+        "text": "The second camp cuts the head off entirely. It wraps the firm’s knowledge in a connector and drops it behind a chat window. This is the “headless” future many claim will kill SaaS: no interface, just a prompt. Flexible, cheap, technically impressive. Then a strategist opens it, stares at the blinking cursor, and has no idea what to ask. A blank box isn’t an interface."
       },
       {
         "text": "That’s the deeper problem with both camps. They treat the interface as a way to access software, when in strategy work it’s where the thinking happens."
@@ -59,12 +49,7 @@
         }
       },
       {
-        "text": "And yet the tools decide how that thinking happens. A slide forces you into a linear story. A spreadsheet forces you into a grid. A chat window forces you into prose, and asks you to articulate the question before you’ve figured out what it is. Each is a reasonable constraint for some moments and the wrong one for most. We’ve spent decades bending how strategists think around the shape of their tools, and calling the result a deliverable.",
-        "figure": {
-          "src": "media/many-heads-fig-4.jpg",
-          "alt": "A menu of three tools, Slide, Spreadsheet and Chat, with Spreadsheet active and a grid beside it.",
-          "caption": "Every tool decides how you think. A spreadsheet forces a grid."
-        }
+        "text": "And yet the tools decide how that thinking happens. A slide forces you into a linear story. A spreadsheet forces you into a grid. A chat window forces you into prose, and asks you to articulate the question before you’ve figured out what it is. Each is a reasonable constraint for some moments and the wrong one for most. We’ve spent decades bending how strategists think around the shape of their tools, and calling the result a deliverable."
       },
       {
         "text": "If human input is what makes strategy valuable, the interface should serve the way that human thinks, not the other way around."
@@ -82,20 +67,10 @@
         }
       },
       {
-        "text": "This isn’t a prettier dashboard. It’s a different idea of what software is. The interface stops being the product and becomes the output.",
-        "figure": {
-          "src": "media/many-heads-fig-6.jpg",
-          "alt": "A single generated window standing on a bar labelled “Shared back end”.",
-          "caption": "The interface stops being the product. It becomes the output."
-        }
+        "text": "This isn’t a prettier dashboard. It’s a different idea of what software is. The interface stops being the product and becomes the output."
       },
       {
-        "text": "For strategy firms, that changes the question. It’s no longer “what tool should we build?” It’s “how well have we encoded the way we think?” The firms that answer it won’t ship tools that expire. They’ll ship methodology that compounds.",
-        "figure": {
-          "src": "media/many-heads-fig-7.jpg",
-          "alt": "A ring of four points, labelled data, frameworks, quality bar and point of view, under the line “It’s how well we’ve encoded the way we think”.",
-          "caption": "The question changes: how well have we encoded the way we think?"
-        }
+        "text": "For strategy firms, that changes the question. It’s no longer “what tool should we build?” It’s “how well have we encoded the way we think?” The firms that answer it won’t ship tools that expire. They’ll ship methodology that compounds."
       },
       {
         "figure": {

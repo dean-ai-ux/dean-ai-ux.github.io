@@ -865,39 +865,40 @@ function WorkSection({ items, onOpen }: { items: Item[]; onOpen: (i: number) => 
  *
  * The entry layout puts a 320px image beside the text, which suits a role and
  * not 600 words with eight figures. Here the film runs the full width of the
- * card, the text keeps to one 600px reading column (about 70 characters of body
- * text; a width in ch would grow with the pull quote's larger type and push it
- * out past the column), and each
- * figure sits after the paragraph it illustrates, a little wider than the text
- * so a still from a 16:9 film is large enough to read.
+ * card, the text sets large (21px) in a 780px column, about 75 characters, so
+ * the piece fills the page the way an article does rather than sitting in a
+ * narrow strip. The width is in px, not ch: a ch width grows with the pull
+ * quote's larger type and pushed it out past the column. Each figure sits after
+ * the paragraph it illustrates at the card's full width, so a still from a
+ * 16:9 film is large enough to read.
  */
 function Article({ item }: { item: Item }) {
   const film = item.film!;
   return (
     <article className="overflow-hidden rounded-2xl border bg-card">
       <FilmTile src={film.src} poster={film.poster} title={film.title} duration={film.duration} className="" />
-      <div className="px-5 pb-10 pt-8 sm:px-10 sm:pb-14 sm:pt-10">
-        <header className="mx-auto max-w-[600px]">
-          <p className="t-body-sm text-muted-foreground">{item.subtitle}</p>
-          <h2 className="t-headline-md sm:t-headline-lg mt-2 text-balance">{item.title}</h2>
-          {item.summary && <p className="t-title-lg mt-3 font-normal text-muted-foreground">{item.summary}</p>}
+      <div className="px-5 pb-12 pt-8 sm:px-12 sm:pb-16 sm:pt-12">
+        <header className="mx-auto max-w-[780px]">
+          <p className="t-body-md text-muted-foreground">{item.subtitle}</p>
+          <h2 className="t-headline-lg sm:t-display-md mt-2 text-balance">{item.title}</h2>
+          {item.summary && <p className="mt-4 text-[20px] leading-[30px] text-muted-foreground sm:text-[24px] sm:leading-[34px]">{item.summary}</p>}
           {!!item.meta?.length && (
-            <p className="t-caption mt-4 text-muted-foreground">
+            <p className="t-body-sm mt-5 text-muted-foreground">
               {item.meta.map((m) => m.value).join('  ·  ')}
             </p>
           )}
         </header>
-        <div className="mt-8 flex flex-col gap-5">
+        <div className="mt-10 flex flex-col gap-7">
           {(item.essay ?? []).map((section, i) => (
             <React.Fragment key={i}>
-              {section.heading && <h3 className="t-title-lg mx-auto w-full max-w-[600px]">{section.heading}</h3>}
+              {section.heading && <h3 className="t-headline-md mx-auto w-full max-w-[780px]">{section.heading}</h3>}
               {section.text && (
-                <p className={`mx-auto w-full max-w-[600px] ${section.pull ? 't-headline-md my-3 text-balance' : 't-body-md text-foreground/90'}`}>
+                <p className={`mx-auto w-full max-w-[780px] ${section.pull ? 'my-4 text-balance text-[26px] font-medium leading-[34px] sm:text-[36px] sm:leading-[46px]' : 'text-[18px] leading-[30px] text-foreground/90 sm:text-[21px] sm:leading-[35px]'}`}>
                   {section.text}
                 </p>
               )}
               {section.figure && (
-                <figure className="mx-auto my-3 w-full max-w-3xl">
+                <figure className="mx-auto my-5 w-full">
                   <img
                     src={section.figure.src}
                     alt={section.figure.alt}
@@ -905,7 +906,7 @@ function Article({ item }: { item: Item }) {
                     className="aspect-video w-full rounded-lg border bg-[#0D0D0D] object-cover"
                   />
                   {section.figure.caption && (
-                    <figcaption className="t-caption mt-2 text-muted-foreground">{section.figure.caption}</figcaption>
+                    <figcaption className="t-body-sm mt-3 text-muted-foreground">{section.figure.caption}</figcaption>
                   )}
                 </figure>
               )}
@@ -968,7 +969,9 @@ function EntryOverlay({
         transition={{ type: 'spring', stiffness: 400, damping: 32 }}
         className="absolute inset-0 flex items-start justify-center overflow-y-auto p-4 outline-none sm:p-8"
       >
-        <div className="my-auto w-full max-w-5xl pb-28">
+        {/* An article takes the wider card: its text column is fixed, so the
+            extra width goes to the film and the figures. */}
+        <div className={`my-auto w-full pb-28 ${item.film && !body ? 'max-w-6xl' : 'max-w-5xl'}`}>
           {body ?? (item.film ? <Article item={item} /> : (
             <div className="grid gap-6 rounded-2xl border bg-card p-5 sm:p-8 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl lg:aspect-square">
