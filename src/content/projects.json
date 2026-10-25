@@ -20,7 +20,7 @@
         "evidence": []
       },
       {
-        "claim": "Vista: Many Heads, the film on this site's landing page, is built on it.",
+        "claim": "The Many Heads films on this site, the sizzle on the landing page and the full film, are built on it.",
         "evidence": [
           "many-heads-film-ds"
         ]
@@ -30,9 +30,9 @@
       {
         "id": "many-heads-film-ds",
         "type": "video",
-        "title": "Watch Vista: Many Heads",
-        "url": "assets/many-heads.mp4",
-        "note": "A brand film set entirely in Vista. Hosted here."
+        "title": "Watch the sizzle",
+        "url": "assets/many-heads-sizzle.mp4",
+        "note": "A 39 second sizzle set entirely in Vista. Hosted here."
       }
     ],
     "attestations": [],

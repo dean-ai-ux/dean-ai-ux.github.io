@@ -5,10 +5,10 @@
     "subtitle": "Essay · with film",
     "summary": "Why strategy firms should turn their methodology into software",
     "film": {
-      "src": "media/many-heads.mp4",
-      "poster": "media/many-heads-poster.jpg",
-      "title": "Vista: Many Heads",
-      "duration": "1:33"
+      "src": "media/many-heads-sizzle.mp4",
+      "poster": "media/many-heads-sizzle-poster.jpg",
+      "title": "Vista: Many Heads, the sizzle",
+      "duration": "0:39"
     },
     "meta": [
       {
@@ -21,7 +21,7 @@
       },
       {
         "label": "Film",
-        "value": "Vista: Many Heads, 1:33"
+        "value": "Vista: Many Heads, the sizzle, 0:39"
       }
     ],
     "essay": [
@@ -43,9 +43,9 @@
       {
         "text": "Strategy isn’t retrieval. Nobody walks into a growth problem knowing the answer and needing a faster way to type it. You find the answer by working through it: sketching a market map, arguing with a 2x2, pulling a number apart until it breaks. The human judgment in that process is the whole product. Clients don’t pay for the data. They pay for what an experienced person decides it means.",
         "figure": {
-          "src": "media/many-heads-fig-3.jpg",
-          "alt": "Three hairline sketches: a market map of circles, a 2x2, and a bar pulled apart into pieces.",
-          "caption": "Strategy isn’t retrieval: a market map, a 2x2, a number pulled apart."
+          "src": "media/sizzle-fig-1.jpg",
+          "alt": "Three hairline diagrams: points gathered inside a frame, a balance weighing two options, and many lines converging on one point.",
+          "caption": "Strategy isn’t retrieval: frame the question, weigh the trade-offs, make the call."
         }
       },
       {
@@ -61,9 +61,9 @@
       {
         "text": "Many-headed software keeps a single engine underneath: the firm’s data, frameworks, quality bar, and point of view. On top, it grows a new head for every person and every task. The partner preparing for a board meeting gets one view. The analyst stress-testing a market sizing gets another. Each is generated when it’s needed and discarded when it isn’t. Personal front end. Shared back end.",
         "figure": {
-          "src": "media/many-heads-fig-5.jpg",
-          "alt": "One engine at the centre, with four windows growing from it on drawn lines, two labelled for the partner and the analyst.",
-          "caption": "One engine: data, frameworks, quality bar and point of view, with a head for every person and task."
+          "src": "media/sizzle-fig-2.jpg",
+          "alt": "One engine at the centre, labelled data, frameworks, quality bar and point of view, with windows growing from it on drawn lines.",
+          "caption": "The answer is more heads: one engine, a new head for every person and every task."
         }
       },
       {
@@ -74,7 +74,7 @@
       },
       {
         "figure": {
-          "src": "media/many-heads-fig-8.jpg",
+          "src": "media/sizzle-fig-3.jpg",
           "alt": "Two curves over time: tools rise and then fall away, while methodology keeps climbing.",
           "caption": "Tools expire. Methodology compounds. An illustration, not data."
         }

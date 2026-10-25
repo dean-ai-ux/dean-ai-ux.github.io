@@ -49,24 +49,35 @@ the page behind scroll, or that Back does not close. It is not run in CI.
 ### The landing films
 
 The landing page opens on the Vista intro: the VISTA wordmark that opens
-**Vista: Many Heads**, the brand film of Dean's essay
-"Software isn't losing its head. It's growing thousands.", made with his Vista
-video toolkit (a separate, private repo). It plays silently over the page on a
-first visit, about two seconds, then the landing page shows; a scroll, click
-or key press ends it early. The clip is the film's first 2.45 seconds with the
-fade-up played at double speed and nothing after the fade-out. The whole film, with its piano score, is the top left tile of the landing
-grid, and is only downloaded when someone presses play.
+**Vista: Many Heads**, the brand film of Dean's essay "Software isn't losing its
+head. It's growing thousands.", made with his Vista video toolkit (a separate,
+private repo). It plays silently over the page on a first visit, about two
+seconds, then the landing page shows; a scroll, click or key press ends it
+early. The clip is the film's first 2.45 seconds with the fade-up played at
+double speed and nothing after the fade-out.
 
-Both files are cut from the toolkit's render, `Vista-Many-Heads-v3.mp4`:
+The **sizzle**, the film's 39 second cut, is the top left tile of the landing
+grid and heads the essay's article in Writing, with three stills from it among
+the paragraphs. It is only downloaded when someone presses play. The full 93
+second film stays hosted as the Video Production Tool's evidence in Built.
+
+The files are cut from the toolkit's renders, `Vista-Many-Heads-v3.mp4` and
+`Vista-Many-Heads-Sizzle-v3.mp4`:
 
 ```
+# the intro, from the full film
 ffmpeg -i Vista-Many-Heads-v3.mp4 -filter_complex \
   "[0:v]trim=0:0.9,setpts=0.5*(PTS-STARTPTS)[a];[0:v]trim=0.9:2.45,setpts=PTS-STARTPTS[b];[a][b]concat=n=2:v=1,fps=30[v]" \
   -map "[v]" -an -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -movflags +faststart public/media/vista-intro.mp4
+ffmpeg -ss 0.3 -i Vista-Many-Heads-v3.mp4 -frames:v 1 -q:v 3 public/media/vista-intro-poster.jpg
 ffmpeg -i Vista-Many-Heads-v3.mp4 -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p \
   -c:a aac -b:a 128k -movflags +faststart public/media/many-heads.mp4
-ffmpeg -ss 0.3 -i Vista-Many-Heads-v3.mp4 -frames:v 1 -q:v 3 public/media/vista-intro-poster.jpg
-ffmpeg -ss 7.5 -i Vista-Many-Heads-v3.mp4 -frames:v 1 -vf scale=960:-1 -q:v 3 public/media/many-heads-poster.jpg
+
+# the sizzle, its poster, and the article's three stills (17.2s, 27s, 34s)
+ffmpeg -i Vista-Many-Heads-Sizzle-v3.mp4 -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p \
+  -c:a aac -b:a 128k -movflags +faststart public/media/many-heads-sizzle.mp4
+ffmpeg -ss 7 -i Vista-Many-Heads-Sizzle-v3.mp4 -frames:v 1 -vf scale=960:-1 -q:v 3 public/media/many-heads-sizzle-poster.jpg
+ffmpeg -ss 17.2 -i Vista-Many-Heads-Sizzle-v3.mp4 -frames:v 1 -vf scale=1600:-1 -q:v 3 public/media/sizzle-fig-1.jpg
 ```
 
 ### The Remotion film (not in use)

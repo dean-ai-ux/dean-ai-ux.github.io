@@ -147,7 +147,7 @@ const ENTRY_ART: Record<string, string> = {
   'vista-video-toolkit': 'media/icon-vista-video-toolkit.jpg',
   'fed-chair-for-a-year': 'media/icon-fed-chair-for-a-year.jpg',
   maia: 'media/maia.jpg',
-  'many-heads': 'media/many-heads-poster.jpg',
+  'many-heads': 'media/many-heads-sizzle-poster.jpg',
   'w-0': 'media/writing.jpg',
   'w-1': 'media/footwear.jpg',
   'w-2': 'media/supply-wisdom.jpg',
@@ -420,20 +420,21 @@ function LandingTile({
 }
 
 /**
- * Vista: Many Heads, the brand film of Dean's essay "Software isn't losing its
- * head. It's growing thousands." The first tile on the landing page, and
- * nothing else in it: no portrait, no arc. Its wordmark opens the site (see
- * intro.tsx); this is the whole film, with its piano score, on request.
+ * The Many Heads sizzle, the 39 second cut of the film of Dean's essay
+ * "Software isn't losing its head. It's growing thousands." The first tile on
+ * the landing page, and nothing else in it: no portrait, no arc. The full
+ * film's wordmark opens the site (see intro.tsx); this plays, with its score,
+ * on request. The essay's article uses the same tile at its head.
  *
  * A poster and a play control until someone asks for it, so nobody downloads
- * five megabytes of film to read a resume. The <video> mounts on the click, and
+ * four megabytes of film to read a resume. The <video> mounts on the click, and
  * because the click is a user gesture the browser lets it play with sound.
  */
 function FilmTile({
-  src = 'media/many-heads.mp4',
-  poster = 'media/many-heads-poster.jpg',
-  title = "Software isn't losing its head",
-  duration = '1:33',
+  src = 'media/many-heads-sizzle.mp4',
+  poster = 'media/many-heads-sizzle-poster.jpg',
+  title = "Software isn't losing its head, the sizzle",
+  duration = '0:39',
   className = 'rounded-2xl max-h-[75svh] lg:max-h-none',
 }: { src?: string; poster?: string; title?: string; duration?: string; className?: string } = {}) {
   const [playing, setPlaying] = React.useState(false);
