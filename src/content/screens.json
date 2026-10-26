@@ -4,7 +4,7 @@
     "file": "work.html",
     "nav": "Work",
     "title": "Work",
-    "blurb": "AI Foundry, Digital Transformation and AI strategy at Prophet; operations at MadridEasy; hospitality at Cape Resorts.",
+    "blurb": "AI Foundry, Digital Transformation and AI strategy at Prophet; operations at MadridEasy; hospitality at Cape Resorts; teaching with Breakthrough Collaborative.",
     "form": "grass",
     "source": "work"
   },
@@ -16,15 +16,6 @@
     "blurb": "Economics and data science at Davidson, founding the Fed Challenge, and teaching assistantships in macroeconomics and Spanish.",
     "form": "foliage",
     "source": "education"
-  },
-  {
-    "id": "volunteering",
-    "file": "volunteering.html",
-    "nav": "Volunteering",
-    "title": "Volunteering",
-    "blurb": "Two summers teaching with Breakthrough Collaborative; sea turtle conservation in Costa Rica with The Leap Overseas.",
-    "form": "mycelium",
-    "source": "volunteering"
   },
   {
     "id": "built",

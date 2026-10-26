@@ -58,7 +58,7 @@ const server = http.createServer((req, res) => {
 await new Promise((r) => server.listen(0, r));
 const U = `http://localhost:${server.address().port}/`;
 
-const SECTIONS = ['home', 'work', 'education', 'volunteering', 'built', 'writing'];
+const SECTIONS = ['home', 'work', 'education', 'built', 'writing'];
 const failures = [];
 const fail = (where, what) => failures.push(`${where}: ${what}`);
 const phone = (width, height) => ({ viewport: { width, height }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, reducedMotion: 'reduce' });
@@ -116,7 +116,7 @@ try {
   const p = await ctx.newPage();
 
   /* landing: from a tile, after scrolling to it */
-  for (const t of ['Work', 'Education', 'Volunteering', 'Built', 'Writing']) {
+  for (const t of ['Work', 'Education', 'Built', 'Writing']) {
     await p.goto(`${U}#home`); await settle(p);
     await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await settle(p, 300);
     const tile = p.locator(`button[aria-label="${t}"]`).first();

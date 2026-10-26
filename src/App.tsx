@@ -12,7 +12,6 @@ import profile from '@/content/profile.json';
 import screens from '@/content/screens.json';
 import work from '@/content/work.json';
 import education from '@/content/education.json';
-import volunteering from '@/content/volunteering.json';
 import projects from '@/content/projects.json';
 import writing from '@/content/writing.json';
 import about from '@/content/about.json';
@@ -30,7 +29,7 @@ type Entry = {
 /* The order the sections read in the bar. Deliberately not TILES order: that
    array's index is what every `layoutId` is derived from, so reordering it to
    fix the nav would silently repoint the shared-element transitions. */
-const NAV_ORDER = ['work', 'education', 'volunteering', 'built', 'writing'];
+const NAV_ORDER = ['work', 'education', 'built', 'writing'];
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const fmt = (v: string | null) => {
@@ -107,8 +106,6 @@ const TILES: Tile[] = [
     span: 'col-span-1 row-span-2 sm:col-span-1 sm:row-span-2 lg:col-start-4 lg:col-span-1 lg:row-start-1 lg:row-span-3' },
   { key: 'education', title: 'Education', desc: '', url: 'media/davidson.jpg', tab: 'education',
     span: 'col-span-1 row-span-2 sm:col-span-2 sm:row-span-2 lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-3' },
-  { key: 'volunteering', title: 'Volunteering', desc: '', url: 'media/costa-rica.jpg', tab: 'volunteering',
-    span: 'col-span-1 row-span-2 sm:col-span-1 sm:row-span-2 lg:col-start-2 lg:col-span-1 lg:row-start-4 lg:row-span-2' },
   { key: 'writing', title: 'Writing', desc: '', url: 'media/supply-wisdom.jpg', tab: 'writing',
     span: 'col-span-1 row-span-2 sm:col-span-2 sm:row-span-2 lg:col-start-3 lg:col-span-2 lg:row-start-4 lg:row-span-2' },
 ];
@@ -321,7 +318,6 @@ const ABOUT: Item = about as Item;
 const ITEMS: Record<string, Item[]> = {
   work: (work as Entry[]).map((e) => fromEntry(e, 'role')),
   education: (education as Entry[]).map((e) => fromEntry(e, 'role')),
-  volunteering: (volunteering as Entry[]).map((e) => fromEntry(e, 'role')),
   /* Filtered here rather than in the view, so every index — the overlay's
      arrow-key paging included — counts the same set. */
   built: (projects as Entry[]).filter((p) => !p.placeholder).map((e) => fromEntry(e)),
@@ -356,11 +352,6 @@ const SECTION_LAYOUT: Record<string, string[]> = {
     'lg:col-start-1 lg:col-span-2 lg:row-start-1 lg:row-span-3',
     'lg:col-start-3 lg:col-span-2 lg:row-start-1 lg:row-span-3',
     'lg:col-start-1 lg:col-span-2 lg:row-start-4 lg:row-span-2',
-    'lg:col-start-3 lg:col-span-2 lg:row-start-4 lg:row-span-2',
-  ],
-  volunteering: [
-    'lg:col-start-1 lg:col-span-2 lg:row-start-1 lg:row-span-5',
-    'lg:col-start-3 lg:col-span-2 lg:row-start-1 lg:row-span-3',
     'lg:col-start-3 lg:col-span-2 lg:row-start-4 lg:row-span-2',
   ],
 };
@@ -485,7 +476,7 @@ function Home({ setTab }: { setTab: (t: string) => void }) {
     return { tile: TILES[i], index: i };
   };
   const work = by('work'), education = by('education');
-  const built = by('built'), volunteering = by('volunteering'), writing = by('writing');
+  const built = by('built'), writing = by('writing');
 
   return (
     /* Below lg the reserve under the content is 120px, not 380: the range rises
@@ -515,10 +506,8 @@ function Home({ setTab }: { setTab: (t: string) => void }) {
               it used to carry has moved up beside the name in the bar, where it
               is on every screen rather than only this one. */}
           <FilmTile />
-          <div className="grid grid-cols-2 gap-4">
-            <LandingTile {...volunteering} setTab={setTab} />
-            <LandingTile {...education} setTab={setTab} />
-          </div>
+          {/* Education alone across the row, now that Volunteering is gone. */}
+          <LandingTile {...education} setTab={setTab} />
         </div>
 
         {/* The same rows as the left column, with Work the film's 16:9,
@@ -1151,7 +1140,7 @@ function EntryOverlay({
 /* ── app ───────────────────────────────────────────────────── */
 
 
-const TABS = ['home', 'work', 'education', 'volunteering', 'built', 'writing'];
+const TABS = ['home', 'work', 'education', 'built', 'writing'];
 
 export default function App() {
   const [about, setAbout] = React.useState(false);
