@@ -38,7 +38,13 @@
         "text": "The second camp cuts the head off entirely. It wraps the firm’s knowledge in a connector and drops it behind a chat window. This is the “headless” future many claim will kill SaaS: no interface, just a prompt. Flexible, cheap, technically impressive. Then a strategist opens it, stares at the blinking cursor, and has no idea what to ask. A blank box isn’t an interface."
       },
       {
-        "text": "That’s the deeper problem with both camps. They treat the interface as a way to access software, when what matters more is that it’s where the thinking happens."
+        "text": "Consulting has faced this choice before. In 1999, Morten Hansen, Nitin Nohria, and Thomas Tierney asked consulting firms a simple question in Harvard Business Review: what’s your strategy for managing knowledge? They found two answers. Implementation firms codified knowledge into databases built for reuse. Strategy firms kept it in their people and moved it through conversation. The authors’ advice was blunt: choose one, and don’t straddle. Strategy firms that leaned on document systems got burned. One Bain partner said the firm’s library of past work offered “a picture of a cake without giving out the recipe.”"
+      },
+      {
+        "text": "Today’s two camps are both codification bets with different front doors. The fixed head packages the methodology into a product. The chat box lets you talk to it. Both assume the hard part is getting knowledge to the strategist. In strategy work, the hard part is what the strategist does with it."
+      },
+      {
+        "text": "That’s the deeper problem. Both camps treat the interface as a way to access software, when what matters more is that it’s where the thinking happens."
       },
       {
         "text": "Strategy isn’t retrieval. Nobody walks into a growth problem knowing the answer and needing a faster way to type it. You find the answer by working through it: framing the question, weighing the trade-offs, and making the call. The human judgment in that process is the whole product. Clients don’t pay for the data. They pay for what an experienced person decides it means.",
@@ -52,7 +58,13 @@
         "text": "And yet the tools decide how that thinking happens. A slide forces you into a linear story. A spreadsheet forces you into a grid. A chat window forces you into prose, and asks you to articulate the question before you’ve figured out what it is. Each is a reasonable constraint for some moments and the wrong one for most. We’ve spent decades bending how strategists think around the shape of their tools, and calling the result a deliverable."
       },
       {
+        "text": "Edward Tufte made a version of this case about PowerPoint twenty years ago. He argued that bullet hierarchies and low-resolution slides chop reasoning into fragments, and that the content should decide the format, not the limits of the software. His fix was rich paper handouts. He was right, and it never scaled. Nobody could hand-build a new format for every argument. Now a model can."
+      },
+      {
         "text": "If human input is what makes strategy valuable, the interface should serve the way that human thinks, not the other way around."
+      },
+      {
+        "text": "Hansen and his co-authors were right that no firm could do both in 1999. Codification needed armies of librarians. Personalization needed partners on planes. AI changes the economics. The engine can be codified while the head stays personal. For the first time, firms may not have to choose."
       },
       {
         "text": "One head is too rigid. No head is too empty. The answer is more heads.",
@@ -70,7 +82,7 @@
         "text": "This isn’t a prettier dashboard. It’s a different idea of what software is. The interface stops being the product and becomes the output."
       },
       {
-        "text": "For strategy firms, that changes the question. It’s no longer “what tool should we build?” It’s “how well have we encoded the way we think?” The firms that answer it won’t ship tools that expire. They’ll ship methodology that compounds."
+        "text": "For strategy firms, that changes the question. It’s no longer “what tool should we build?” It’s “how well have we encoded what can be encoded, and built heads that draw out what can’t?” The firms that answer it won’t ship tools that expire. They’ll ship methodology that compounds."
       },
       {
         "figure": {
