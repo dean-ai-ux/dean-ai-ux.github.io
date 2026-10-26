@@ -3,7 +3,7 @@
     "id": "many-heads",
     "title": "Software Isn’t Losing Its Head. It’s Growing Thousands.",
     "subtitle": "Essay · with film",
-    "summary": "Why strategy firms should turn their methodology into software",
+    "summary": "Why AI finally lets strategy firms codify the method and keep the thinking personal.",
     "film": {
       "src": "media/many-heads-sizzle.mp4",
       "poster": "media/many-heads-sizzle-poster.jpg",
@@ -26,28 +26,31 @@
     ],
     "essay": [
       {
-        "text": "Every strategy firm is building AI products right now. Most of them are building the wrong thing."
+        "text": "In 1999, Harvard Business Review asked consulting firms a simple question: what’s your strategy for managing knowledge? Strategy firms answered with their people. Knowledge lived in experienced heads and moved through conversation. Today, the same firms answer with their AI, and they say it loudly: every launch promises the methodology, codified and on demand. What drops out of that answer is the thing clients actually pay for, which is how their people think."
       },
       {
-        "text": "Look across the industry’s AI launches and you’ll find two camps."
+        "text": "That answer has taken two forms."
       },
       {
-        "text": "The first gives its software a fixed head. A branded dashboard, a bespoke client tool, a polished interface designed to look like the future. It demos beautifully. It’s also frozen the day it ships, while the models and tools around it improve every few months. By the time the client finishes onboarding, the tool is already behind."
+        "text": "The first gives the software a fixed head: a branded dashboard or a bespoke client tool with one polished interface. It demos well, and it gets one thing right: it keeps people on the methodology. But it does that by sending everyone down the same path, every time. Strategists don’t all work the same way, and neither does the work. The same project can call for a diagram one week, a spreadsheet the next, and a write-up after that. A tool holding the firm’s information should let people organize their thinking in whatever form the moment needs. A fixed head offers one."
       },
       {
-        "text": "The second camp cuts the head off entirely. It wraps the firm’s knowledge in a connector and drops it behind a chat window. This is the “headless” future many claim will kill SaaS: no interface, just a prompt. Flexible, cheap, technically impressive. Then a strategist opens it, stares at the blinking cursor, and has no idea what to ask. A blank box isn’t an interface."
+        "text": "The second cuts the head off entirely. It wraps the firm’s knowledge in a connector and puts it behind a chat window. This is the “headless” future many expect to replace SaaS: no interface, only a prompt. It is flexible, cheap, and technically impressive. Then a strategist opens it, stares at the blinking cursor, and has no idea what to ask. A blank box isn’t an interface."
       },
       {
-        "text": "Consulting has faced this choice before. In 1999, Morten Hansen, Nitin Nohria, and Thomas Tierney asked consulting firms a simple question in Harvard Business Review: what’s your strategy for managing knowledge? They found two answers. Implementation firms codified knowledge into databases built for reuse. Strategy firms kept it in their people and moved it through conversation. The authors’ advice was blunt: choose one, and don’t straddle. Strategy firms that leaned on document systems got burned. One Bain partner said the firm’s library of past work offered “a picture of a cake without giving out the recipe.”"
+        "text": "Both camps are impressive. Neither is very useful to the person doing the thinking."
       },
       {
-        "text": "Today’s two camps are both codification bets with different front doors. The fixed head packages the methodology into a product. The chat box lets you talk to it. Both assume the hard part is getting knowledge to the strategist. In strategy work, the hard part is what the strategist does with it."
+        "text": "The 1999 article is worth going back to. Its authors, Morten Hansen, Nitin Nohria, and Thomas Tierney, found two answers across the industry. Implementation firms codified knowledge into databases built for reuse. Strategy firms kept it in their people. The authors’ advice was to lean hard one way, roughly 80/20, and never straddle the two."
       },
       {
-        "text": "That’s the deeper problem. Both camps treat the interface as a way to access software, when what matters more is that it’s where the thinking happens."
+        "text": "Strategy firms had good reason to lean toward people. One Bain partner described the firm’s library of past work as “a picture of a cake without giving out the recipe.” The documents showed what the answer had been, not how anyone reached it."
       },
       {
-        "text": "Strategy isn’t retrieval. Nobody walks into a growth problem knowing the answer and needing a faster way to type it. You find the answer by working through it: framing the question, weighing the trade-offs, and making the call. The human judgment in that process is the whole product. Clients don’t pay for the data. They pay for what an experienced person decides it means.",
+        "text": "Today’s two camps are both codification bets with different front doors. The fixed head packages the methodology into a product. The chat window lets you talk to it. Both assume the hard part is getting knowledge to the strategist. In strategy work, the hard part is what the strategist does with it."
+      },
+      {
+        "text": "Strategy isn’t retrieval. Nobody walks into a growth problem knowing the answer and needing a faster way to type it. You find the answer by working through it: framing the question, weighing the trade-offs, and making the call. Clients don’t pay for the data. They pay for what an experienced person decides it means.",
         "figure": {
           "src": "media/sizzle-fig-1.jpg",
           "alt": "Three hairline diagrams: points gathered inside a frame, a balance weighing two options, and many lines converging on one point.",
@@ -55,34 +58,34 @@
         }
       },
       {
-        "text": "And yet the tools decide how that thinking happens. A slide forces you into a linear story. A spreadsheet forces you into a grid. A chat window forces you into prose, and asks you to articulate the question before you’ve figured out what it is. Each is a reasonable constraint for some moments and the wrong one for most. We’ve spent decades bending how strategists think around the shape of their tools, and calling the result a deliverable."
+        "text": "Yet our tools decide how that thinking happens. A slide forces a linear story. A spreadsheet forces a grid. A chat window forces prose, and asks you to state the question before you have figured out what it is. Each is the right constraint for some moments and the wrong one for most. We have spent decades bending how strategists think around the shape of their tools, and calling the result a deliverable."
       },
       {
-        "text": "Edward Tufte made a version of this case about PowerPoint twenty years ago. He argued that bullet hierarchies and low-resolution slides chop reasoning into fragments, and that the content should decide the format, not the limits of the software. His fix was rich paper handouts. He was right, and it never scaled. Nobody could hand-build a new format for every argument. Now a model can."
+        "text": "Edward Tufte made a version of this case about PowerPoint more than twenty years ago. He argued that bullet points and low-resolution slides chop reasoning into fragments, and that the content should decide the format. His fix was rich paper handouts. He was right, and it never scaled, because nobody could hand-build a new format for every argument. Now a model can."
       },
       {
-        "text": "If human input is what makes strategy valuable, the interface should serve the way that human thinks, not the other way around."
-      },
-      {
-        "text": "Hansen and his co-authors were right that no firm could do both in 1999. Codification needed armies of librarians. Personalization needed partners on planes. AI changes the economics. The engine can be codified while the head stays personal. For the first time, firms may not have to choose."
+        "text": "The same shift breaks the trade-off Hansen and his co-authors described. In 1999, codification needed armies of librarians and personalization needed partners on planes, so no firm could afford to excel at both. AI changes that math. The engine can be codified while the head stays personal."
       },
       {
         "text": "One head is too rigid. No head is too empty. The answer is more heads.",
         "pull": true
       },
       {
-        "text": "Many-headed software keeps a single engine underneath: the firm’s data, frameworks, quality bar, and point of view. On top, it grows a new head for every person and every task. The partner preparing for a board meeting gets one view. The analyst stress-testing a market sizing gets another. Each is generated when it’s needed and discarded when it isn’t. Personal front end. Shared back end.",
+        "text": "Many-headed software keeps a single engine underneath: the firm’s data, frameworks, quality bar, and point of view. On top, it grows a new head for each person and each moment. The form follows the thinking. Every option stays open until the strategist decides what the work needs, and the head takes shape around that decision.",
         "figure": {
           "src": "media/sizzle-fig-2.jpg",
           "alt": "One engine at the centre, labelled data, frameworks, quality bar and point of view, with windows growing from it on drawn lines.",
-          "caption": "The answer is more heads: one engine, a new head for every person and every task."
+          "caption": "The answer is more heads: one engine, a new head for every person and every moment."
         }
       },
       {
-        "text": "This isn’t a prettier dashboard. It’s a different idea of what software is. The interface stops being the product and becomes the output."
+        "text": "Through MAIA’s development, I’ve learned that an AI platform is an exercise in translation: between what the technology can do and what a team actually needs. A head is that translation, made for one person at one moment."
       },
       {
-        "text": "For strategy firms, that changes the question. It’s no longer “what tool should we build?” It’s “how well have we encoded what can be encoded, and built heads that draw out what can’t?” The firms that answer it won’t ship tools that expire. They’ll ship methodology that compounds."
+        "text": "The obvious objection is that generated interfaces will scatter the work. If everyone sees something different, what keeps the methodology intact? The answer is where the guardrails live. In a fixed head, they live in the screen, so following the method means following the path. In many-headed software, they live in the engine, with the frameworks and the quality bar. The method holds whatever the screen looks like, and the interface can be as flexible as the work requires. That flexibility is what makes creativity possible."
+      },
+      {
+        "text": "For strategy firms, that changes the question. It is no longer which tool to build. It is how well the firm has encoded what can be encoded, and whether it has built heads that draw out what can’t. The firms that answer it won’t ship tools that expire. They’ll ship methodology that compounds."
       },
       {
         "figure": {
