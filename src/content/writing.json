@@ -26,10 +26,10 @@
     ],
     "essay": [
       {
-        "text": "In 1999, Harvard Business Review asked consulting firms a simple question: what’s your strategy for managing knowledge? Strategy firms answered with their people. Knowledge lived in experienced heads and moved through conversation. Today, the same firms answer with their AI, and they say it loudly: every launch promises the methodology, codified and on demand. What drops out of that answer is the thing clients actually pay for, which is how their people think."
+        "text": "In 1999, Harvard Business Review asked consulting firms a simple question: what’s your strategy for managing knowledge? Strategy firms answered with their people. Knowledge lived in partners’ judgment and moved through conversation. Today, the same firms answer with their AI, and every launch promises the methodology, codified and on demand. What drops out of that answer is the thing clients actually pay for, which is how their people think."
       },
       {
-        "text": "That answer has taken two forms."
+        "text": "The software built to deliver that methodology comes in two shapes."
       },
       {
         "text": "The first gives the software a fixed head: a branded dashboard or a bespoke client tool with one polished interface. It demos well, and it gets one thing right: it keeps people on the methodology. But it does that by sending everyone down the same path, every time. Strategists don’t all work the same way, and neither does the work. The same project can call for a diagram one week, a spreadsheet the next, and a write-up after that. A tool holding the firm’s information should let people organize their thinking in whatever form the moment needs. A fixed head offers one."
@@ -42,9 +42,6 @@
       },
       {
         "text": "The 1999 article is worth going back to. Its authors, Morten Hansen, Nitin Nohria, and Thomas Tierney, found two answers across the industry. Implementation firms codified knowledge into databases built for reuse. Strategy firms kept it in their people. The authors’ advice was to lean hard one way, roughly 80/20, and never straddle the two."
-      },
-      {
-        "text": "Strategy firms had good reason to lean toward people. One Bain partner described the firm’s library of past work as “a picture of a cake without giving out the recipe.” The documents showed what the answer had been, not how anyone reached it."
       },
       {
         "text": "Today’s two camps are both codification bets with different front doors. The fixed head packages the methodology into a product. The chat window lets you talk to it. Both assume the hard part is getting knowledge to the strategist. In strategy work, the hard part is what the strategist does with it."
@@ -67,9 +64,6 @@
         "text": "Edward Tufte made a version of this case about PowerPoint more than twenty years ago. He argued that bullet points and low-resolution slides chop reasoning into fragments, and that the content should decide the format. His fix was rich paper handouts. He was right, and it never scaled, because nobody could hand-build a new format for every argument. Now a model can."
       },
       {
-        "text": "The same shift breaks the trade-off Hansen and his co-authors described. In 1999, codification needed armies of librarians and personalization needed partners on planes, so no firm could afford to excel at both. AI changes that math. The engine can be codified while the head stays personal."
-      },
-      {
         "text": "One head is too rigid. No head is too empty. The answer is more heads.",
         "pull": true
       },
@@ -80,6 +74,12 @@
           "alt": "One engine at the centre, labelled data, frameworks, quality bar and point of view, with windows growing from it on drawn lines.",
           "caption": "The answer is more heads: one engine, a new head for every person and every moment."
         }
+      },
+      {
+        "text": "Hansen and his co-authors warned that firms trying to excel at both strategies risk failing at both, because each comes with its own clients, economics, people, and incentives. AI doesn’t repeal that, but it changes what codified knowledge can do. In 1999, that knowledge reached consultants as documents to search, and one Bain partner described the firm’s library as “a picture of a cake without giving out the recipe.” Many heads put the firm’s knowledge into the shape of the work."
+      },
+      {
+        "text": "A partner preparing for a client’s board meeting doesn’t search a library. She works on a canvas already assembled from the firm’s record of past engagements, the client’s data, current market evidence, the firm’s frameworks, and its standards for presenting to a board. She builds her argument there. The codified part does the assembling. The judgment about what the board should hear stays with her. The firm still leans on its people, as Hansen advised, and its codified knowledge finally works for them."
       },
       {
         "text": "Through MAIA’s development, I’ve learned that an AI platform is an exercise in translation: between what the technology can do and what a team actually needs. A head is that translation, made for one person at one moment."
