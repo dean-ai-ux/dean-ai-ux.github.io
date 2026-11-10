@@ -26,19 +26,19 @@
     ],
     "essay": [
       {
-        "text": "In 1999, Harvard Business Review asked consulting firms a simple question: what’s your strategy for managing knowledge? Strategy firms answered with their people. Knowledge lived in partners’ judgment and moved through conversation. Today, the same firms answer with their AI, and every launch promises the methodology, codified and on demand. What drops out of that answer is the thing clients actually pay for, which is how their people think."
+        "text": "In 1999, Harvard Business Review asked consulting firms a simple question: what’s your strategy for managing knowledge? Strategy firms answered with their people. Knowledge lived in partners’ judgment and moved through conversation. Today, the same firms answer with their AI, and every launch promises the methodology, codified and on demand. What is missing from that answer is the thing clients actually pay for: how their people think."
       },
       {
         "text": "The software built to deliver that methodology comes in two shapes."
       },
       {
-        "text": "The first gives the software a fixed head: a branded dashboard or a bespoke client tool with one polished interface. It demos well, and it gets one thing right: it keeps people on the methodology. But it does that by sending everyone down the same path, every time. Strategists don’t all work the same way, and neither does the work. The same project can call for a diagram one week, a spreadsheet the next, and a write-up after that. A tool holding the firm’s information should let people organize their thinking in whatever form the moment needs. A fixed head offers one."
+        "text": "The first gives the software a fixed head: a branded dashboard or a bespoke client tool with one polished interface. It demos well, and it gets one thing right: it keeps people on the methodology. But it does that by sending everyone down the same path, every time. Strategists don’t all work the same way, and delivery needs to adapt to the moment too. The same project can call for a diagram one week, a spreadsheet the next, and a write-up after that. A tool holding the firm’s information should let people organize their thinking in whatever form the moment needs. A fixed head offers one."
       },
       {
-        "text": "The second cuts the head off entirely. It wraps the firm’s knowledge in a connector and puts it behind a chat window. This is the “headless” future many expect to replace SaaS: no interface, only a prompt. It is flexible, cheap, and technically impressive. Then a strategist opens it, stares at the blinking cursor, and has no idea what to ask. A blank box isn’t an interface."
+        "text": "The second type of AI work cuts the head off entirely. It wraps the firm’s knowledge in a connector and puts it behind a chat window. This is the “headless” future many expect to replace SaaS: no interface, only a prompt. It is flexible, cheap, and technically impressive. Then a strategist opens it, stares at the blinking cursor, and has no idea what to ask. A blank box isn’t an interface."
       },
       {
-        "text": "Both camps are impressive. Neither is very useful to the person doing the thinking."
+        "text": "Both camps seem futuristic. Neither is very useful to the person doing the thinking."
       },
       {
         "text": "The 1999 article is worth going back to. Its authors, Morten Hansen, Nitin Nohria, and Thomas Tierney, found two answers across the industry. Implementation firms codified knowledge into databases built for reuse. Strategy firms kept it in their people. The authors’ advice was to lean hard one way, roughly 80/20, and never straddle the two."
@@ -47,7 +47,7 @@
         "text": "Today’s two camps are both codification bets with different front doors. The fixed head packages the methodology into a product. The chat window lets you talk to it. Both assume the hard part is getting knowledge to the strategist. In strategy work, the hard part is what the strategist does with it."
       },
       {
-        "text": "That hard part is becoming most of the work. In 1999, strategy and implementation were separate disciplines, practiced by separate kinds of firms. AI is pulling them together, and it pulls them toward strategy. A model can now build the tool, run the analysis, and draft the deliverable, so implementation keeps getting easier. Both camps are investing in exactly that part. When software becomes easy, everything becomes judgment."
+        "text": "That hard part is becoming most of the work. In 1999, strategy and implementation were separate disciplines, practiced by separate kinds of firms. AI is pulling them together, and it pulls them toward strategy. A model can now build the tool, run the analysis, and draft the deliverable, so implementation keeps getting easier. Both camps want to ride the AI wave and see software-enabled automation. They miss that when software becomes easy, everything becomes judgment."
       },
       {
         "text": "Strategy isn’t retrieval. Nobody walks into a growth problem knowing the answer and needing a faster way to type it. You find the answer by working through it: framing the question, weighing the trade-offs, and making the call. Clients don’t pay for the data. They pay for what an experienced person decides it means.",
@@ -61,7 +61,7 @@
         "text": "Yet our tools decide how that thinking happens. A slide forces a linear story. A spreadsheet forces a grid. A chat window forces prose, and asks you to state the question before you have figured out what it is. Each is the right constraint for some moments and the wrong one for most. We have spent decades bending how strategists think around the shape of their tools, and calling the result a deliverable."
       },
       {
-        "text": "Edward Tufte made a version of this case about PowerPoint more than twenty years ago. He argued that bullet points and low-resolution slides chop reasoning into fragments, and that the content should decide the format. His fix was rich paper handouts. He was right, and it never scaled, because nobody could hand-build a new format for every argument. Now a model can."
+        "text": "Edward Tufte made a version of this case about PowerPoint more than twenty years ago. He argued that bullet points and low-resolution slides chop reasoning into fragments, and that the content should decide the format. His fix was rich paper handouts. He was right but it never scaled. Nobody could hand-build a new format for every argument. Now a model can."
       },
       {
         "text": "One head is too rigid. No head is too empty. The answer is more heads.",
@@ -76,10 +76,10 @@
         }
       },
       {
-        "text": "Hansen and his co-authors warned that firms trying to excel at both strategies risk failing at both, because each comes with its own clients, economics, people, and incentives. AI doesn’t repeal that, but it changes what codified knowledge can do. In 1999, that knowledge reached consultants as documents to search, and one Bain partner described the firm’s library as “a picture of a cake without giving out the recipe.” Many heads put the firm’s knowledge into the shape of the work."
+        "text": "Hansen and his co-authors warned that firms trying to excel at both strategies risk failing at both, because each comes with its own clients, economics, people, and incentives. AI doesn’t repeal that, but it changes what codified knowledge is. In 1999, that knowledge reached consultants as documents to search, and one Bain partner described the firm’s library as “a picture of a cake without giving out the recipe.” Many heads put the firm’s knowledge into the shape of the work."
       },
       {
-        "text": "A partner preparing for a client’s board meeting doesn’t search a library. She works on a canvas already assembled from the firm’s record of past engagements, the client’s data, current market evidence, the firm’s frameworks, and its standards for presenting to a board. She builds her argument there. The codified part does the assembling. The judgment about what the board should hear stays with her. The firm still leans on its people, as Hansen advised, and its codified knowledge finally works for them."
+        "text": "A partner preparing for a client’s board meeting doesn’t search a library. She works on a canvas already assembled from the firm’s record of past engagements, the client’s data, current market evidence, the firm’s frameworks, and its standards for presenting to a board. She builds her argument there. The codified part does the assembling. The judgment about what the board should hear stays with her. The firm still leans on its people, as Hansen advised, and its codified knowledge expands to include analysis and presentation in a way pure software never could."
       },
       {
         "text": "Through MAIA’s development, I’ve learned that an AI platform is an exercise in translation: between what the technology can do and what a team actually needs. A head is that translation, made for one person at one moment."
