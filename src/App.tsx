@@ -145,9 +145,9 @@ const ENTRY_ART: Record<string, string> = {
   'fed-chair-for-a-year': 'media/icon-fed-chair-for-a-year.jpg',
   maia: 'media/maia.jpg',
   'many-heads': 'media/many-heads-sizzle-poster.jpg',
-  'w-0': 'media/rules-in-a-crisis-poster.jpg',
-  'w-1': 'media/footwear.jpg',
-  'w-2': 'media/supply-wisdom.jpg',
+  'rules-in-a-crisis': 'media/rules-in-a-crisis-poster.jpg',
+  'ai-personas': 'media/footwear.jpg',
+  'supply-wisdom': 'media/supply-wisdom.jpg',
   'ai-and-crypto': 'media/ai-and-crypto-poster.jpg',
 };
 
@@ -1142,15 +1142,31 @@ function EntryOverlay({
 
 const TABS = ['home', 'work', 'education', 'built', 'writing'];
 
-export default function App() {
-  const [about, setAbout] = React.useState(false);
-  const [tab, setTabState] = React.useState(() => {
-    const h = window.location.hash.slice(1);
-    return TABS.includes(h) ? h : 'home';
-  });
-  const [open, setOpen] = React.useState<number | null>(null);
+/**
+ * Every section, every entry in it, and the about panel has an address:
+ * #writing, #writing/many-heads, #work/prophet-senior-associate, #about. The
+ * address is the source of truth. Opening, paging and closing write it, and
+ * loading, Back and Forward read it, so a copied link opens what was on screen.
+ * The about panel keeps whatever section is behind it, or the landing on a
+ * fresh load.
+ */
+type Route = { tab: string | null; open: number | null; about: boolean };
+function readRoute(): Route {
+  const [t, id] = decodeURIComponent(window.location.hash.slice(1)).split('/');
+  if (t === 'about') return { tab: null, open: null, about: true };
+  const tab = TABS.includes(t) ? t : 'home';
+  const i = id && ITEMS[tab] ? ITEMS[tab].findIndex((x) => x.id === id) : -1;
+  return { tab, open: i >= 0 ? i : null, about: false };
+}
+const entryHash = (tab: string, i: number) => `#${tab}/${ITEMS[tab][i].id}`;
 
-  const setTab = (t: string) => { setOpen(null); window.location.hash = t; setTabState(t); };
+export default function App() {
+  const first = React.useMemo(readRoute, []);
+  const [about, setAbout] = React.useState(first.about);
+  const [tab, setTabState] = React.useState(first.tab ?? 'home');
+  const [open, setOpen] = React.useState<number | null>(first.open);
+
+  const setTab = (t: string) => { setOpen(null); setAbout(false); window.location.hash = t; setTabState(t); };
 
   /* Every section opens at its top. The landing's scroll position used to carry
      over, so a tile tapped halfway down the landing opened its section halfway
@@ -1191,33 +1207,49 @@ export default function App() {
   /* A panel is a step in history, so Back closes it, which is how a phone
      closes things. Opening pushes an entry at the same address; closing by any
      other route (the button, Escape, the backdrop) steps back over it, so the
-     history never collects dead entries. Paging between items stays one step. */
+     history never collects dead entries. Paging between items stays one step,
+     and rewrites the address in place. A panel that came from a link has no
+     step behind it, so closing it rewrites the address to the section. */
   const openDetail = (i: number) => {
-    if (open === null) window.history.pushState({ panel: true }, '');
+    if (open === null) window.history.pushState({ panel: true }, '', entryHash(tab, i));
+    else window.history.replaceState(window.history.state, '', entryHash(tab, i));
     setOpen(i);
   };
   const openAbout = () => {
-    window.history.pushState({ panel: true }, '');
+    window.history.pushState({ panel: true }, '', '#about');
     setAbout(true);
   };
   const closePanel = () => {
     if (window.history.state?.panel) window.history.back();
-    else { setOpen(null); setAbout(false); }
+    else {
+      window.history.replaceState(null, '', `#${tab}`);
+      setOpen(null); setAbout(false);
+    }
   };
+  /* Back, Forward and an edited address all land here. Both events fire on some
+     steps; reading the address is the same either way. */
   React.useEffect(() => {
-    const onPop = () => { setOpen(null); setAbout(false); };
-    window.addEventListener('popstate', onPop);
-    return () => window.removeEventListener('popstate', onPop);
-  }, []);
-  React.useEffect(() => {
-    const onHash = () => {
-      const h = window.location.hash.slice(1);
-      setOpen(null);
-      setTabState(TABS.includes(h) ? h : 'home');
+    const apply = () => {
+      const r = readRoute();
+      setAbout(r.about);
+      setOpen(r.open);
+      if (r.tab) setTabState(r.tab);
     };
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
+    window.addEventListener('popstate', apply);
+    window.addEventListener('hashchange', apply);
+    return () => {
+      window.removeEventListener('popstate', apply);
+      window.removeEventListener('hashchange', apply);
+    };
   }, []);
+
+  /* The tab names what is open, so a bookmark or a shared tab says what it is. */
+  React.useEffect(() => {
+    const name = about ? 'About'
+      : open !== null && tab !== 'home' ? ITEMS[tab][open]?.title
+      : tab === 'home' ? null : tab[0].toUpperCase() + tab.slice(1);
+    document.title = name ? `${name} · Dean Dowling` : 'Dean Dowling';
+  }, [tab, open, about]);
 
   const [dark, setDark] = React.useState(false);
   React.useEffect(() => {
@@ -1263,7 +1295,7 @@ export default function App() {
         <EntryOverlay
           items={ITEMS[tab]}
           index={open}
-          onIndex={setOpen}
+          onIndex={openDetail}
           onClose={closePanel}
         />
       )}

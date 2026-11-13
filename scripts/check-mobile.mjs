@@ -22,6 +22,9 @@
  *               left edge. The snap was on an element that does not scroll.
  *   panel       an open panel holds the page behind still, and Back closes it
  *               without leaving the section.
+ *   links       every entry has an address. Opening one writes it, loading it
+ *               opens that entry, and closing a linked entry leaves the section.
+ *               A link to a writing piece used to open Writing and stop there.
  */
 
 import http from 'node:http';
@@ -174,6 +177,32 @@ try {
   if (after.hash !== '#education') fail('panel', `Back left the section, now at ${after.hash}`);
   if (after.locked === 'hidden') fail('panel', 'page still locked after closing');
 
+  /* links: opening writes the address */
+  await p.goto(`${U}#writing`); await settle(p);
+  await p.locator('main button, section button').filter({ hasText: 'Software Isn' }).first().tap(); await settle(p);
+  const opened = await p.evaluate(() => location.hash);
+  if (opened !== '#writing/many-heads') fail('links', `opening Many Heads wrote ${opened}`);
+
+  /* links: loading an address opens it, for every entry in every section */
+  const content = (f) => JSON.parse(fs.readFileSync(path.join(root, '..', 'src', 'content', f), 'utf8'));
+  const links = [
+    ...content('work.json').map((e) => `#work/${e.id}`),
+    ...content('education.json').map((e) => `#education/${e.id}`),
+    ...content('projects.json').filter((e) => !e.placeholder).map((e) => `#built/${e.id}`),
+    ...content('writing.json').filter((e) => !e.hidden).map((e) => `#writing/${e.id}`),
+    '#about',
+  ];
+  for (const hash of links) {
+    await p.goto(`${U}${hash}`); await p.reload(); await settle(p, 500);
+    if (!(await p.$('[role=dialog]'))) fail('links', `${hash} did not open its entry`);
+  }
+
+  /* links: closing a linked entry leaves the section, not the site */
+  await p.goto(`${U}#writing/ai-and-crypto`); await p.reload(); await settle(p);
+  await p.tap('button[aria-label=Close]'); await settle(p);
+  const closed = await p.evaluate(() => ({ open: !!document.querySelector('[role=dialog]'), hash: location.hash }));
+  if (closed.open || closed.hash !== '#writing') fail('links', `closing a linked piece left ${closed.hash}, open ${closed.open}`);
+
   await ctx.close();
 } finally {
   await browser.close();
@@ -185,4 +214,4 @@ if (failures.length) {
   for (const f of failures) console.error(`  ${f}`);
   process.exit(1);
 }
-console.log('check:mobile passed: layout at 4 sizes, landing, back, swipe, panel');
+console.log('check:mobile passed: layout at 4 sizes, landing, back, swipe, panel, links');

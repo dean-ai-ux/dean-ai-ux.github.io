@@ -49,6 +49,19 @@ The text is `essay`, a list of blocks, each with any of `heading`, `text`,
 and `figure` (`{ "src", "alt", "caption" }`) for a still placed after that block.
 Keep figures to two or three a piece.
 
+### Links to a piece
+
+Every section, entry and the about panel has its own address, so a link opens
+exactly what was on screen:
+
+- `#writing`: a section
+- `#writing/many-heads`: an entry, by its `id` in `src/content/`
+- `#about`: the about panel
+
+The `id` is the link, so renaming one breaks links already shared. Pick a
+readable id when adding a piece. Opening, paging with the arrow keys and closing
+all update the address, and the browser tab shows the entry's title.
+
 ### Checking it on a phone
 
 ```

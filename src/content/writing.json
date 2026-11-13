@@ -1,5 +1,118 @@
 [
   {
+    "id": "company-brain",
+    "title": "Context Isn’t a Prompt. It’s a Brain.",
+    "subtitle": "Essay",
+    "summary": "Why the next step past context engineering is a company brain that every person’s work feeds, kept clean, and kept outside any model.",
+    "meta": [
+      {
+        "label": "Author",
+        "value": "Dean Dowling"
+      },
+      {
+        "label": "Date",
+        "value": "November 2026"
+      },
+      {
+        "label": "Kind",
+        "value": "Essay"
+      }
+    ],
+    "essay": [
+      {
+        "text": "In March 2023, Bloomberg unveiled a model trained on its own financial data."
+      },
+      {
+        "text": "BloombergGPT had 50 billion parameters. Its training data held 363 billion tokens drawn from Bloomberg’s own sources, plus 345 billion from general ones. The bet made sense. Nobody had more financial language than Bloomberg, so nobody should have been able to build a better model for finance."
+      },
+      {
+        "text": "Two weeks before, OpenAI had released GPT-4. Researchers compared GPT-4 with BloombergGPT’s published results on financial text tasks. GPT-4 did better on almost all of them."
+      },
+      {
+        "text": "Bloomberg had the right asset. It put it in the wrong place."
+      },
+      {
+        "text": "The asset was the data. Poured into a model’s weights, it froze on the day training stopped, while the general models kept getting better. Every firm with knowledge worth protecting faces the same question: where should that knowledge live?"
+      },
+      {
+        "text": "For two years, the skill everyone was told to learn was prompt engineering: phrasing a question so the model answers it well. In June 2025, Shopify’s chief executive, Tobi Lütke, proposed a better name. “I really like the term ‘context engineering’ over prompt engineering,” he wrote. He described it as “the art of providing all the context for the task to be plausibly solvable by the LLM.” Andrej Karpathy, one of OpenAI’s founders, agreed. The job, he wrote, is filling the context window “with just the right information for the next step.”"
+      },
+      {
+        "text": "It was a real step forward. Ask a model to draft the update for Thursday’s client call, and you get something polite and generic. Ask again with the last three meeting notes, what was promised, and how the client talks, and the draft is usable. Same model, same request."
+      },
+      {
+        "text": "Both definitions are about a single task. Context is gathered for one job, the job gets done, and the next one starts from scratch. It is usually gathered by one person, for one person. When a colleague picks up the account next week, little of it goes with them. Search across the firm’s files helps, but it finds only what someone wrote down, and it cannot tell what has gone stale."
+      },
+      {
+        "text": "So in most firms, each new project starts from whatever one person happens to remember."
+      },
+      {
+        "text": "The answer is two kinds of brain, connected, and both live outside any model."
+      },
+      {
+        "text": "A second brain belongs to one person. It contains what they know, what they have decided, and how they like to work. Their AI reads it before it answers and adds to it after."
+      },
+      {
+        "text": "A company brain belongs to the firm. It contains what the firm knows as connections. This client links to that project, the project to the person who led it, the approach to the result, and the decision to the reason behind it."
+      },
+      {
+        "text": "Neither works alone. If everyone builds a second brain on their own, the work multiplies and every newcomer starts cold. A company brain lets shared knowledge grow, and it makes passing knowledge on part of the work itself."
+      },
+      {
+        "text": "The two feed each other. What proves its value in one person’s work moves up into the company brain. That step is where knowledge programs usually stall, because busy people rarely stop to write down what they learned. The company brain gives every person’s AI the firm’s context from the first day. Every engagement, call, and correction adds connections, so the firm gets smarter as its people work. That loop is what sets a firm apart, and it can only be built through the firm’s own work."
+      },
+      {
+        "text": "Picture a strategist starting with a new client. Her AI has already drafted a brief from the company brain: what the firm has learned in that industry, who to ask, which approaches worked, and a correction a colleague made last month. Her second brain adds how she works. She starts where the firm left off."
+      },
+      {
+        "text": "Some context never moves up. Notes about people stay private. Client material stays inside its engagement. What moves up is what the firm learned, with the client’s name and data taken out."
+      },
+      {
+        "text": "In an earlier essay, “Software Isn’t Losing Its Head,” I argued for software that grows a new interface for each person, all running on one engine of the firm’s knowledge. The company brain is that engine. Second brains feed it. They also let each person shape the work to how they think, and that creativity inside the firm is what leads to innovation. In 1999, Morten Hansen and his co-authors advised firms to pick one: codify knowledge or keep it in people. Second brains let personal work codify itself."
+      },
+      {
+        "text": "Building a brain is hard. Keeping it up to date is harder."
+      },
+      {
+        "text": "Context goes stale fast. An owner changes, a decision reverses, a date moves, and the brain still contains the old version."
+      },
+      {
+        "text": "Stale context is worse than none, because it manufactures hallucinations. The model repeats an old fact with the same confidence as a new one, and the error starts in the firm’s own records."
+      },
+      {
+        "text": "At company scale, the risk multiplies. Many people write to the brain, and one stale fact reaches everyone who asks."
+      },
+      {
+        "text": "Firms have always found it easier to fund building knowledge than keeping it current. Anyone who has searched an old intranet has seen the result. AI raises the cost of that neglect, because it repeats a stale fact fluently. That makes context hygiene one of the most important parts of using AI well right now. A brain that learns also has to forget."
+      },
+      {
+        "text": "The obvious objection is privacy. If the firm’s knowledge is the asset, why not train it into a model of our own? Our knowledge stays inside, and the model is ours."
+      },
+      {
+        "text": "Warren Buffett has an answer for assets bought to feel safe. “What motivates most gold purchasers,” he wrote in his 2011 letter to Berkshire Hathaway shareholders, “is their belief that the ranks of the fearful will grow.”"
+      },
+      {
+        "text": "An owned model is a fear purchase of the same kind. It feels safe, and it loses value as it ages. In Buffett’s words, “if you own one ounce of gold for an eternity, you will still own one ounce at its end.” A model you own keeps what it knew on its training date, and every frontier release leaves it further behind. Correcting what it knows means training it again, and switching to a better model means writing off what was spent. That is Bloomberg’s story, at whatever scale a firm can afford."
+      },
+      {
+        "text": "A company brain is the opposite kind of asset. It sits outside any model, gets better with every task, and the next model can read it on the day it ships."
+      },
+      {
+        "text": "Privacy comes from contracts and controls. Enterprise terms keep a firm’s data out of model training. Rules on where data sits, how long it is kept, and what each client allows do the rest. None of that requires owning the model."
+      },
+      {
+        "text": "There are honest cases for owning a model. A small one can make sense for narrow, stable, high-volume jobs like sorting or routing. Hosting a frontier model privately can settle where data goes, and a company brain works with that too. What fails is training the firm’s knowledge into the weights, where it stops learning on the day training ends."
+      },
+      {
+        "text": "Rent the intelligence. Build the brain.",
+        "pull": true
+      },
+      {
+        "text": "Every firm has access to the same models. What sets one apart is the brain behind them, and whether everyone’s work makes that brain smarter."
+      }
+    ]
+  },
+  {
     "id": "many-heads",
     "title": "Software Isn’t Losing Its Head. It’s Growing Thousands.",
     "subtitle": "Essay · with film",
@@ -104,7 +217,7 @@
     ]
   },
   {
-    "id": "w-0",
+    "id": "rules-in-a-crisis",
     "title": "Challenges of Adapting a Rules Based Monetary Policy Approach to Crisis Intervention",
     "subtitle": "Paper · with Zuber Chawla",
     "href": "media/rules-based-monetary-policy-crisis-intervention.pdf",
@@ -205,7 +318,7 @@
     }
   },
   {
-    "id": "w-1",
+    "id": "ai-personas",
     "title": "Turning Turbulence into Opportunity with AI Personas",
     "subtitle": "Case study · Prophet",
     "href": "https://prophet.com/case-studies/men-boys-footwear-client/",
@@ -252,7 +365,7 @@
     ]
   },
   {
-    "id": "w-2",
+    "id": "supply-wisdom",
     "title": "Driving TPRM revenue by decoding a niche audience at speed",
     "subtitle": "Case study · Prophet",
     "href": "https://prophet.com/case-studies/supply-wisdom/",
