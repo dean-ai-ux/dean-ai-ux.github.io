@@ -194,7 +194,7 @@
         "text": "In an earlier essay, “Software Isn’t Losing Its Head,” I argued for software that grows a new interface for each person, all running on one engine of the firm’s knowledge. The company brain is that engine. Second brains feed it. They also let each person shape the work to how they think, and that creativity inside the firm is what leads to innovation.",
         "figure": {
           "src": "media/memory-fig-2.jpg",
-          "alt": "Five second brains in a row under one company brain of connected nodes: client, project, person, approach, result, decision, reason. Lines run up from each second brain and back down.",
+          "alt": "Hub and spoke: the company brain, a ring holding the firm’s connections, with six second brains around it on spokes. Dashed lines run up to the hub; haze lines carry context back out to each.",
           "caption": "Many second brains, one company brain. What proves its value moves up. The firm’s context flows down."
         },
         "link": {
