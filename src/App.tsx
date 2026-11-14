@@ -1072,7 +1072,10 @@ function EntryOverlay({
         {/* An article takes the wider card: its text column is fixed, so the
             extra width goes to the film and the figures. */}
         <div className={`my-auto w-full pb-28 ${isArticle && !body ? 'max-w-6xl' : 'max-w-5xl'}`}>
-          {body ?? (isArticle ? <Article item={item} /> : (
+          {/* Keyed by the piece, so each article starts fresh: without it, a film you
+              pressed play on carried its playing state into the next piece you
+              followed a link or paged to, and that film started on its own. */}
+          {body ?? (isArticle ? <Article key={item.id} item={item} /> : (
             <div className="grid gap-6 rounded-2xl border bg-card p-5 sm:p-8 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl lg:aspect-square">
                 <TileArt item={item} size="large" />
