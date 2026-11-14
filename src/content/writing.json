@@ -113,7 +113,7 @@
     "subtitle": "Essay · with film",
     "summary": "Why the next step after context engineering is a firm that remembers what it learns, and keeps it up to date.",
     "film": {
-      "src": "media/institutional-memory-sizzle.mp4",
+      "src": "media/institutional-memory-sizzle-v4.mp4",
       "poster": "media/institutional-memory-poster.jpg",
       "title": "Institutional Memory Is King, the sizzle",
       "duration": "0:47"
@@ -193,8 +193,8 @@
       {
         "text": "In an earlier essay, “Software Isn’t Losing Its Head,” I argued for software that grows a new interface for each person, all running on one engine of the firm’s knowledge. The company brain is that engine. Second brains feed it. They also let each person shape the work to how they think, and that creativity inside the firm is what leads to innovation.",
         "figure": {
-          "src": "media/memory-fig-2.jpg",
-          "alt": "Hub and spoke: the company brain, a ring holding the firm’s connections, with six second brains around it on spokes. Dashed lines run up to the hub; haze lines carry context back out to each.",
+          "src": "media/memory-fig-2-v4.jpg",
+          "alt": "Hub and spoke: the company brain, a ring holding the firm’s connections, with six second brains around it on spokes, passing information both ways: dots travel up each spoke into the hub and back out.",
           "caption": "Many second brains, one company brain. What proves its value moves up. The firm’s context flows down."
         },
         "link": {
