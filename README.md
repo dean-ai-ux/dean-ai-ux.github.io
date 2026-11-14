@@ -49,6 +49,14 @@ The text is `essay`, a list of blocks, each with any of `heading`, `text`,
 and `figure` (`{ "src", "alt", "caption" }`) for a still placed after that block.
 Keep figures to two or three a piece.
 
+When one piece cites another, link it once, as a newspaper does: give that
+paragraph `"link": { "phrase": "<words in its text>", "to": "<entry id>" }`. The
+first occurrence of the phrase is underlined and opens the other piece in the
+same panel; Back returns to where the reader was. If the phrase is reworded
+away, the paragraph shows as plain text. Many Heads and Institutional Memory
+link to each other this way. A renamed entry keeps its old address working
+through `RENAMED` in `src/App.tsx` (`company-brain` is now `institutional-memory`).
+
 ### Links to a piece
 
 Every section, entry and the about panel has its own address, so a link opens

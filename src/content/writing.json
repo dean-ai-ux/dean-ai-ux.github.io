@@ -72,11 +72,15 @@
         "pull": true
       },
       {
-        "text": "Many-headed software keeps a single engine underneath: the firm’s data, frameworks, quality bar, and point of view. On top, it grows a new head for each person and each moment. The form follows the thinking. Every option stays open until the strategist decides what the work needs, and the head takes shape around that decision.",
+        "text": "Many-headed software keeps a single engine underneath, built on the firm’s institutional memory: its data, frameworks, quality bar, and point of view. On top, it grows a new head for each person and each moment. The form follows the thinking. Every option stays open until the strategist decides what the work needs, and the head takes shape around that decision.",
         "figure": {
           "src": "media/sizzle-fig-2.jpg",
           "alt": "One engine at the centre, labelled data, frameworks, quality bar and point of view, with windows growing from it on drawn lines.",
           "caption": "The answer is more heads: one engine, a new head for every person and every moment."
+        },
+        "link": {
+          "phrase": "institutional memory",
+          "to": "institutional-memory"
         }
       },
       {
@@ -104,7 +108,7 @@
     ]
   },
   {
-    "id": "company-brain",
+    "id": "institutional-memory",
     "title": "Institutional Memory Is King",
     "subtitle": "Essay · with film",
     "summary": "Why the next step after context engineering is a firm that remembers what it learns, and keeps it up to date.",
@@ -192,6 +196,10 @@
           "src": "media/memory-fig-2.jpg",
           "alt": "Five second brains in a row under one company brain of connected nodes: client, project, person, approach, result, decision, reason. Lines run up from each second brain and back down.",
           "caption": "Many second brains, one company brain. What proves its value moves up. The firm’s context flows down."
+        },
+        "link": {
+          "phrase": "Software Isn’t Losing Its Head",
+          "to": "many-heads"
         }
       },
       {

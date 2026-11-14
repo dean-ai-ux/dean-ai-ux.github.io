@@ -145,7 +145,7 @@ const ENTRY_ART: Record<string, string> = {
   'fed-chair-for-a-year': 'media/icon-fed-chair-for-a-year.jpg',
   maia: 'media/maia.jpg',
   'many-heads': 'media/many-heads-sizzle-poster.jpg',
-  'company-brain': 'media/institutional-memory-poster.jpg',
+  'institutional-memory': 'media/institutional-memory-poster.jpg',
   'rules-in-a-crisis': 'media/rules-in-a-crisis-poster.jpg',
   'ai-personas': 'media/footwear.jpg',
   'supply-wisdom': 'media/supply-wisdom.jpg',
@@ -199,6 +199,8 @@ type Item = {
     pull?: boolean;
     /** A still from the piece's film, placed after the paragraph it illustrates. */
     figure?: { src: string; alt: string; caption?: string };
+    /** The paragraph's one link to another piece: the first `phrase` in its text opens the entry `to` (an id). */
+    link?: { phrase: string; to: string };
   }[];
   /* A piece that has a film of its own. Its detail opens as an article: the film
      across the top, then the text in one reading column with the figures. */
@@ -875,6 +877,39 @@ const hrefLabel = (item: Item) => {
   }
 };
 
+/* One piece citing another, as a newspaper does it: a phrase in the running text, underlined, that opens the other
+   piece in this panel. The link is data beside the text (the phrase and the entry's id), so the text stays plain and
+   each paragraph links once; a phrase reworded away leaves the paragraph as plain text. A click with a modifier key
+   keeps the browser's own behaviour (a new tab). */
+const FollowContext = React.createContext<(id: string) => void>(() => {});
+const hrefOf = (id: string) => {
+  const t = Object.keys(ITEMS).find((k) => ITEMS[k].some((x) => x.id === id));
+  return t ? `#${t}/${id}` : null;
+};
+function Prose({ text, link }: { text: string; link?: { phrase: string; to: string } }) {
+  const follow = React.useContext(FollowContext);
+  const at = link ? text.indexOf(link.phrase) : -1;
+  const href = link && at >= 0 ? hrefOf(link.to) : null;
+  if (!link || !href) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, at)}
+      <a
+        href={href}
+        onClick={(e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+          e.preventDefault();
+          follow(link.to);
+        }}
+        className="underline decoration-foreground/35 decoration-1 underline-offset-[5px] transition-colors hover:decoration-foreground"
+      >
+        {link.phrase}
+      </a>
+      {text.slice(at + link.phrase.length)}
+    </>
+  );
+}
+
 function Article({ item }: { item: Item }) {
   const film = item.film;
   const photo = ENTRY_ART[item.id];
@@ -922,7 +957,7 @@ function Article({ item }: { item: Item }) {
               {section.heading && <h3 className="t-headline-md mx-auto w-full max-w-[780px]">{section.heading}</h3>}
               {section.text && (
                 <p className={`mx-auto w-full max-w-[780px] ${section.pull ? 'my-4 text-balance text-[26px] font-medium leading-[34px] sm:text-[36px] sm:leading-[46px]' : 'text-[18px] leading-[30px] text-foreground/90 sm:text-[21px] sm:leading-[35px]'}`}>
-                  {section.text}
+                  <Prose text={section.text} link={section.link} />
                 </p>
               )}
               {!!section.points?.length && (
@@ -993,6 +1028,21 @@ function EntryOverlay({
     return () => window.removeEventListener('keydown', onKey);
   }, [index, items.length, onIndex, onClose]);
 
+  /* Each piece opens at its top, and one you come back to (Back, after following a link) opens where you left it.
+     Re-applied for up to half a second until it holds, while the figures above that point load. */
+  React.useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const y = window.history.state?.y ?? 0;
+    let frames = 0, raf = 0;
+    const restore = () => {
+      el.scrollTop = y;
+      if (Math.abs(el.scrollTop - y) > 2 && frames++ < 30) raf = requestAnimationFrame(restore);
+    };
+    restore();
+    return () => cancelAnimationFrame(raf);
+  }, [index]);
+
   /* The page behind holds still while a panel is open. Without this a phone
      scrolled the section underneath, and closing the panel left you somewhere
      else. Its own effect, so paging between items does not unlock and relock. */
@@ -1043,7 +1093,7 @@ function EntryOverlay({
                       <section key={i}>
                         {section.heading && <h3 className="t-title-lg">{section.heading}</h3>}
                         {section.text && (
-                          <p className="t-body-md mt-2 text-foreground/90">{section.text}</p>
+                          <p className="t-body-md mt-2 text-foreground/90"><Prose text={section.text} link={section.link} /></p>
                         )}
                         {!!section.points?.length && (
                           <ul className="mt-3 space-y-3">
@@ -1152,8 +1202,13 @@ const TABS = ['home', 'work', 'education', 'built', 'writing'];
  * fresh load.
  */
 type Route = { tab: string | null; open: number | null; about: boolean };
+/* Old addresses of renamed entries, so a link shared before the rename still opens the piece; the address bar is
+   rewritten to the new one. */
+const RENAMED: Record<string, string> = { 'company-brain': 'institutional-memory' };
 function readRoute(): Route {
-  const [t, id] = decodeURIComponent(window.location.hash.slice(1)).split('/');
+  const [t, raw] = decodeURIComponent(window.location.hash.slice(1)).split('/');
+  let id = raw;
+  if (id && RENAMED[id]) { id = RENAMED[id]; window.history.replaceState(window.history.state, '', `#${t}/${id}`); }
   if (t === 'about') return { tab: null, open: null, about: true };
   const tab = TABS.includes(t) ? t : 'home';
   const i = id && ITEMS[tab] ? ITEMS[tab].findIndex((x) => x.id === id) : -1;
@@ -1213,16 +1268,34 @@ export default function App() {
      step behind it, so closing it rewrites the address to the section. */
   const openDetail = (i: number) => {
     if (open === null) window.history.pushState({ panel: true }, '', entryHash(tab, i));
-    else window.history.replaceState(window.history.state, '', entryHash(tab, i));
+    else window.history.replaceState({ ...window.history.state, y: undefined }, '', entryHash(tab, i));
     setOpen(i);
+  };
+  /* Following a link from one piece to another is a step too, as on a newspaper's site: Back returns to the piece you
+     came from, where you were in it (the panel's scroll is kept on that step as y). Each step records how many steps
+     lie between it and where the panel was opened (back), and whether the panel was closed there or opened straight
+     from an address (below), so the close button can step back over all of them at once. */
+  const closing = React.useRef(false);
+  const followLink = (id: string) => {
+    const t = Object.keys(ITEMS).find((k) => ITEMS[k].some((x) => x.id === id));
+    if (!t) return;
+    const s = window.history.state, box = document.querySelector<HTMLElement>('[role="dialog"]');
+    window.history.replaceState({ ...s, y: box?.scrollTop ?? 0 }, '');
+    window.history.pushState({ panel: true, back: (s?.panel ? (s.back ?? 1) : 0) + 1, below: s?.panel ? (s.below ?? 'closed') : 'open' }, '', entryHash(t, ITEMS[t].findIndex((x) => x.id === id)));
+    if (t !== tab) setTabState(t);
+    setOpen(ITEMS[t].findIndex((x) => x.id === id));
   };
   const openAbout = () => {
     window.history.pushState({ panel: true }, '', '#about');
     setAbout(true);
   };
   const closePanel = () => {
-    if (window.history.state?.panel) window.history.back();
-    else {
+    const s = window.history.state;
+    if (s?.panel) {
+      /* Opened straight from an address, so the step below still shows the piece: close it once we land there. */
+      if (s.below === 'open') closing.current = true;
+      window.history.go(-(s.back ?? 1));
+    } else {
       window.history.replaceState(null, '', `#${tab}`);
       setOpen(null); setAbout(false);
     }
@@ -1232,6 +1305,13 @@ export default function App() {
   React.useEffect(() => {
     const apply = () => {
       const r = readRoute();
+      if (closing.current) {
+        closing.current = false;
+        window.history.replaceState(null, '', `#${r.tab ?? 'home'}`);
+        setAbout(false); setOpen(null);
+        if (r.tab) setTabState(r.tab);
+        return;
+      }
       setAbout(r.about);
       setOpen(r.open);
       if (r.tab) setTabState(r.tab);
@@ -1293,12 +1373,14 @@ export default function App() {
       )}
 
       {open !== null && !onHome && (
-        <EntryOverlay
-          items={ITEMS[tab]}
-          index={open}
-          onIndex={openDetail}
-          onClose={closePanel}
-        />
+        <FollowContext.Provider value={followLink}>
+          <EntryOverlay
+            items={ITEMS[tab]}
+            index={open}
+            onIndex={openDetail}
+            onClose={closePanel}
+          />
+        </FollowContext.Provider>
       )}
     </div>
   );
